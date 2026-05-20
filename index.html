@@ -212,6 +212,7 @@
     </div>
 
     <script>
+        // Aquí almacenaremos la información combinada de los dos archivos
         let bookData = {
             recetas: [],
             glosario: []
@@ -222,14 +223,24 @@
 
         async function loadBookData() {
             try {
-                // Al estar subido en tu servidor de GitHub Pages, esta ruta dinámica absorberá todo tu JSON completo
-                const response = await fetch('/Proyecto-Libro-de-recetas/recetas.json');
-                bookData = await response.json();
+                // Hacemos el pedido de ambos archivos JSON en paralelo para tu repositorio en GitHub Pages
+                const [resRecetas, resEspecias] = await Promise.all([
+                    fetch('/Proyecto-Libro-de-recetas/recetas.json'),
+                    fetch('/Proyecto-Libro-de-recetas/especias.json')
+                ]);
+
+                // Procesamos las respuestas independientes
+                const datosRecetas = await resRecetas.json();
+                const datosEspecias = await resEspecias.json();
+
+                // Mapeamos los datos según cómo vengan estructurados (lista directa o caja contenedora)
+                bookData.recetas = Array.isArray(datosRecetas) ? datosRecetas : (datosRecetas.recetas || []);
+                bookData.glosario = Array.isArray(datosEspecias) ? datosEspecias : (datosEspecias.glosario || datosEspecias.especias || []);
                 
                 renderPage();
             } catch (error) {
-                console.error("Error al procesar el archivo recetas.json desde el repositorio:", error);
-                document.getElementById('page-indicator').innerText = "Error al cargar recetas.json";
+                console.error("Error al cargar los archivos recetas.json o especias.json:", error);
+                document.getElementById('page-indicator').innerText = "Error al conectar bases de datos JSON";
             }
         }
 
@@ -238,10 +249,9 @@
             const rightPage = document.getElementById('right-page-content');
             const indicator = document.getElementById('page-indicator');
 
-            // Validaciones por si los arrays vienen vacíos
-            if ((currentSection === 'recetas' && (!bookData.recetas || bookData.recetas.length === 0)) ||
-                (currentSection === 'glosario' && (!bookData.glosario || bookData.glosario.length === 0))) {
-                leftPage.innerHTML = "<h1>Faltan Datos</h1><p>El archivo recetas.json se leyó pero está vacío o mal formateado.</p>";
+            // Caso en el que no se hayan podido cargar recetas ni glosario
+            if (bookData.recetas.length === 0 && bookData.glosario.length === 0) {
+                leftPage.innerHTML = "<h1>Sin Contenido</h1><p>Verificá que las estructuras de recetas.json y especias.json tengan datos válidos.</p>";
                 rightPage.innerHTML = "";
                 return;
             }
@@ -250,21 +260,29 @@
                 const receta = bookData.recetas[currentIndex];
                 if (!receta) return;
 
+                // Soporte flexible para nombres de propiedades (título/titulo, preparación/preparacion/instrucciones)
+                const titulo = receta.titulo || receta.txt_nombre_receta || "Receta sin título";
+                const subtitulo = receta.subtitulo || receta.txt_categoria_receta || "Receta Original";
+                const ingredientes = receta.ingredientes || receta.array_ingredientes || [];
+                const preparacion = receta.preparacion || receta.txt_preparacion || receta.instrucciones || "<p>Procedimiento no especificado.</p>";
+                const notas = receta.notas || receta.chef_notes || "";
+                const meta = receta.meta || receta.txt_tiempo_porciones || "";
+
                 leftPage.innerHTML = `
                     <div class="section-tag">Capítulo I • El Recetario</div>
-                    <h1>${receta.titulo}</h1>
-                    <div class="metadata-line">${receta.subtitulo || 'Receta de Selección'}</div>
+                    <h1>${titulo}</h1>
+                    <div class="metadata-line">${subtitulo}</div>
                     <h2>Ingredientes Requeridos</h2>
                     <ul>
-                        ${receta.ingredientes.map(ing => `<li>${ing}</li>`).join('')}
+                        ${ingredientes.map(ing => `<li>${ing}</li>`).join('')}
                     </ul>
                 `;
 
                 rightPage.innerHTML = `
-                    <div class="metadata-line" style="text-align: right;">${receta.meta || ''}</div>
+                    <div class="metadata-line" style="text-align: right;">${meta}</div>
                     <h2>Procedimiento de Elaboración</h2>
-                    <div class="steps-box">${receta.preparacion}</div>
-                    ${receta.notas ? `<div class="chef-notes"><strong>Notas del Autor:</strong> ${receta.notas}</div>` : ''}
+                    <div class="steps-box">${preparacion}</div>
+                    ${notas ? `<div class="chef-notes"><strong>Notas del Autor:</strong> ${notas}</div>` : ''}
                 `;
 
                 indicator.innerText = `RECETA ${currentIndex + 1} / ${bookData.recetas.length}`;
@@ -273,9 +291,16 @@
                 const especia = bookData.glosario[currentIndex];
                 if (!especia) return;
 
+                // Soporte flexible para nombres de propiedades del glosario
+                const elemento = especia.elemento || especia.nombre || "Especia";
+                const botanica = especia.botanica || especia.nombre_cientifico || "N/A";
+                const origen = especia.origen || especia.procedencia || "No especificado";
+                const descripcion = especia.descripcion || especia.perfil || "<p>Descripción no disponible.</p>";
+                const maridaje = especia.maridaje || especia.usos || "";
+
                 leftPage.innerHTML = `
                     <div class="section-tag">Anexo Técnico • Glosario de Especias</div>
-                    <h1>${especia.elemento}</h1>
+                    <h1>${elemento}</h1>
                     <div class="metadata-line">Especias del Mundo & Variedades Locales</div>
                     
                     <h2>Ficha de Identificación</h2>
@@ -283,11 +308,11 @@
                         <table>
                             <tr>
                                 <td class="label">Nombre Científico:</td>
-                                <td><em>${especia.botanica || 'N/A'}</em></td>
+                                <td><em>${botanica}</em></td>
                             </tr>
                             <tr>
                                 <td class="label">Procedencia Nata:</td>
-                                <td>${especia.origen || 'Desconocida'}</td>
+                                <td>${origen}</td>
                             </tr>
                         </table>
                     </div>
@@ -296,8 +321,8 @@
                 rightPage.innerHTML = `
                     <div class="metadata-line" style="text-align: right;">Índice Temático</div>
                     <h2>Perfil Aromático y Descripción</h2>
-                    ${especia.descripcion}
-                    ${especia.maridaje ? `<h2>Sugerencia de Uso & Maridaje</h2><p>${especia.maridaje}</p>` : ''}
+                    ${descripcion}
+                    ${maridaje ? `<h2>Sugerencia de Uso & Maridaje</h2><p>${maridaje}</p>` : ''}
                 `;
 
                 indicator.innerText = `ESPECIA ${currentIndex + 1} / ${bookData.glosario.length}`;
@@ -338,7 +363,10 @@
 
         function jumpToSpecie(nombreEspecia) {
             if (!bookData.glosario) return;
-            const index = bookData.glosario.findIndex(g => g.elemento.toLowerCase() === nombreEspecia.toLowerCase());
+            const index = bookData.glosario.findIndex(g => {
+                const itemNombre = g.elemento || g.nombre || "";
+                return itemNombre.toLowerCase() === nombreEspecia.toLowerCase();
+            });
             if (index !== -1) {
                 currentSection = 'glosario';
                 currentIndex = index;
