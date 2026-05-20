@@ -92,8 +92,8 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             color: #5c1d1d;
-            margin-top: 20px;
-            margin-bottom: 10px;
+            margin-top: 15px;
+            margin-bottom: 8px;
             border-bottom: 1px dashed #e2dacd;
             padding-bottom: 4px;
         }
@@ -111,22 +111,12 @@
         li {
             margin-bottom: 6px;
         }
-        .glossary-link {
-            color: #5c1d1d;
-            text-decoration: none;
-            border-bottom: 1px dashed #5c1d1d;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .glossary-link:hover {
-            background-color: #f5efe6;
-            border-bottom: 1px solid #5c1d1d;
-        }
         .specie-box {
             background-color: #f7f3ed;
             border: 1px solid #e2dacd;
-            padding: 15px;
-            margin-top: 15px;
+            padding: 12px;
+            margin-top: 10px;
+            margin-bottom: 15px;
             font-size: 10pt;
         }
         .specie-box table {
@@ -134,14 +124,14 @@
             border-collapse: collapse;
         }
         .specie-box td {
-            padding: 4px 8px;
+            padding: 4px 6px;
             vertical-align: top;
         }
         .specie-box .label {
             font-family: 'Arial', sans-serif;
             font-weight: bold;
             color: #8c7662;
-            width: 30%;
+            width: 35%;
         }
         .chef-notes {
             background-color: #f5efe6;
@@ -212,7 +202,6 @@
     </div>
 
     <script>
-        // Aquí almacenaremos la información combinada de los dos archivos
         let bookData = {
             recetas: [],
             glosario: []
@@ -223,24 +212,22 @@
 
         async function loadBookData() {
             try {
-                // Hacemos el pedido de ambos archivos JSON en paralelo para tu repositorio en GitHub Pages
                 const [resRecetas, resEspecias] = await Promise.all([
                     fetch('/Proyecto-Libro-de-recetas/recetas.json'),
                     fetch('/Proyecto-Libro-de-recetas/especias.json')
                 ]);
 
-                // Procesamos las respuestas independientes
                 const datosRecetas = await resRecetas.json();
                 const datosEspecias = await resEspecias.json();
 
-                // Mapeamos los datos según cómo vengan estructurados (lista directa o caja contenedora)
+                // Asignamos según tu estructura en inglés real
                 bookData.recetas = Array.isArray(datosRecetas) ? datosRecetas : (datosRecetas.recetas || []);
                 bookData.glosario = Array.isArray(datosEspecias) ? datosEspecias : (datosEspecias.glosario || datosEspecias.especias || []);
                 
                 renderPage();
             } catch (error) {
-                console.error("Error al cargar los archivos recetas.json o especias.json:", error);
-                document.getElementById('page-indicator').innerText = "Error al conectar bases de datos JSON";
+                console.error("Error al cargar los archivos JSON:", error);
+                document.getElementById('page-indicator').innerText = "Error al conectar con las bases de datos";
             }
         }
 
@@ -249,9 +236,8 @@
             const rightPage = document.getElementById('right-page-content');
             const indicator = document.getElementById('page-indicator');
 
-            // Caso en el que no se hayan podido cargar recetas ni glosario
             if (bookData.recetas.length === 0 && bookData.glosario.length === 0) {
-                leftPage.innerHTML = "<h1>Sin Contenido</h1><p>Verificá que las estructuras de recetas.json y especias.json tengan datos válidos.</p>";
+                leftPage.innerHTML = "<h1>Sin Contenido</h1><p>Verificá que los archivos JSON tengan datos válidos.</p>";
                 rightPage.innerHTML = "";
                 return;
             }
@@ -260,18 +246,25 @@
                 const receta = bookData.recetas[currentIndex];
                 if (!receta) return;
 
-                // Soporte flexible para nombres de propiedades (título/titulo, preparación/preparacion/instrucciones)
-                const titulo = receta.titulo || receta.txt_nombre_receta || "Receta sin título";
-                const subtitulo = receta.subtitulo || receta.txt_categoria_receta || "Receta Original";
-                const ingredientes = receta.ingredientes || receta.array_ingredientes || [];
-                const preparacion = receta.preparacion || receta.txt_preparacion || receta.instrucciones || "<p>Procedimiento no especificado.</p>";
-                const notas = receta.notas || receta.chef_notes || "";
-                const meta = receta.meta || receta.txt_tiempo_porciones || "";
+                // Mapeo exacto de tus claves detectadas
+                const titulo = receta.title || "Receta sin título";
+                const categoria = receta.category || "General";
+                const ingredientes = receta.ingredients || [];
+                const autorComentarios = receta.authorComments || "";
+                
+                // Procesamos las instrucciones separadas por coma para convertirlas en una lista ordenada limpia
+                let pasosHtml = "";
+                if (receta.instructions) {
+                    const pasosArray = receta.instructions.split(',');
+                    pasosHtml = `<ol>${pasosArray.map(paso => `<li>${paso.trim()}</li>`).join('')}</ol>`;
+                } else {
+                    pasosHtml = "<p>Procedimiento no especificado.</p>";
+                }
 
                 leftPage.innerHTML = `
                     <div class="section-tag">Capítulo I • El Recetario</div>
                     <h1>${titulo}</h1>
-                    <div class="metadata-line">${subtitulo}</div>
+                    <div class="metadata-line">Categoría: ${categoria}</div>
                     <h2>Ingredientes Requeridos</h2>
                     <ul>
                         ${ingredientes.map(ing => `<li>${ing}</li>`).join('')}
@@ -279,10 +272,10 @@
                 `;
 
                 rightPage.innerHTML = `
-                    <div class="metadata-line" style="text-align: right;">${meta}</div>
+                    <div class="metadata-line" style="text-align: right;">Ficha Técnica</div>
                     <h2>Procedimiento de Elaboración</h2>
-                    <div class="steps-box">${preparacion}</div>
-                    ${notas ? `<div class="chef-notes"><strong>Notas del Autor:</strong> ${notas}</div>` : ''}
+                    <div class="steps-box">${pasosHtml}</div>
+                    ${autorComentarios ? `<div class="chef-notes"><strong>Notas Técnicas del Autor:</strong> ${autorComentarios}</div>` : ''}
                 `;
 
                 indicator.innerText = `RECETA ${currentIndex + 1} / ${bookData.recetas.length}`;
@@ -291,39 +284,43 @@
                 const especia = bookData.glosario[currentIndex];
                 if (!especia) return;
 
-                // Soporte flexible para nombres de propiedades del glosario
-                const elemento = especia.elemento || especia.nombre || "Especia";
-                const botanica = especia.botanica || especia.nombre_cientifico || "N/A";
-                const origen = especia.origen || especia.procedencia || "No especificado";
-                const descripcion = especia.descripcion || especia.perfil || "<p>Descripción no disponible.</p>";
-                const maridaje = especia.maridaje || especia.usos || "";
+                // Mapeo exacto de tus claves del glosario
+                const nombreEspecia = especia.title || "Especia";
+                const bandera = especia.flag || "";
+                const categoriaEspecia = especia.category || "Condimento";
+                const introduccion = especia.introduction || "";
+                const secciones = especia.sections || [];
 
                 leftPage.innerHTML = `
                     <div class="section-tag">Anexo Técnico • Glosario de Especias</div>
-                    <h1>${elemento}</h1>
-                    <div class="metadata-line">Especias del Mundo & Variedades Locales</div>
+                    <h1>${nombreEspecia} ${bandera}</h1>
+                    <div class="metadata-line">Perfil: ${categoriaEspecia}</div>
                     
-                    <h2>Ficha de Identificación</h2>
+                    <h2>Introducción Genérica</h2>
+                    <p><em>${introduccion}</em></p>
+                    
                     <div class="specie-box">
                         <table>
                             <tr>
-                                <td class="label">Nombre Científico:</td>
-                                <td><em>${botanica}</em></td>
-                            </tr>
-                            <tr>
-                                <td class="label">Procedencia Nata:</td>
-                                <td>${origen}</td>
+                                <td class="label">Identificador Técnico:</td>
+                                <td><code>${especia.id || 'N/A'}</code></td>
                             </tr>
                         </table>
                     </div>
                 `;
 
-                rightPage.innerHTML = `
-                    <div class="metadata-line" style="text-align: right;">Índice Temático</div>
-                    <h2>Perfil Aromático y Descripción</h2>
-                    ${descripcion}
-                    ${maridaje ? `<h2>Sugerencia de Uso & Maridaje</h2><p>${maridaje}</p>` : ''}
-                `;
+                // Renderizamos las secciones dinámicas del array "sections" en la página derecha
+                let seccionesHtml = `<div class="metadata-line" style="text-align: right;">Análisis de Componentes</div>`;
+                if (secciones.length > 0) {
+                    seccionesHtml += secciones.map(sec => `
+                        <h2>${sec.title}</h2>
+                        <p>${sec.content}</p>
+                    `).join('');
+                } else {
+                    seccionesHtml += "<p>No hay secciones detalladas para esta especia.</p>";
+                }
+
+                rightPage.innerHTML = seccionesHtml;
 
                 indicator.innerText = `ESPECIA ${currentIndex + 1} / ${bookData.glosario.length}`;
             }
@@ -359,19 +356,6 @@
                 }
             }
             renderPage();
-        }
-
-        function jumpToSpecie(nombreEspecia) {
-            if (!bookData.glosario) return;
-            const index = bookData.glosario.findIndex(g => {
-                const itemNombre = g.elemento || g.nombre || "";
-                return itemNombre.toLowerCase() === nombreEspecia.toLowerCase();
-            });
-            if (index !== -1) {
-                currentSection = 'glosario';
-                currentIndex = index;
-                renderPage();
-            }
         }
 
         window.onload = loadBookData;
