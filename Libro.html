@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Libro de Cocina e Índice de Especias</title>
+    <style>
+        body {
+            background-color: #dcd6cd;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .book-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            min-height: 650px;
+            background-color: #fcfbfa;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .book-container::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(to right, rgba(0,0,0,0.15), rgba(0,0,0,0) 50%, rgba(0,0,0,0.15));
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+        .page {
+            width: 50%;
+            padding: 45px 50px;
+            box-sizing: border-box;
+            background-color: #fcfbfa;
+            overflow-y: auto;
+        }
+        .page-left {
+            border-right: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .page-right {
+            border-left: 1px solid rgba(0,0,0,0.05);
+            padding-left: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .section-tag {
+            font-family: 'Arial', sans-serif;
+            font-size: 8.5pt;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8c7662;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        h1 {
+            font-size: 26pt;
+            color: #5c1d1d;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-weight: normal;
+            line-height: 1.2;
+        }
+        .metadata-line {
+            font-family: 'Arial', sans-serif;
+            font-size: 9.5pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7a6855;
+            border-bottom: 1px solid #e2dacd;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-family: 'Arial', sans-serif;
+            font-size: 11pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5c1d1d;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #e2dacd;
+            padding-bottom: 4px;
+        }
+        p, li {
+            color: #2c2520;
+            line-height: 1.6;
+            font-size: 11pt;
+            text-align: justify;
+        }
+        ul, ol {
+            padding-left: 20px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        .glossary-link {
+            color: #5c1d1d;
+            text-decoration: none;
+            border-bottom: 1px dashed #5c1d1d;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .glossary-link:hover {
+            background-color: #f5efe6;
+            border-bottom: 1px solid #5c1d1d;
+        }
+        .specie-box {
+            background-color: #f7f3ed;
+            border: 1px solid #e2dacd;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 10pt;
+        }
+        .specie-box table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .specie-box td {
+            padding: 4px 8px;
+            vertical-align: top;
+        }
+        .specie-box .label {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            color: #8c7662;
+            width: 30%;
+        }
+        .chef-notes {
+            background-color: #f5efe6;
+            border-left: 3px solid #8c7662;
+            padding: 12px 15px;
+            margin-top: auto;
+            font-style: italic;
+            font-size: 10.5pt;
+        }
+        .nav-controls {
+            display: flex;
+            gap: 15px;
+            background: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            align-items: center;
+        }
+        .nav-btn {
+            background: none;
+            border: 1px solid #8c7662;
+            color: #8c7662;
+            padding: 6px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Arial', sans-serif;
+            font-size: 9.5pt;
+            transition: all 0.2s ease;
+        }
+        .nav-btn:hover {
+            background-color: #8c7662;
+            color: white;
+        }
+        @media (max-width: 850px) {
+            .book-container {
+                flex-direction: column;
+                min-height: auto;
+            }
+            .book-container::after {
+                display: none;
+            }
+            .page {
+                width: 100%;
+                padding: 30px 25px;
+            }
+            .page-left {
+                border-right: none;
+                border-bottom: 1px dashed #e2dacd;
+            }
+            .page-right {
+                padding-left: 25px;
+                border-left: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="book-container">
+        <div class="page page-left" id="left-page-content"></div>
+        <div class="page page-right" id="right-page-content"></div>
+    </div>
+
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="goToPrev()">← Anterior</button>
+        <span id="page-indicator" style="font-family: Arial, sans-serif; color: #666; font-size: 10pt; font-weight: bold;">Cargando...</span>
+        <button class="nav-btn" onclick="goToNext()">Siguiente →</button>
+    </div>
+
+    <script>
+        let bookData = {
+            recetas: [],
+            glosario: []
+        };
+        
+        let currentSection = 'recetas';
+        let currentIndex = 0;
+
+        async function loadBookData() {
+            try {
+                // Para conectar tu archivo JSON real, descomenta las siguientes líneas:
+                // const response = await fetch('recetas.json');
+                // bookData = await response.json();
+                
+                // Datos de prueba integrados:
+                bookData = {
+                    recetas: [
+                        {
+                            titulo: "Empanadas de Osobuco Braseado",
+                            subtitulo: "Entrante Tradicional Premium",
+                            meta: "Rendimiento: 2 docenas • Tiempo: 200 min",
+                            ingredientes: [
+                                "1.5 kg de Osobuco de ternera con buen caracú.",
+                                "Discos de masa criolla o de hojaldre para horno.",
+                                "Cebolla blanca, puerro y zanahoria madura.",
+                                "Caldo concentrado de carne y vino tinto para desglasar.",
+                                "Cebolla de verdeo picada y <span class='glossary-link' onclick='jumpToSpecie("Pimienta Rosa")'>Pimienta Rosa</span> (Aguaribay) molida."
+                            ],
+                            preparacion: "<p>1. Sellar las rodajas de osobuco en una cacerola con aceite bien caliente hasta generar una buena costra.</p><p>2. Retirar la carne, rehogar los vegetales picados y desglasar el fondo con vino tinto. Reincorporar el osobuco junto con el caldo.</p><p>3. Tapar herméticamente y llevar a horno bajo por un mínimo de 3 horas. Desmenuzar la carne, mezclar con el fondo reducido y dejar enfriar.</p><p>4. Rellenar los discos de masa, hacer el repulgue y hornear a máxima temperatura.</p>",
+                            notas: "Para lograr la textura de la foto tradicional, pincelá la masa con huevo y una pizca de pimentón dulce antes del horneado."
+                        }
+                    ],
+                    glosario: [
+                        {
+                            elemento: "Pimienta Rosa",
+                            botanica: "Schinus molle",
+                            origen: "Sudamérica (Cultivada y nativa en Argentina del árbol de Aguaribay)",
+                            descripcion: "<p>A diferencia de las pimientas tradicionales, no proviene de la familia Piper nigrum. Sus granos son drupas rojizas que aportan un aroma fresco, resinoso, frutado y con un nivel de picor sumamente sutil.</p>",
+                            maridaje: "Excelente para balancear los sabores intensos y grasas de carnes rojas de cocción prolongada o braseados rústicos."
+                        },
+                        {
+                            elemento: "Anís Estrellado",
+                            botanica: "Illicium verum",
+                            origen: "Nativo de China meridional, Corea y Japón",
+                            descripcion: "<p>Fruto en forma de estrella de ocho puntas que contiene un marcado aroma anisado gracias al anetol. Es un pilar fundamental de la cocina oriental que aporta un perfil dulzón y fragante.</p>",
+                            maridaje: "Ideal para caldos de cocciones lentas, infusiones y almíbares aromáticos."
+                        }
+                    ]
+                };
+
+                renderPage();
+            } catch (error) {
+                console.error("Error al procesar el archivo .json integrado:", error);
+            }
+        }
+
+        function renderPage() {
+            const leftPage = document.getElementById('left-page-content');
+            const rightPage = document.getElementById('right-page-content');
+            const indicator = document.getElementById('page-indicator');
+
+            if (currentSection === 'recetas') {
+                const receta = bookData.recetas[currentIndex];
+                if (!receta) return;
+
+                leftPage.innerHTML = `
+                    <div class="section-tag">Capítulo I • El Recetario</div>
+                    <h1>${receta.titulo}</h1>
+                    <div class="metadata-line">${receta.subtitulo}</div>
+                    <h2>Ingredientes Requeridos</h2>
+                    <ul>
+                        ${receta.ingredientes.map(ing => `<li>${ing}</li>`).join('')}
+                    </ul>
+                `;
+
+                rightPage.innerHTML = `
+                    <div class="metadata-line" style="text-align: right;">${receta.meta}</div>
+                    <h2>Procedimiento de Elaboración</h2>
+                    <div class="steps-box">${receta.preparacion}</div>
+                    <div class="chef-notes">
+                        <strong>Notas del Autor:</strong> ${receta.notas}
+                    </div>
+                `;
+
+                indicator.innerText = `RECETA ${currentIndex + 1} / ${bookData.recetas.length}`;
+
+            } else if (currentSection === 'glosario') {
+                const especia = bookData.glosario[currentIndex];
+                if (!especia) return;
+
+                leftPage.innerHTML = `
+                    <div class="section-tag">Anexo Técnico • Glosario de Especias</div>
+                    <h1>${especia.elemento}</h1>
+                    <div class="metadata-line">Especias del Mundo & Variedades Locales</div>
+                    
+                    <h2>Ficha de Identificación</h2>
+                    <div class="specie-box">
+                        <table>
+                            <tr>
+                                <td class="label">Nombre Científico:</td>
+                                <td><em>${especia.botanica}</em></td>
+                            </tr>
+                            <tr>
+                                <td class="label">Procedencia Nata:</td>
+                                <td>${especia.origen}</td>
+                            </tr>
+                        </table>
+                    </div>
+                `;
+
+                rightPage.innerHTML = `
+                    <div class="metadata-line" style="text-align: right;">Índice Temático</div>
+                    <h2>Perfil Aromático y Descripción</h2>
+                    ${especia.descripcion}
+                    <h2>Sugerencia de Uso & Maridaje</h2>
+                    <p>${especia.maridaje}</p>
+                `;
+
+                indicator.innerText = `ESPECIA ${currentIndex + 1} / ${bookData.glosario.length}`;
+            }
+        }
+
+        function goToNext() {
+            if (currentSection === 'recetas') {
+                if (currentIndex < bookData.recetas.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentSection = 'glosario';
+                    currentIndex = 0;
+                }
+            } else if (currentSection === 'glosario') {
+                if (currentIndex < bookData.glosario.length - 1) {
+                    currentIndex++;
+                }
+            }
+            renderPage();
+        }
+
+        function goToPrev() {
+            if (currentSection === 'glosario') {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentSection = 'recetas';
+                    currentIndex = bookData.recetas.length - 1;
+                }
+            } else if (currentSection === 'recetas') {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                }
+            }
+            renderPage();
+        }
+
+        function jumpToSpecie(nombreEspecia) {
+            const index = bookData.glosario.findIndex(g => g.elemento.toLowerCase() === nombreEspecia.toLowerCase());
+            if (index !== -1) {
+                currentSection = 'glosario';
+                currentIndex = index;
+                renderPage();
+            }
+        }
+
+        window.onload = loadBookData;
+    </script>
+</body>
+</html>
