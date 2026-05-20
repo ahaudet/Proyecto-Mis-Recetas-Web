@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Libro de Cocina e Índice de Especias</title>
+    <title>Glosario de Especias y Libro de Cocina</title>
     <style>
         body {
             background-color: #dcd6cd;
@@ -222,49 +222,14 @@
 
         async function loadBookData() {
             try {
-                // Para conectar tu archivo JSON real, descomenta las siguientes líneas:
-                // const response = await fetch('recetas.json');
-                // bookData = await response.json();
+                // Al estar subido en tu servidor de GitHub Pages, esta ruta dinámica absorberá todo tu JSON completo
+                const response = await fetch('/Proyecto-Libro-de-recetas/recetas.json');
+                bookData = await response.json();
                 
-                // Datos de prueba integrados:
-                bookData = {
-                    recetas: [
-                        {
-                            titulo: "Empanadas de Osobuco Braseado",
-                            subtitulo: "Entrante Tradicional Premium",
-                            meta: "Rendimiento: 2 docenas • Tiempo: 200 min",
-                            ingredientes: [
-                                "1.5 kg de Osobuco de ternera con buen caracú.",
-                                "Discos de masa criolla o de hojaldre para horno.",
-                                "Cebolla blanca, puerro y zanahoria madura.",
-                                "Caldo concentrado de carne y vino tinto para desglasar.",
-                                "Cebolla de verdeo picada y <span class='glossary-link' onclick='jumpToSpecie("Pimienta Rosa")'>Pimienta Rosa</span> (Aguaribay) molida."
-                            ],
-                            preparacion: "<p>1. Sellar las rodajas de osobuco en una cacerola con aceite bien caliente hasta generar una buena costra.</p><p>2. Retirar la carne, rehogar los vegetales picados y desglasar el fondo con vino tinto. Reincorporar el osobuco junto con el caldo.</p><p>3. Tapar herméticamente y llevar a horno bajo por un mínimo de 3 horas. Desmenuzar la carne, mezclar con el fondo reducido y dejar enfriar.</p><p>4. Rellenar los discos de masa, hacer el repulgue y hornear a máxima temperatura.</p>",
-                            notas: "Para lograr la textura de la foto tradicional, pincelá la masa con huevo y una pizca de pimentón dulce antes del horneado."
-                        }
-                    ],
-                    glosario: [
-                        {
-                            elemento: "Pimienta Rosa",
-                            botanica: "Schinus molle",
-                            origen: "Sudamérica (Cultivada y nativa en Argentina del árbol de Aguaribay)",
-                            descripcion: "<p>A diferencia de las pimientas tradicionales, no proviene de la familia Piper nigrum. Sus granos son drupas rojizas que aportan un aroma fresco, resinoso, frutado y con un nivel de picor sumamente sutil.</p>",
-                            maridaje: "Excelente para balancear los sabores intensos y grasas de carnes rojas de cocción prolongada o braseados rústicos."
-                        },
-                        {
-                            elemento: "Anís Estrellado",
-                            botanica: "Illicium verum",
-                            origen: "Nativo de China meridional, Corea y Japón",
-                            descripcion: "<p>Fruto en forma de estrella de ocho puntas que contiene un marcado aroma anisado gracias al anetol. Es un pilar fundamental de la cocina oriental que aporta un perfil dulzón y fragante.</p>",
-                            maridaje: "Ideal para caldos de cocciones lentas, infusiones y almíbares aromáticos."
-                        }
-                    ]
-                };
-
                 renderPage();
             } catch (error) {
-                console.error("Error al procesar el archivo .json integrado:", error);
+                console.error("Error al procesar el archivo recetas.json desde el repositorio:", error);
+                document.getElementById('page-indicator').innerText = "Error al cargar recetas.json";
             }
         }
 
@@ -273,6 +238,14 @@
             const rightPage = document.getElementById('right-page-content');
             const indicator = document.getElementById('page-indicator');
 
+            // Validaciones por si los arrays vienen vacíos
+            if ((currentSection === 'recetas' && (!bookData.recetas || bookData.recetas.length === 0)) ||
+                (currentSection === 'glosario' && (!bookData.glosario || bookData.glosario.length === 0))) {
+                leftPage.innerHTML = "<h1>Faltan Datos</h1><p>El archivo recetas.json se leyó pero está vacío o mal formateado.</p>";
+                rightPage.innerHTML = "";
+                return;
+            }
+
             if (currentSection === 'recetas') {
                 const receta = bookData.recetas[currentIndex];
                 if (!receta) return;
@@ -280,7 +253,7 @@
                 leftPage.innerHTML = `
                     <div class="section-tag">Capítulo I • El Recetario</div>
                     <h1>${receta.titulo}</h1>
-                    <div class="metadata-line">${receta.subtitulo}</div>
+                    <div class="metadata-line">${receta.subtitulo || 'Receta de Selección'}</div>
                     <h2>Ingredientes Requeridos</h2>
                     <ul>
                         ${receta.ingredientes.map(ing => `<li>${ing}</li>`).join('')}
@@ -288,12 +261,10 @@
                 `;
 
                 rightPage.innerHTML = `
-                    <div class="metadata-line" style="text-align: right;">${receta.meta}</div>
+                    <div class="metadata-line" style="text-align: right;">${receta.meta || ''}</div>
                     <h2>Procedimiento de Elaboración</h2>
                     <div class="steps-box">${receta.preparacion}</div>
-                    <div class="chef-notes">
-                        <strong>Notas del Autor:</strong> ${receta.notas}
-                    </div>
+                    ${receta.notas ? `<div class="chef-notes"><strong>Notas del Autor:</strong> ${receta.notas}</div>` : ''}
                 `;
 
                 indicator.innerText = `RECETA ${currentIndex + 1} / ${bookData.recetas.length}`;
@@ -312,11 +283,11 @@
                         <table>
                             <tr>
                                 <td class="label">Nombre Científico:</td>
-                                <td><em>${especia.botanica}</em></td>
+                                <td><em>${especia.botanica || 'N/A'}</em></td>
                             </tr>
                             <tr>
                                 <td class="label">Procedencia Nata:</td>
-                                <td>${especia.origen}</td>
+                                <td>${especia.origen || 'Desconocida'}</td>
                             </tr>
                         </table>
                     </div>
@@ -326,8 +297,7 @@
                     <div class="metadata-line" style="text-align: right;">Índice Temático</div>
                     <h2>Perfil Aromático y Descripción</h2>
                     ${especia.descripcion}
-                    <h2>Sugerencia de Uso & Maridaje</h2>
-                    <p>${especia.maridaje}</p>
+                    ${especia.maridaje ? `<h2>Sugerencia de Uso & Maridaje</h2><p>${especia.maridaje}</p>` : ''}
                 `;
 
                 indicator.innerText = `ESPECIA ${currentIndex + 1} / ${bookData.glosario.length}`;
@@ -338,7 +308,7 @@
             if (currentSection === 'recetas') {
                 if (currentIndex < bookData.recetas.length - 1) {
                     currentIndex++;
-                } else {
+                } else if (bookData.glosario && bookData.glosario.length > 0) {
                     currentSection = 'glosario';
                     currentIndex = 0;
                 }
@@ -354,7 +324,7 @@
             if (currentSection === 'glosario') {
                 if (currentIndex > 0) {
                     currentIndex--;
-                } else {
+                } else if (bookData.recetas && bookData.recetas.length > 0) {
                     currentSection = 'recetas';
                     currentIndex = bookData.recetas.length - 1;
                 }
@@ -367,6 +337,7 @@
         }
 
         function jumpToSpecie(nombreEspecia) {
+            if (!bookData.glosario) return;
             const index = bookData.glosario.findIndex(g => g.elemento.toLowerCase() === nombreEspecia.toLowerCase());
             if (index !== -1) {
                 currentSection = 'glosario';
