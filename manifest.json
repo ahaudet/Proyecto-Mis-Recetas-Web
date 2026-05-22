@@ -1,15 +1,15 @@
 {
-  "name": "Mi Recetario Digital",
-  "short_name": "Recetario",
+  "name": "Mi Libro Digital",
+  "short_name": "Libro",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#1a1a1a",
   "theme_color": "#1a1a1a",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "libro.jpg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpg"
     }
   ]
 }
