@@ -11,55 +11,30 @@
         body {
             background-color: #dcd6cd;
             font-family: 'Georgia', serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
             min-height: 100vh;
         }
         .book-container {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            min-height: 650px;
-            background-color: #fcfbfa;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
-            border-radius: 4px;
-            overflow: hidden;
-            position: relative;
-            margin-bottom: 20px;
+            display: flex; width: 100%; max-width: 1200px; min-height: 650px;
+            background-color: #fcfbfa; box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+            border-radius: 4px; overflow: hidden; position: relative; margin-bottom: 20px;
         }
         .book-container::after {
-            content: "";
-            position: absolute;
-            top: 0; bottom: 0; left: 50%;
-            width: 2px;
+            content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px;
             background: linear-gradient(to right, rgba(0,0,0,0.15), rgba(0,0,0,0) 50%, rgba(0,0,0,0.15));
-            transform: translateX(-50%);
-            pointer-events: none;
+            transform: translateX(-50%); pointer-events: none;
         }
         .page {
-            width: 50%;
-            padding: 45px 50px;
-            box-sizing: border-box;
-            background-color: #fcfbfa;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
+            width: 50%; padding: 45px 50px; box-sizing: border-box;
+            background-color: #fcfbfa; overflow-y: auto; display: flex; flex-direction: column;
         }
         .page-left { border-right: 1px solid rgba(0,0,0,0.05); }
         .page-right { border-left: 1px solid rgba(0,0,0,0.05); padding-left: 60px; }
         .cover-page {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            margin: auto;
+            width: 100%; height: 100%; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; margin: auto;
         }
         .cover-title { font-size: 50pt; color: #5c1d1d; margin-bottom: 10px; font-weight: normal; }
         .cover-subtitle { font-size: 18pt; color: #8c7662; text-transform: uppercase; letter-spacing: 4px; }
@@ -69,13 +44,8 @@
         .metadata-line { font-size: 9.5pt; text-transform: uppercase; letter-spacing: 1px; color: #7a6855; border-bottom: 1px solid #e2dacd; padding-bottom: 12px; margin-bottom: 20px; }
         h2 { font-size: 11pt; text-transform: uppercase; color: #5c1d1d; border-bottom: 1px dashed #e2dacd; padding-bottom: 4px; margin-top: 20px; }
         .item-image {
-            width: 100%;
-            max-height: 250px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin: 15px 0;
-            border: 1px solid #e2dacd;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            width: 100%; max-height: 250px; object-fit: cover; border-radius: 4px;
+            margin: 15px 0; border: 1px solid #e2dacd; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         p, li { color: #2c2520; line-height: 1.6; font-size: 11pt; text-align: justify; }
         ul, ol { padding-left: 20px; margin-top: 5px; }
@@ -108,295 +78,34 @@
         <button class="nav-btn" onclick="goForward()">Siguiente →</button>
     </div>
 
-    <script>
-        // BASE DE DATOS LOCAL INTEGRADA COMPLETAMENTE
-        const INTEGRATED_DATA = {
-            recetas: [
-                {
-                    title: "Empanadas de osobuco braseado",
-                    category: "Entrante, Plato Principal",
-                    image: "fotos-receta/empanadas_osobuco.jpg",
-                    ingredients: ["1 Kg de osobuco", "8 cebollas", "1 pimiento rojo mediano", "Parte verde del verdeo c/n", "Salsa yasgua: 2 tomates perita, ají locoto a gusto, vinagre 2 cdas, sal y aceite de oliva"],
-                    instructions: "Salpimentar el osobuco y dorar en la olla. Agregar 3 cebollas en mitades y c/n de agua, Llevar a hervor por 3 horas aprox (controlando el agua). Dejar enfriar y desmechar, Cortar y rehogar las cebollas restantes con el pimiento rojo. Al cristalizar agregar el osobuco, Salpimentar y agregar abundante pimentón dulce; ají molido y comino. Cubrir con caldo, Dejar enfriar (preferentemente hasta el otro día). Picar la parte verde del verdeo y colocar encima, Armar las empanadas y llevar a horno máximo (180°C) hasta dorar",
-                    authorComments: "Para la salsa yasgua: Rallar los tomates pelados, condimentar con sal, el locoto, el vinagre y un toque de aceite de oliva. Quedan muy bien con jugo de limón."
-                },
-                {
-                    title: "Alejandro's Pizza",
-                    category: "Plato Principal",
-                    image: "fotos-receta/alejandro_pizza.jpg",
-                    ingredients: ["Prepizza y salsa para pizza c/n", "Queso mozzarella 200 g", "Jamón crudo 100 g", "Cebollas de verdeo c/n", "Pimiento amarillo, verde y rojo (1/4 de c/u)", "Tomate redondo 1", "Sal especiada, mix de pimientas y provenzal c/n"],
-                    instructions: "Cortar las cebollas de verdeo en cuartos y picar finamente. Picar en cubos los pimientos, Cortar el tomate en finas rodajas. Saltear las cebollas en oliva y salpimentar, Agregar los pimientos y corregir sazón. Precalentar la pre-pizza con salsa en horno fuerte, Colocar el salteado de cebolla y morrón. Poner la mozzarella y hornear hasta derretir, Cubrir con las fetas de jamón crudo y las rodajas de tomate, Salpimentar los tomates y espolvorear con provenzal y rociar con oliva. Hornear unos minutos y servir"
-                },
-                {
-                    title: "Matambrito de cerdo al libro",
-                    category: "Plato Principal",
-                    image: "fotos-receta/matambrito_cerdo.jpg",
-                    ingredients: ["Matambrito de cerdo 1", "Ciruelas pasas y almendras c/n", "Limón 1, estragón, sal con curry, pimienta verde", "Para la salsa: 1 cebolla pequeña, condimento y sal con hongos c/n", "Pimentón y nuez moscada a gusto, fécula de maíz 1 cda"],
-                    instructions: "Desgrasar y emparejar el matambre. Sazonar con sal con curry y pimienta verde por el lado magro, Marinar en limón con estragón a gusto. Cortar la zanahoria en juliana, Rellenar alternando una fila de ciruelas; una de almendras y las tiras de zanahoria, Doblar por la mitad; cerrar con palillos y sellar en la plancha de ambos lados, Envolver en papel aluminio y llevar a horno pre-calentado por 30 minutos, Salsa: Saltear cebolla picada; agregar condimento con hongos y pimentón, Agregar fécula; revolver y verter agua caliente sin dejar de batir hasta espesar",
-                    authorComments: "Para el emplatado servir la porción sobre la salsa como una cama, acompañar con el puré de boniato. Marida muy bien con un vino malbec."
-                },
-                {
-                    title: "Empanada gallega",
-                    category: "Plato Principal",
-                    image: "fotos-receta/empanada_gallega.jpg",
-                    ingredients: ["Pimiento rojo mediano 1, cebolla mediana 1, ajo 1 diente", "Tomates medianos 2", "Caballa o Jurel 1 lata", "Masa para pascualina de hojaldre 1", "Sal, pimienta y pimentón c/n"],
-                    instructions: "Cortar el pimiento asado en cuadraditos y picar el ajo. Cortar la cebolla a lo largo, Cortar los tomates en cuadraditos sin semillas (pelados si prefiere), Quitar las espinas del pescado elegido y desmenuzar con las manos, Rehogar la cebolla y al transparentar; agregar el ajo; el pimiento y luego el tomate y pescado, Condimentar con sal; pimienta y pimentón dulce o picante. Cocinar a fuego bajo 10 minutos, Estirar la masa en una tartera aceitada; rellenar; tapar y hornear hasta dorar"
-                },
-                {
-                    title: "Cazuela de Mariscos",
-                    category: "Plato Principal",
-                    image: "fotos-receta/cazuela_mariscos.jpg",
-                    ingredients: ["250 g de camarones, mejillones, langostinos y anillos de calamar", "200 g de berberechos", "1 cebolla, 2 dientes de ajo, 1 pimiento morrón rojo, 1 tomate", "Sal, aceite de oliva c/n, 150 ml de vino blanco, 500 ml de caldo", "1 hoja de laurel, pimienta negra, 1 cdita de <span class='glossary-link' data-target='Shichimi Togarashi'>Shichimi Togarashi</span>", "2 cditas de <span class='glossary-link' data-target='Merkén'>Merkén</span>"],
-                    instructions: "Limpiar los frutos de mar. Picar cebolla; ajo y morrón y sofreír en oliva y sal, Picar el tomate; añadir a la preparación y cocinar por 10 minutos, Añadir vino blanco; caldo; laurel; pimienta y el Shichimi. Corregir sazón, Añadir los anillos de calamar; cocinar 3 minutos y agregar el resto de los mariscos, Cocinar durante 10 minutos más cuidando de no pasarse con la cocción",
-                    authorComments: "Se puede servir sobre un 'colchón' de arroz blanco. Acompañar con Chardonnay entre 4 y 6°C."
-                },
-                {
-                    title: "Portobellos Mar y Tierra",
-                    category: "Entrante, Plato Principal",
-                    image: "fotos-receta/portobellos.jpg",
-                    ingredients: ["Hongos Portobello grandes 4", "Cebolla 1 mediana", "Langostinos 200 gramos", "Ron blanco, aceite de oliva, sal y pimienta"],
-                    instructions: "Lavar y secar bien los hongos; quitar los cabitos y reservarlos, Cortar cebolla en cubos chicos y picar los cabitos de los hongos, Limpiar langostinos quitando el intestino lomo y picarlos, Saltear los langostinos en oliva a alta temperatura; agregar Ron y flambear, Al apagarse la llama; retirar del fuego y reservar, Rehogar cebolla; salpimentar e incorporar cabitos y langostinos; cocinar unos minutos, Rellenar los Portobellos salpimentados y hornear cubiertos con aluminio por 10 minutos",
-                    authorComments: "Una buena opción sería agregarles un poco de queso rallado o mozzarella antes de hornear. ¡Con un vino Rosé queda fantástico!"
-                },
-                {
-                    title: "Mermelada de frutilla light al microondas",
-                    category: "Dulces/Mermeladas",
-                    image: "fotos-receta/mermelada_frutilla.jpg",
-                    ingredients: ["Frutillas: 1 Kg", "Jugo de limón: 1 cda.", "Hileret: 150 g", "Azúcar común: 100g"],
-                    instructions: "Lavar y despalillar las frutillas. Colocar en un bol y cocinar 7 minutos en microondas al 100%, Procesar con el limón y el azúcar hasta formar una pasta homogénea, Pasar a un bol de vidrio de 3 litros de capacidad, Cocinar de 20 a 24 minutos al 100% removiendo cada 5 minutos con cuchara de madera, Dejar atemperar un poco y envasar aún caliente",
-                    authorComments: "Al procesar, podés dejar algunas frutillas enteras minutos antes de finalizar. Si nota que queda muy líquido; agregá agar-agar 5 minutos antes del final."
-                },
-                {
-                    title: "Biancomagiare",
-                    category: "Postres",
-                    image: "fotos-receta/biancomagiare.jpg",
-                    ingredients: ["Almidón de maíz: 45 g", "Hileret light: 30 g (O azúcar común: 60 g)", "Leche de almendras: 500 cc"],
-                    instructions: "Poner la fécula de maíz en un bol. Agregar el Hileret o el azúcar, Agregar lentamente la leche de almendras mezclando con batidor, Pasar a una olla y llevar al fuego hasta que rompa el hervor, Batir un par de minutos hasta enfriar, Pasar a moldes individuales y dejar enfriar a temperatura ambiente",
-                    authorComments: "Servir con caramelo líquido y almendras picadas o chocolate cobertura. Tip: Se puede reemplazar la leche de almendras por leche de coco y usar coco rallado."
-                },
-                {
-                    title: "Dulce de membrillo light al microondas",
-                    category: "Dulces/Mermeladas",
-                    image: "fotos-receta/dulce_membrillo.jpg",
-                    ingredients: ["Membrillos: 1.300 g", "Azúcar blanco: 230g", "Endulzante Hileret: 190g"],
-                    instructions: "Pelar y cortar los membrillos en trozos (reservando los carozos), Llevar al microondas por 10 minutos sueltos, Colocar en bol de vidrio con azúcar; endulzante y carozos envueltos en gasa limpia, Llevar al microondas por 20 minutos revolviendo rigurosamente cada 5 minutos, Poner en molde de vidrio; dejar enfriar y desmoldar. Estacionar de 15 a 20 días",
-                    authorComments: "Antes de colocar el dulce caliente en el molde de vidrio definitivo podés agregarle unas nueces mariposa picadas."
-                },
-                {
-                    title: "Pimientos agridulces",
-                    category: "Acompañamiento",
-                    image: "fotos-receta/pimientos_agridulces.jpg",
-                    ingredients: ["Pimiento rojo, verde y amarillo (1 de c/u)", "Azúcar: 1 taza", "Vinagre: 1 taza", "Aceite: 1 taza", "Granos de pimienta y laurel (opcional)"],
-                    instructions: "Lavar los morrones y cortarlos en tiras de 1 cm de ancho, Ponerlos en una olla y agregar vinagre; azúcar; aceite; pimienta y laurel, Llevar a fuego fuerte tapado hasta que hierva; luego destapar parcialmente, Retirar al alcanzar la consistencia deseada (se sugieren crujientes) y entibiar, Enfrascar dejando siempre 1 cm de aceite por encima de los pimientos, Colocar el frasco boca abajo por media hora para generar vacío hermético",
-                    authorComments: "Se pueden comer desde el primer momento, pero mejoran muchísimo con el tiempo (de 7 a 10 días mínimo). Ideales para acompañar asados o cerdo."
-                },
-                {
-                    title: "Hummus",
-                    category: "Appetizer",
-                    image: "fotos-receta/hummus.jpg",
-                    ingredients: ["Garbanzos: 1 lata (o secos remojados: 200g)", "Ajo: 1 diente", "Sal, pimienta, pimentón dulce y ají molido a gusto", "Comino: 1/4 de cdita, Tahine: 1 cda, Jugo de limón c/n", "Aceite de oliva y perejil fresco"],
-                    instructions: "Poner todos los ingredientes en una procesadora o en un bol alto, Mixear continuamente hasta lograr la textura sedosa deseada, Corregir la sazón si es necesario, Al emplatar decorar con pimentón; chorrito de oliva y perejil picado",
-                    authorComments: "Si no tenés Tahine podés agregarle semillas de sésamo blanco tostadas. No es exactamente lo mismo pero le aporta un sabor tostado muy interesante. Tip: usá bastoncitos de zanahoria."
-                },
-                {
-                    title: "Dip de porotos negros",
-                    category: "Appetizer",
-                    image: "fotos-receta/dip_porotos.jpg",
-                    ingredients: ["Porotos negros: 1 lata", "Ajo: 1 diente", "Sal, pimienta y ají molido a gusto", "Jugo de limón a gusto", "<span class='glossary-link' data-target='Ras el Hanout'>Ras el Hanout</span> a gusto", "Aceite de oliva"],
-                    instructions: "Poner todos los ingredientes limpios en una procesadora o bol, Mixear intensamente. De ser necesario; rectificar sazón al final",
-                    authorComments: "Ideal para comer con nachos, acompañando una buena cerveza roja. Tip saludable: podés reemplazar los nachos por crujientes bastoncitos de zanahorias."
-                },
-                {
-                    title: "Dip de remolachas",
-                    category: "Appetizer",
-                    image: "fotos-receta/dip_remolachas.jpg",
-                    ingredients: ["Remolacha: 1 lata (o 1 unidad si está cruda)", "Ajo: 1 diente", "Sal, pimienta, pimentón dulce y ají molido a gusto", "Jugo de limón y aceite de oliva c/n"],
-                    instructions: "Poner todos los ingredientes en una procesadora o bol, Mixear de forma constante hasta lograr la textura homogénea deseada, Corregir los puntos de sazón si es necesario",
-                    authorComments: "Para servir podés agregarle por encima cualquier topping: frutos secos picados o cilantro. Un chorrito de yogur natural también queda genial."
-                },
-                {
-                    title: "Bruschetta de rúcula con peras y queso azul",
-                    category: "Entrante",
-                    image: "fotos-receta/bruschetta.jpg",
-                    ingredients: ["Peras: 2", "Azúcar rubio o mascabo: 1 cda.", "Rúcula: 1 atado", "Queso azul: 150g", "Rodajas de pan, aceite de oliva"],
-                    instructions: "Pelar las peras; cortarlas en cubos y saltearlas en una sartén, Agregar una cucharada de azúcar rubio hasta notar que se disuelve; reservar, Colocar en un bol rúcula cortada y el queso azul en dados; condimentar, Disponer la mezcla sobre rodajas de pan tostado con un chorrito de oliva",
-                    authorComments: "Al final del armado también le podés agregar un toque de nueces picadas para sumarle textura crocante."
-                },
-                {
-                    title: "Pollo relleno estilo patagónico",
-                    category: "Plato Principal",
-                    image: "fotos-receta/pollo_patagonico.jpg",
-                    ingredients: ["Pollo: 1", "Carne molida 200g, cebolla 1, pimiento morrón rojo 1", "Ajo: 1 diente", "Hongos de pino c/n, piñones: 100g", "Sal, pimentón dulce y <span class='glossary-link' data-target='Merkén'>Merkén</span> a gusto"],
-                    instructions: "Deshuesar el pollo quitando sólo la pechuga y reservar, Poner a hidratar los hongos de pino y reservar, Picar cebolla y morrón en brunoise y saltear en sartén con oliva, Agregar ajo picado y la carne molida; revolver hasta disgregar, Al dorar; agregar piñones y los hongos picados; mezclar y entibiar, Rellenar el pollo previamente salpimentado con este picadillo, Hornear en horno pre-calentado por 1 hora completa",
-                    authorComments: "Si no conseguís piñones podés reemplazarlos por almendras peladas y tostadas. Tip: usá una bolsa para horno para conservar todos los jugos internos."
-                },
-                {
-                    title: "Ensalada de hinojo y mango",
-                    category: "Ensaladas",
-                    image: "fotos-receta/ensalada_hinojo.jpg",
-                    ingredients: ["Hinojo: 1", "Mango: 1", "El jugo de una naranja", "Sal c/n, aceite de oliva, aceto balsámico blanco", "Tajín"],
-                    instructions: "Cortar el hinojo en cuartos y saltearlo levemente en oliva, Salar y bajar el fuego para que el jugo de naranja no se evapore, Cocinar hasta reducir y retirar cuando esté ligeramente dorado, Cortar en trozos y mezclar en bol con el mango en cubitos, Condimentar con aceite de oliva; aceto y el polvo de tajín",
-                    authorComments: "Se puede hacer completamente al revés: salteando el mango para flambearlo con ron y combinándolo con el hinojo fresco y crujiente. Es una variante espectacular."
-                },
-                {
-                    title: "Ensalada de rúcula, peras y queso azul",
-                    category: "Ensaladas",
-                    image: "fotos-receta/ensalada_rucula.jpg",
-                    ingredients: ["Peras: 2", "Azúcar rubio o mascabo: 1 cda.", "Rúcula: 1 atado", "Queso azul: 150g", "Sal, aceite de oliva, aceto de frutos rojos"],
-                    instructions: "Pelar las peras; cortarlas en cubos y saltearlas en sartén, Agregar una cucharada de azúcar rubio y cocinar hasta disolver; reservar, En un bol colocar la rúcula cortada y el queso azul en dados, Condimentar con sal; aceite de oliva y aceto de frutos rojos, Incorporar las peras templadas y mezclar suavemente",
-                    authorComments: "Al final del emplatado también le podés agregar un buen puñado de nueces picadas."
-                },
-                {
-                    title: "Empanadas Árabes, Sfijas o Fatay",
-                    category: "Entrante, Plato Principal",
-                    image: "fotos-receta/empanadas_arabes.jpg",
-                    ingredients: ["Carne molida: 1 Kg", "Cebollas grandes: 2, morrón rojo y verde chico (1 de c/u)", "Tomates perita: 2, ajo: 2 dientes", "Menta, cilantro y perejil c/n", "<span class='glossary-link' data-target='Bahārāt'>Bahārat</span>: 1 cda, sal: 2 cditas, jugo de 6 limones"],
-                    instructions: "Picar finamente las cebollas; tomates; pimientos y hierbas frescas, Colocar en bol grande la carne molida con todas las verduras cortadas, Añadir el baharat; la sal y el jugo puro de los 6 limones, Tapar con film y dejar reposar en frío mínimo 2 horas, Armar las empanadas abiertas y hornear a máximo hasta dorar",
-                    authorComments: "Si no tenés baharat podés reemplazarlo por estas especias combinadas: comino, canela, coriandro, cardamomo, pimienta y pimentón dulce."
-                },
-                {
-                    title: "Trufas de chocolate y palta",
-                    category: "Postres",
-                    image: "fotos-receta/trufas.jpg",
-                    ingredients: ["Chocolate en barra mínimo 70% cacao: 140 g", "Pulpa de 1 palta pequeña madura (aprox 100 g)", "Esencia de vainilla: 1 cdita, café instantáneo: 1/4 cdita", "Endulzante líquido y aromatizante (ralladura naranja/cayena) opcional", "Cacao amargo en polvo o coco rallado c/n"],
-                    instructions: "Picar chocolate fino y derretir en microondas en tandas de 15 segundos, Procesar la palta con vainilla y café hasta lograr puré sedoso, Incorporar el chocolate derretido tibio al puré de palta y mezclar bien, Agregar opcionalmente endulzante o aromatizante (ralladura o picante), Refrigerar la mezcla compacta durante mínimo 30 minutos, Sacar porciones de una cucharadita; dar forma de trufa y cubrir con cacao",
-                    authorComments: "Mantener las trufas de chocolate y palta refrigeradas en un recipiente hermético por hasta un máximo de 3 días para preservar frescura."
-                }
-            ],
-            glosario: [
-                {
-                    title: "Anís Estrellado",
-                    flag: "🇨🇳",
-                    category: "aromático",
-                    introduction: "Fruto en forma de estrella del árbol 'Illicium verum', nativo del sur de China. Tiene un sabor distintivo a regaliz, pero es más cálido, dulce y profundo.",
-                    sections: [
-                        { title: "Origen y Apariencia", content: "Originario del sur de China, Corea y Japón. Es el pericarpio seco del fruto, que forma una estrella de 8 puntas. Cada punta contiene una semilla brillante." },
-                        { title: "Usos en la Cocina", content: "Ingrediente esencial en el 'Polvo de Cinco Especias' chino y en la sopa vietnamita Pho. Excelente para caldos, guisos y carnes braseadas." }
-                    ]
-                },
-                {
-                    title: "Bahārāt",
-                    flag: "🌍",
-                    category: "mezcla",
-                    introduction: "Bahārāt (que significa «especias» en árabe) es una mezcla de especias utilizada en Oriente Medio. Es cálido y aromático con fuertes notas terrosas.",
-                    sections: [
-                        { title: "Composición Típica", content: "Pimienta negra, cilantro, pimentón, cardamomo, nuez moscada, comino, clavos y canela." },
-                        { title: "Usos en la Cocina", content: "Ideal para cordero, pollo, pescado, sopas y arroces. Es el alma de las empanadas árabes o fatay." }
-                    ]
-                },
-                {
-                    title: "Canela",
-                    flag: "🇱🇰",
-                    category: "dulce",
-                    introduction: "Una de las especias más antiguas y utilizadas del mundo. Su aroma dulce y cálido es inconfundible.",
-                    sections: [
-                        { title: "Variedades", content: "Canela de Ceilán (más suave y aromática) y Cassia (más común, dura y robusta)." },
-                        { title: "Usos", content: "Fundamental en repostería, infusiones calientes y platos salados de Oriente Medio, India y México. Una pizca en salsas de tomate reduce la acidez." }
-                    ]
-                },
-                {
-                    title: "Cardamomo",
-                    flag: "🇮🇳",
-                    category: "herbal",
-                    introduction: "Conocida como la 'Reina de las Especias', tiene un sabor complejo con notas cítricas, picantes y mentoladas.",
-                    sections: [
-                        { title: "Variedades", content: "Verde (aromático, fresco y versátil) y negro (ahumado, rústico e intenso)." },
-                        { title: "Usos Culinarios", content: "Esencial en el té chai indio, café árabe y curries. En repostería brilla en los bollos tradicionales escandinavos." }
-                    ]
-                },
-                {
-                    title: "Cayena",
-                    flag: "🇬🇫",
-                    category: "picante",
-                    introduction: "Pimiento muy picante originario de América. Su picor característico proviene de la capsaicina pura.",
-                    sections: [
-                        { title: "Origen y Usos", content: "Introducida en Europa por Colón. Aporta picor directo sin alterar los sabores base del plato. Ideal para guisos, salsas y marinadas." }
-                    ]
-                },
-                {
-                    title: "Clavo de Olor",
-                    flag: "🇮🇩",
-                    category: "dulce",
-                    introduction: "Capullos secos del árbol Syzygium aromaticum, nativo de Indonesia. Posee uno de los aromas más intensos y penetrantes.",
-                    sections: [
-                        { title: "Usos Culinarios", content: "En repostería clásica (pan de especias), almíbares, escabeches y curries. Usar con extrema moderación dado su poder." }
-                    ]
-                },
-                {
-                    title: "Coriandro",
-                    flag: "🌍",
-                    category: "herbal",
-                    introduction: "Proviene de la planta Coriandrum sativum. Las semillas son cálidas y cítricas; las hojas son el cilantro fresco.",
-                    sections: [
-                        { title: "Coriandro vs Cilantro", content: "No son intercambiables en cocina. El coriandro seco es cálido y evoca a la nuez; el cilantro fresco es herbal y penetrante." }
-                    ]
-                },
-                {
-                    title: "Curry",
-                    flag: "🇮🇳",
-                    category: "mezcla",
-                    introduction: "Mezcla occidentalizada de especias indias cuyo nombre proviene del tamil 'kaṟi' (salsa).",
-                    sections: [
-                        { title: "Ingredientes Base", content: "Cilantro, cúrcuma (que le da el color amarillo), comino, alholva, jengibre y ajo." }
-                    ]
-                },
-                {
-                    title: "Garam Masala",
-                    flag: "🇮🇳",
-                    category: "mezcla",
-                    introduction: "'Mezcla caliente' del norte de la India. De sabor marcadamente cálido, reconfortante y aromático.",
-                    sections: [
-                        { title: "Uso correcto", content: "A diferencia del curry, se añade casi al final de la cocción para conservar intacto su perfume volátil." }
-                    ]
-                },
-                {
-                    title: "Jengibre",
-                    flag: "🇮🇳",
-                    category: "herbal",
-                    introduction: "Rizoma subterráneo de la planta Zingiber officinale. De sabor picante, cítrico y muy refrescante.",
-                    sections: [
-                        { title: "Formatos", content: "Fresco: más picante y aromático para salteados. En polvo: más terroso y dulce para panadería." }
-                    ]
-                },
-                {
-                    title: "Merkén",
-                    flag: "🇨🇱",
-                    category: "picante",
-                    introduction: "Condimento tradicional mapuche ahumado de Chile y la Patagonia Argentina. Sabor terroso y cálido.",
-                    sections: [
-                        { title: "Composición", content: "Ají cacho de cabra seco y ahumado en maderas nativas, mezclado con sal y semillas de cilantro tostadas." },
-                        { title: "Usos", content: "Espectacular en cazuelas de mariscos, legumbres, carnes rojas a la parrilla y papas rústicas." }
-                    ]
-                },
-                {
-                    title: "Ras el Hanout",
-                    flag: "🇲🇦",
-                    category: "mezcla",
-                    introduction: "Mezcla marroquí compleja y aromática. Su nombre significa literalmente 'lo mejor de la tienda'.",
-                    sections: [
-                        { title: "Composición", content: "Puede tener más de 30 ingredientes balanceados, incluyendo tradicionalmente pétalos de rosa secos o lavanda." }
-                    ]
-                },
-                {
-                    title: "Shichimi Togarashi",
-                    flag: "🇯🇵",
-                    category: "picante",
-                    introduction: "Conocido como los 'Siete sabores de chile', es una mezcla japonesa picante, cítrica y con sutiles notas marinas.",
-                    sections: [
-                        { title: "Composición", content: "Chile rojo, sansho, piel de naranja tostada, semillas de sésamo, amapola, cáñamo y trozos de alga nori." },
-                        { title: "Platos", content: "Condimento final de mesa para platos calientes como el ramen, udon, yakitori y cazuelas complejas." }
-                    ]
-                }
-            ]
-        };
+    <script src="recetas.js"></script>
+    <script src="especias.js"></script>
 
-        let bookData = INTEGRATED_DATA;
+    <script>
+        let bookData = { recetas: [], glosario: [] };
         let currentState = 'PORTADA';
         let currentIndex = 0;
 
+        function getFlagEmoji(countryCode) {
+            if (!countryCode || countryCode.length !== 2) return countryCode || '';
+            const codePoints = countryCode
+                .toUpperCase()
+                .split('')
+                .map(char =>  127397 + char.charCodeAt(0));
+            return String.fromCodePoint(...codePoints);
+        }
+
         function init() {
-            render();
-            setupGlobalEvents();
+            try {
+                // Leemos las variables globales declaradas en tus archivos .js independientes
+                bookData.recetas = window.RECETAS_DATA || [];
+                bookData.glosario = window.ESPECIAS_DATA || [];
+                render();
+                setupGlobalEvents();
+            } catch (e) {
+                document.getElementById('page-indicator').innerText = "Error de inicialización";
+                console.error(e);
+            }
         }
 
         function render() {
@@ -420,17 +129,20 @@
             
             else if (currentState === 'RECETAS') {
                 const r = bookData.recetas[currentIndex];
+                const imageFile = r.image ? (r.image.includes('/') ? r.image : `fotos-receta/${r.image}`) : '';
+
                 left.innerHTML = `
                     <div class="section-tag">Capítulo I • Recetario</div>
-                    <h1>${r.title}</h1>
-                    <div class="metadata-line">${r.category}</div>
-                    ${r.image ? `<img src="${r.image}" class="item-image" onerror="this.style.display='none';">` : ''}
+                    <h1>${r.title || r.titulo || 'Receta sin título'}</h1>
+                    <div class="metadata-line">${r.category || 'Plato Principal'}</div>
+                    ${imageFile ? `<img src="${imageFile}" class="item-image" onerror="this.style.display='none';">` : ''}
                     <h2>Ingredientes</h2>
-                    <ul>${r.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                    <ul>${r.ingredients ? r.ingredients.map(i => `<li>${i}</li>`).join('') : ''}</ul>
                 `;
                 
-                const pasosArr = r.instructions.split(',');
-                const pasosHtml = pasosArr.map(paso => paso.trim() ? `<li>${paso.trim()}</li>` : '').join('');
+                const pasosRaw = r.instructions || '';
+                const pasosArr = pasosRaw.includes(',') ? pasosRaw.split(',') : pasosRaw.split('\n');
+                const pasosHtml = pasosArr.map(p => p.trim() ? `<li>${p.trim()}</li>` : '').join('');
                 
                 right.innerHTML = `
                     <div class="metadata-line" style="text-align:right">Preparación</div>
@@ -453,12 +165,15 @@
 
             else if (currentState === 'GLOSARIO') {
                 const e = bookData.glosario[currentIndex];
+                const flagShow = (e.flag && e.flag.length === 2) ? getFlagEmoji(e.flag) : (e.flag || '');
+                const imageFile = e.image ? (e.image.includes('/') ? e.image : `fotos-receta/${e.image}`) : '';
+
                 left.innerHTML = `
                     <div class="section-tag">Capítulo II • Glosario</div>
-                    <h1>${e.title} ${e.flag || ''}</h1>
-                    <div class="metadata-line">Perfil: ${e.category}</div>
-                    ${e.image ? `<img src="${e.image}" class="item-image" onerror="this.style.display='none';">` : ''}
-                    <p><em>${e.introduction}</em></p>
+                    <h1>${e.title} ${flagShow}</h1>
+                    <div class="metadata-line">Perfil: ${e.category || 'Aromática'}</div>
+                    ${imageFile ? `<img src="${imageFile}" class="item-image" onerror="this.style.display='none';">` : ''}
+                    <p><em>${e.introduction || ''}</em></p>
                 `;
                 let secHtml = e.sections ? e.sections.map(s => `<h2>${s.title}</h2><p>${s.content}</p>`).join('') : '';
                 right.innerHTML = `<div class="metadata-line" style="text-align:right">Análisis Técnico</div>${secHtml}`;
