@@ -7,6 +7,9 @@
     <link rel="apple-touch-icon" href="libro.jpg">
     <meta name="theme-color" content="#FF5733">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+
     <style>
         body {
             background-color: #dcd6cd;
@@ -17,7 +20,7 @@
             min-height: 100vh;
         }
         .book-container {
-            display: flex; width: 100%; max-width: 1200px; min-height: 650px;
+            display: flex; width: 100%; max-width: 1200px; min-height: 670px;
             background-color: #fcfbfa; box-shadow: 0 12px 35px rgba(0,0,0,0.3);
             border-radius: 4px; overflow: hidden; position: relative; margin-bottom: 20px;
         }
@@ -32,6 +35,10 @@
         }
         .page-left { border-right: 1px solid rgba(0,0,0,0.05); }
         .page-right { border-left: 1px solid rgba(0,0,0,0.05); padding-left: 60px; }
+        
+        /* Forzamos el uso de Noto Color Emoji solo en los títulos con banderas */
+        .flag-emoji { font-family: 'Noto Color Emoji', 'Georgia', serif; font-size: 0.9em; }
+
         .cover-page {
             width: 100%; height: 100%; display: flex; flex-direction: column;
             justify-content: center; align-items: center; text-align: center; margin: auto;
@@ -44,7 +51,7 @@
         .metadata-line { font-size: 9.5pt; text-transform: uppercase; letter-spacing: 1px; color: #7a6855; border-bottom: 1px solid #e2dacd; padding-bottom: 12px; margin-bottom: 20px; }
         h2 { font-size: 11pt; text-transform: uppercase; color: #5c1d1d; border-bottom: 1px dashed #e2dacd; padding-bottom: 4px; margin-top: 20px; }
         .item-image {
-            width: 100%; max-height: 250px; object-fit: cover; border-radius: 4px;
+            width: 100%; max-height: 230px; object-fit: cover; border-radius: 4px;
             margin: 15px 0; border: 1px solid #e2dacd; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         p, li { color: #2c2520; line-height: 1.6; font-size: 11pt; text-align: justify; }
@@ -148,7 +155,7 @@
                     category: "Dulces/Mermeladas",
                     image: "dulce_membrillo.jpg",
                     ingredients: ["Membrillos: 1.300 g", "Azúcar blanco: 230g", "Endulzante Hileret: 190g"],
-                    instructions: "Pelar y cortar los membrillos en trozos (reservando los carozos) y llevar al microondas por 10 minutos, Retirar y poner en un bol de vidrio junto con el azúcar; los carozos envueltos en gasa limpia y el endulzante, Llevar al microondas durante 20 minutos revolviendo cada 5 minutos, Poner en molde de vidrio; dejar enfriar y desmoldar. Dejar estacionar por 15 a 20 días",
+                    instructions: "Pelar y cortar los membrillos en trozos (reservando los carozos) y llevar al microondas por 10 minutos, Retirar hives y poner en un bol de vidrio junto con el azúcar; los carozos envueltos en gasa limpia y el endulzante, Llevar al microondas durante 20 minutos revolviendo cada 5 minutos, Poner en molde de vidrio; dejar enfriar y desmoldar. Dejar estacionar por 15 a 20 días",
                     authorComments: "Antes de ponerlo en el molde de vidrio podés agregarle unas nueces mariposa."
                 },
                 {
@@ -156,7 +163,7 @@
                     category: "Acompañamiento",
                     image: "pimientos_agridulces.jpg",
                     ingredients: ["Pimiento rojo, verde y amarillo (1 de c/u)", "Azúcar: 1 taza, vinagre: 1 taza, aceite: 1 taza", "Granos de pimienta y laurel (opcional)"],
-                    instructions: "Lavar los morrones y cortarlos en tiras de 1 cm de ancho aproximadamente, Ponerlos en una olla y agregar el vinagre; el azúcar; el aceite; la pimienta y el laurel, Llevar a fuego fuerte tapado hasta que hierva; luego destapar parcialmente la olla, Cuando alcancen la consistencia deseada (se sugieren un poco crujientes); retirar del fuego y entibiar, Enfrascar siempre dejando 1cm de aceite por encima de los morrones, Poner el frasco cabeza abajo por media hora para generar vacío hermético",
+                    instructions: "Lavar los morrones y cortarlos en tiras de 1 cm de ancho aproximadamente, Ponerlos en una olla y agregar el vinagre; el azúcar; el aceite; la pimienta y el laurel, Llevar a fuego fuerte tapado hasta que hierva; luego destapar parcialmente la olla, Cuando alcancen la consideras deseada (se sugieren un poco crujientes); retirar del fuego y entibiar, Enfrascar siempre dejando 1cm de aceite por encima de los morrones, Poner el frasco cabeza abajo por media hora para generar vacío hermético",
                     authorComments: "Se pueden comer desde el primer momento, pero mejoran con el tiempo (de 7 a 10 días mínimo). Ideal para acompañar carnes asadas o a la plancha. También van muy bien con cerdo."
                 },
                 {
@@ -234,113 +241,133 @@
             ],
             glosario: [
                 {
-                    title: "Anís Estrellado", flag: "🇨🇳", category: "aromatico",
-                    introduction: "Fruto en forma de estrella del árbol 'Illicium verum', nativo del sur de China. Sabor distintivo a regaliz, pero más cálido y dulce.",
+                    title: "Anís Estrellado", flag: "🇨🇳", category: "Aromático",
+                    introduction: "Fruto en forma de estrella del árbol 'Illicium verum', nativo del sur de China. Tiene un sabor distintivo a regaliz, pero es más cálido, dulce y profundo que el anís común.",
                     sections: [
-                        { title: "Origen y Apariencia", content: "Originario del sur de China, Corea y Japón. Es el pericarpio seco del fruto, que forma una estrella de 8 puntas." },
-                        { title: "Usos en la Cocina", content: "Ingrediente esencial en el 'Polvo de Cinco Especias' chino y en la sopa vietnamita Pho. Excelente para aromatizar caldos y guisos." }
+                        { title: "Origen y Apariencia", content: "Originario del sur de China, Corea y Japón. Es el pericarpio seco del fruto, que forma una estrella de 8 puntas. Cada punta contiene una semilla brillante." },
+                        { title: "Usos en la Cocina", content: "Ingrediente esencial en el 'Polvo de Cinco Especias' chino y en la sopa vietnamita Pho. Excelente para aromatizar caldos, guisos, carnes braseadas y en infusiones." },
+                        { title: "Anís Estrellado vs. Anís Verde", content: "No están relacionados botánicamente. El estrellado es más robusto y ligeramente amargo; el verde, más suave y herbáceo." }
                     ]
                 },
                 {
-                    title: "Bahārāt", flag: "🌍", category: "mezcla",
-                    introduction: "Bahārāt (significa «especias» en árabe) es una mezcla de Oriente Medio. Cálido y aromático con notas terrosas.",
+                    title: "Bahārāt", flag: "🌍", category: "Mezcla",
+                    introduction: "Bahārāt (que significa «especias» en árabe) es una mezcla de especias utilizada en Oriente Medio. Es cálido y aromático con fuertes notas terrosas y ahumadas.",
                     sections: [
                         { title: "Composición Típica", content: "Pimienta negra, cilantro, pimentón, cardamomo, nuez moscada, comino, clavos y canela." },
-                        { title: "Usos en la Cocina", content: "Ideal para cordero, pollo, pescado, sopas y arroces. Es el condimento estrella de las empanadas árabes." }
+                        { title: "Historia y Origen", content: "Se desarrolló a partir del comercio de especias árabe. La versión turca lleva menta; la tunecina, capullos de rosa." },
+                        { title: "Usos en la Cocina", content: "Ideal para cordero, pollo, pescado, sopas y arroces. Excelente en hamburguesas o vegetales a la parrilla." }
                     ]
                 },
                 {
-                    title: "Canela", flag: "🇱🇰", category: "dulce",
+                    title: "Canela", flag: "🇱🇰", category: "Dulce",
                     introduction: "Una de las especias más antiguas y utilizadas del mundo. Su aroma dulce y cálido es inconfundible.",
                     sections: [
                         { title: "Variedades Principales", content: "Canela de Ceilán (más suave y aromática) y Cassia (más común y robusta)." },
-                        { title: "Usos en la Cocina", content: "Fundamental en repostería, bebidas calientes y platos salados de Oriente Medio, India y México." }
+                        { title: "Usos en la Cocina", content: "Fundamental en repostería, bebidas calientes y platos salados de cocinas de Oriente Medio, India y México." },
+                        { title: "Un Toque Extra", content: "Una pizca en guisos de tomate reduce la acidez y añade profundidad al sabor." }
                     ]
                 },
                 {
-                    title: "Cardamomo", flag: "🇮🇳", category: "herbal",
+                    title: "Cardamomo", flag: "🇮🇳", category: "Herbal",
                     introduction: "Conocido como la 'Reina de las Especias', tiene un sabor complejo con notas cítricas y mentoladas.",
                     sections: [
                         { title: "Variedades", content: "Verde (aromático y versátil) y negro (ahumado e intenso)." },
-                        { title: "Usos en la Cocina", content: "Esencial en el té chai indio, café árabe y curries. En repostería brilla en bollos escandinavos." }
+                        { title: "Usos en la Cocina", content: "Esencial en el té chai indio, café árabe y curries. En repostería brilla en bollos escandinavos." },
+                        { title: "Consejo de Chef", content: "Comprá vainas enteras y molé las semillas justo antes de usar." }
                     ]
                 },
                 {
-                    title: "Cayena", flag: "🇬🇫", category: "picante",
+                    title: "Cayena", flag: "🇬🇫", category: "Picante",
                     introduction: "Pimiento muy picante originario de América. Su picor proviene de la capsaicina.",
                     sections: [
-                        { title: "Origen y Usos", content: "Introducida en Europa por Colón. Aporta picor sin alterar sabores, ideal para guisos, salsas, pizzas y marinadas." }
+                        { title: "Origen y Usos", content: "Introducida en Europa por Colón. Aporta picor sin alterar sabores, ideal para guisos, salsas, pizzas y marinadas." },
+                        { title: "Análisis Técnico", content: "Su picor se mide en la escala Scoville, alcanzando de 30.000 a 50.000 unidades SHU." }
                     ]
                 },
                 {
-                    title: "Clavo de Olor", flag: "🇮🇩", category: "dulce",
-                    introduction: "Capullos secos del árbol Syzygium aromaticum, nativo de Indonesia. Posee uno de los aromas más intensos.",
+                    title: "Clavo de Olor", flag: "🇮🇩", category: "Dulce",
+                    introduction: "Capullos secos del árbol Syzygium aromaticum, nativo de Indonesia. Posee uno de los aromas más intensos y dulces.",
                     sections: [
-                        { title: "Origen e Intensidad", content: "Originario de las Islas Molucas. Su sabor es extremadamente potente: uno o dos clavos bastan para aromatizar un guiso completo." }
+                        { title: "Origen", content: "Originario de las Islas Molucas, motor del comercio de especias europeo." },
+                        { title: "Usos Culinarios", content: "En repostería tradicional (pan de especias), bebidas calientes especiadas y curries. Usar con moderación." },
+                        { title: "Consejo de Chef", content: "Su sabor es extremadamente potente: uno o dos clavos bastan para aromatizar un guiso entero." }
                     ]
                 },
                 {
-                    title: "Coriandro", flag: "🌍", category: "herbal",
-                    introduction: "Proviene de la planta Coriandrum sativum. Las semillas son cálidas y cítricas.",
+                    title: "Coriandro", flag: "🌍", category: "Herbal",
+                    introduction: "Proviene de la planta Coriandrum sativum. Las semillas son cálidas y cítricas; las hojas, frescas y herbáceas.",
                     sections: [
-                        { title: "Coriandro vs Cilantro", content: "No son intercambiables. El coriandro es cálido y a nuez; el cilantro fresco es herbal y potente." }
+                        { title: "Coriandro vs Cilantro", content: "No son intercambiables en preparaciones. El coriandro es cálido y a nuez; el cilantro es fresco y potente." },
+                        { title: "Usos en la Cocina", content: "Clave en curries, salsas mexicanas, mezclas tradicionales (Garam Masala, Ras el Hanout) y cervezas belgas." },
+                        { title: "Consejo de Chef", content: "Tostar ligeramente las semillas antes de molerlas intensifica exponencialmente su aroma." }
                     ]
                 },
                 {
-                    title: "Curry", flag: "🇮🇳", category: "mezcla",
+                    title: "Curry", flag: "🇮🇳", category: "Mezcla",
                     introduction: "Mezcla india de especias cuyo nombre proviene del tamil 'kaṟi' (salsa).",
                     sections: [
-                        { title: "Ingredientes Base", content: "Cilantro, cúrcuma, comino, alholva, jengibre, ajo, canela y clavo." }
+                        { title: "Ingredientes Base", content: "Cilantro, cúrcuma, comino, alholva, jengibre, ajo, canela y clavo." },
+                        { title: "Diferencia Masala", content: "El curry en polvo es una invención británica; en India cada cocinero crea su propio 'masala' balanceado." },
+                        { title: "Un Toque de Chef", content: "Tostar brevemente las especias en aceite caliente antes de añadir cualquier elemento líquido." }
                     ]
                 },
                 {
-                    title: "Garam Masala", flag: "🇮🇳", category: "mezcla",
-                    introduction: "'Mezcla caliente' del norte de la India. De sabor cálido y aromático.",
+                    title: "Garam Masala", flag: "🇮🇳", category: "Mezcla",
+                    introduction: "'Mezcla caliente' del norte de la India. De sabor marcadamente cálido y aromático.",
                     sections: [
-                        { title: "Uso Culinario", content: "Se añade al final de la cocción para conservar su perfume volátil intacto." }
+                        { title: "Composición Típica", content: "Cilantro, comino, canela, clavo, nuez moscada, cardamomo y pimienta negra." },
+                        { title: "¿Cuándo se Agrega?", content: "Se añade rigurosamente al final de la cocción para conservar intacto su perfume volátil." }
                     ]
                 },
                 {
-                    title: "Jengibre", flag: "🇮🇳", category: "herbal",
+                    title: "Jengibre", flag: "🇮🇳", category: "Herbal",
                     introduction: "Raíz (rizoma) del Zingiber officinale. Sabor picante, cítrico y refrescante.",
                     sections: [
-                        { title: "Usos", content: "Base en sofritos, curries, sopas, bebidas (ginger ale, té) y galletas." }
+                        { title: "Fresco, Seco o en Polvo", content: "Fresco: más picante y aromático. Seco/Polvo: más cálido, plano y terroso." },
+                        { title: "Usos Culinarios", content: "Base en sofritos orientales, curries, sopas, bebidas (ginger ale, té) y galletas dulces." },
+                        { title: "Consejo de Chef", content: "Pelar la raíz con una cuchara pequeña para no desperdiciar pulpa útil." }
                     ]
                 },
                 {
-                    title: "Kashmiri Masala", flag: "🇮🇳", category: "picante",
-                    introduction: "Mezcla suave y colorida de la cocina india. Da color rojo intenso sin exceso de picor.",
+                    title: "Kashmiri Masala", flag: "🇮🇳", category: "Picante",
+                    introduction: "Mezcla suave y colorida de la cocina india. Da un color rojo profundo y vívido sin exceso de picor.",
                     sections: [
-                        { title: "Ingrediente Estrella", content: "Chile de Cachemira molido, suave y de color vibrante." }
+                        { title: "Ingrediente Estrella", content: "Chile de Cachemira molido, de perfil aromático suave y color vibrante." },
+                        { title: "Deggi Mirch vs Kashmiri", content: "El Deggi Mirch es más picante, aunque ambos se utilizan primordialmente para aportar color de forma natural." }
                     ]
                 },
                 {
-                    title: "Merkén", flag: "🇨🇱", category: "picante",
-                    introduction: "Condimento mapuche ahumado de Chile y Argentina. Sabor terroso y cálido.",
+                    title: "Merkén", flag: "🇨🇱", category: "Picante",
+                    introduction: "Condimento mapuche ahumado de Chile y Argentina. Posee un perfil terroso y cálido.",
                     sections: [
                         { title: "Composición", content: "Ají cacho de cabra ahumado con sal y cilantro tostado." },
-                        { title: "Usos en la Cocina", content: "En carnes, legumbres, papas y cazuelas de mariscos." }
+                        { title: "Usos en la Cocina", content: "En platos de carnes rojas, guisados de legumbres, papas rústicas y chocolates." },
+                        { title: "Toque Extra", content: "Mezclar merkén directamente con aceite de oliva y ralladura de limón fresco." }
                     ]
                 },
                 {
-                    title: "Páprika", flag: "🇭🇺", category: "dulce",
+                    title: "Páprika", flag: "🇭🇺", category: "Dulce",
                     introduction: "Pimiento rojo molido, esencial en la cocina húngara.",
                     sections: [
-                        { title: "Tipos y Consejos", content: "Édes (dulce), Csípős (picante) y Füstölt (ahumada). No añadir a aceite hirviendo: se quema." }
+                        { title: "Tipos", content: "Édes (dulce), Csípős (picante) y Füstölt (ahumada)." },
+                        { title: "Usos en la Cocina", content: "Ingrediente clave del Goulash tradicional y de un sinfín de guisos europeos." },
+                        { title: "Consejo de Chef", content: "No añadir directamente a aceite muy caliente: se quema con facilidad y se vuelve amargo." }
                     ]
                 },
                 {
-                    title: "Ras el Hanout", flag: "🇲🇦", category: "mezcla",
-                    introduction: "Mezcla marroquí compleja y aromática. Significa 'lo mejor de la tienda'.",
+                    title: "Ras el Hanout", flag: "🇲🇦", category: "Mezcla",
+                    introduction: "Mezcla marroquí compleja y aromática. Significa literalmente 'lo mejor de la tienda'.",
                     sections: [
-                        { title: "Composición", content: "Puede tener más de 30 ingredientes, incluidos pétalos de rosa secos o flores de lavanda." }
+                        { title: "Composición y Sabor", content: "Puede tener más de 30 ingredientes seleccionados, incluidos capullos de rosa secos o lavanda." },
+                        { title: "Usos en la Cocina", content: "Esencial en tajines complejos, cuscús aromatizado y carnes asadas al carbón." }
                     ]
                 },
                 {
-                    title: "Shichimi Togarashi", flag: "🇯🇵", category: "picante",
-                    introduction: "'Siete sabores de chile', mezcla japonesa picante, cítrica y con sésamo.",
+                    title: "Shichimi Togarashi", flag: "🇯🇵", category: "Picante",
+                    introduction: "'Siete sabores de chile', mezcla japonesa picante, cítrica y con notas oleosas de sésamo.",
                     sections: [
-                        { title: "Composición Típica", content: "Chile rojo, sansho, piel de naranja, sésamo, amapola, cáñamo y alga nori." }
+                        { title: "Composición Típica", content: "Chile rojo, sansho, piel de naranja, sésamo, amapola, cáñamo y alga nori." },
+                        { title: "Usos en la Cocina", content: "Condimento final de plato para ramen, fideos udon, brochetas yakitori y tempura." }
                     ]
                 }
             ]
@@ -362,7 +389,6 @@
 
             if (!left || !right || !indicator) return;
 
-            // Limpiamos contenidos previos para evitar congelamientos estéticos
             left.innerHTML = '';
             right.innerHTML = '';
 
@@ -408,7 +434,7 @@
                     <div class="cover-title" style="font-size:35pt">Glosario de Especias</div>
                 </div>`;
                 right.innerHTML = `<div class="cover-page">
-                    <p style="max-width:300px; font-style:italic; color:#8c7662">Estudio de los pilares aromáticos y botánicos que definen nuestra identidad gastronomía.</p>
+                    <p style="max-width:300px; font-style:italic; color:#8c7662">Estudio de los pilares aromáticos y botánicos que definen nuestra identidad gastronómica.</p>
                 </div>`;
                 indicator.innerText = "SECCIÓN: ESPECIAS";
             }
@@ -418,7 +444,7 @@
 
                 left.innerHTML = `
                     <div class="section-tag">Capítulo II • Glosario</div>
-                    <h1>${e.title} ${e.flag}</h1>
+                    <h1>${e.title} <span class="flag-emoji">${e.flag}</span></h1>
                     <div class="metadata-line">Perfil: ${e.category}</div>
                     <p><em>${e.introduction}</em></p>
                 `;
@@ -429,48 +455,27 @@
         }
 
         function goForward() {
-            if (currentState === 'PORTADA') { 
-                currentState = 'RECETAS'; 
-                currentIndex = 0; 
-            }
+            if (currentState === 'PORTADA') { currentState = 'RECETAS'; currentIndex = 0; }
             else if (currentState === 'RECETAS') {
-                if (currentIndex < bookData.recetas.length - 1) {
-                    currentIndex++;
-                } else { 
-                    currentState = 'SEPARADOR'; 
-                    currentIndex = 0; 
-                }
+                if (currentIndex < bookData.recetas.length - 1) currentIndex++;
+                else { currentState = 'SEPARADOR'; currentIndex = 0; }
             }
-            else if (currentState === 'SEPARADOR') { 
-                currentState = 'GLOSARIO'; 
-                currentIndex = 0; 
-            }
+            else if (currentState === 'SEPARADOR') { currentState = 'GLOSARIO'; currentIndex = 0; }
             else if (currentState === 'GLOSARIO') {
-                if (currentIndex < bookData.glosario.length - 1) {
-                    currentIndex++;
-                }
+                if (currentIndex < bookData.glosario.length - 1) currentIndex++;
             }
             render();
         }
 
         function goBack() {
             if (currentState === 'GLOSARIO') {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                } else { 
-                    currentState = 'SEPARADOR'; 
-                }
+                if (currentIndex > 0) currentIndex--;
+                else { currentState = 'SEPARADOR'; }
             }
-            else if (currentState === 'SEPARADOR') { 
-                currentState = 'RECETAS'; 
-                currentIndex = bookData.recetas.length - 1; 
-            }
+            else if (currentState === 'SEPARADOR') { currentState = 'RECETAS'; currentIndex = bookData.recetas.length - 1; }
             else if (currentState === 'RECETAS') {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                } else { 
-                    currentState = 'PORTADA'; 
-                }
+                if (currentIndex > 0) currentIndex--;
+                else { currentState = 'PORTADA'; }
             }
             render();
         }
