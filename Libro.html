@@ -220,51 +220,82 @@
         let currentSection = 'recetas';
         let currentIndex = 0;
 
-        async function loadBookData() {
+        function loadBookData() {
             try {
-                // Para conectar tu archivo JSON real, descomenta las siguientes líneas:
-                // const response = await fetch('recetas.json');
-                // bookData = await response.json();
-                
-                // Datos de prueba integrados:
+                // He integrado el contenido real de tus archivos recetario y glosario para ahorrarte tiempo:
                 bookData = {
                     recetas: [
                         {
                             titulo: "Empanadas de Osobuco Braseado",
                             subtitulo: "Entrante Tradicional Premium",
-                            meta: "Rendimiento: 2 docenas • Tiempo: 200 min",
+                            meta: "Categoría: Entrante, Plato Principal",
                             ingredientes: [
-                                "1.5 kg de Osobuco de ternera con buen caracú.",
-                                "Discos de masa criolla o de hojaldre para horno.",
-                                "Cebolla blanca, puerro y zanahoria madura.",
-                                "Caldo concentrado de carne y vino tinto para desglasar.",
-                                "Cebolla de verdeo picada y <span class='glossary-link' onclick='jumpToSpecie("Pimienta Rosa")'>Pimienta Rosa</span> (Aguaribay) molida."
+                                "1 Kg de osobuco",
+                                "8 cebollas",
+                                "1 pimiento rojo mediano",
+                                "Parte verde del verdeo c/n",
+                                "Salsa Yasgua: 2 tomates perita, Ají locoto a gusto, 2 cdas Vinagre, Sal y aceite de oliva a gusto."
                             ],
-                            preparacion: "<p>1. Sellar las rodajas de osobuco en una cacerola con aceite bien caliente hasta generar una buena costra.</p><p>2. Retirar la carne, rehogar los vegetales picados y desglasar el fondo con vino tinto. Reincorporar el osobuco junto con el caldo.</p><p>3. Tapar herméticamente y llevar a horno bajo por un mínimo de 3 horas. Desmenuzar la carne, mezclar con el fondo reducido y dejar enfriar.</p><p>4. Rellenar los discos de masa, hacer el repulgue y hornear a máxima temperatura.</p>",
-                            notas: "Para lograr la textura de la foto tradicional, pincelá la masa con huevo y una pizca de pimentón dulce antes del horneado."
+                            preparacion: "<p>1. Salpimentar el osobuco y dorar en la olla. Agregar 3 cebollas en mitades y c/n de agua.</p><p>2. Llevar a hervor por 3 horas aprox. Dejar enfriar y desmechar el osobuco. Reservar el caldo.</p><p>3. Cortar y rehogar las cebollas restantes con el pimiento. Cuando estén cristalinas, agregar el osobuco, abundante pimentón dulce, ají molido y comino. Cubrir con caldo.</p><p>4. Dejar enfriar. Armar las empanadas con la parte verde del verdeo cruda por encima. Hornear a máximo hasta dorar.</p>",
+                            notas: "Para la salsa yasgua: Rallar los tomates previamente pelados, condimentar con sal, el locoto, el vinagre y aceite de oliva. Comer agregando la yasgua o con jugo de limón."
+                        },
+                        {
+                            titulo: "Cazuela de Mariscos",
+                            subtitulo: "Sabores del Mar",
+                            meta: "Categoría: Plato Principal",
+                            ingredientes: [
+                                "250g camarones, 250g mejillones, 250g langostinos, 250g anillos de calamar, 200g berberechos",
+                                "1 cebolla, 2 dientes de ajo, 1 pimiento morrón rojo, 1 tomate",
+                                "150 ml de vino blanco, 500 ml de caldo de verdura, 1 hoja de laurel",
+                                "Pimienta negra a gusto, 1 cdita de <span class='glossary-link' onclick='jumpToSpecie(\"Shichimi Togarashi\")'>Shichimi Togarashi</span>",
+                                "2 cditas de <span class='glossary-link' onclick='jumpToSpecie(\"Merkén\")'>Merkén</span>, Aceite de oliva c/n"
+                            ],
+                            preparacion: "<p>1. Limpiar los frutos de mar y reservar. Aparte picar la cebolla, el ajo y el morrón y sofreír en una olla con aceite de oliva y sal.</p><p>2. Picar el tomate y añadir a la preparación; cocinar 10 minutos.</p><p>3. Añadir el vino blanco, el caldo, el laurel, la pimienta y el Shichimi; corregir sazón.</p><p>4. Añadir los anillos de calamar. Cocinar 2 o 3 minutos y agregar el resto de los mariscos. Cocinar por 10 minutos más cuidando la cocción.</p>",
+                            notas: "Se puede servir sobre un 'colchón' de arroz blanco. Acompañar con un vino Chardonnay bien frío entre 4 y 6°C."
+                        },
+                        {
+                            titulo: "Empanadas Árabes (Sfijas o Fatay)",
+                            subtitulo: "Cocina Internacional",
+                            meta: "Categoría: Entrante, Plato Principal",
+                            ingredientes: [
+                                "1 Kg de carne molida",
+                                "2 cebollas grandes, 1 morrón rojo chico, 1 morrón verde chico, 2 tomates perita, 2 dientes de ajo",
+                                "Menta, cilantro y perejil c/n",
+                                "1 cucharada de <span class='glossary-link' onclick='jumpToSpecie(\"Bahārat\")'>Bahārat</span>",
+                                "2 cucharaditas de sal, El jugo de 6 limones"
+                            ],
+                            preparacion: "<p>1. Picar finamente las cebollas, los tomates, los pimientos y el buqué de hierbas frescas. Reservar.</p><p>2. Colocar en un bol grande la carne molida y agregarle las verduras ya cortadas, el Bahārat, la sal y el jugo de los 6 limones.</p><p>3. Tapar con film y dejar reposar en frío como mínimo 2 horas para que la carne se cocine en el ácido cítrico.</p><p>4. Comenzar a armar las empanadas abiertas o en triángulo. Llevar a horno máximo (180°C o más) hasta dorar.</p>",
+                            notes: "Si no tenés Bahārat, podés reemplazarlo usando una mezcla casera de: comino, canela, coriandro, cardamomo, pimienta y pimentón."
                         }
                     ],
                     glosario: [
                         {
-                            elemento: "Pimienta Rosa",
-                            botanica: "Schinus molle",
-                            origen: "Sudamérica (Cultivada y nativa en Argentina del árbol de Aguaribay)",
-                            descripcion: "<p>A diferencia de las pimientas tradicionales, no proviene de la familia Piper nigrum. Sus granos son drupas rojizas que aportan un aroma fresco, resinoso, frutado y con un nivel de picor sumamente sutil.</p>",
-                            maridaje: "Excelente para balancear los sabores intensos y grasas de carnes rojas de cocción prolongada o braseados rústicos."
+                            elemento: "Bahārat",
+                            botanica: "Mezcla de Especias de Oriente Medio",
+                            origen: "Comercio de especias árabe",
+                            descripcion: "<p>Significa literalmente «especias» en árabe. Es una mezcla cálida, aromática, con fuertes notas terrosas y ligeramente ahumadas que definen los guisados de la región.</p>",
+                            maridaje: "Composición típica: pimienta negra, cilantro, pimentón, cardamomo, nuez moscada, comino, clavos y canela. Ideal para cordero, pollo o las famosas Sfijas."
                         },
                         {
-                            elemento: "Anís Estrellado",
-                            botanica: "Illicium verum",
-                            origen: "Nativo de China meridional, Corea y Japón",
-                            descripcion: "<p>Fruto en forma de estrella de ocho puntas que contiene un marcado aroma anisado gracias al anetol. Es un pilar fundamental de la cocina oriental que aporta un perfil dulzón y fragante.</p>",
-                            maridaje: "Ideal para caldos de cocciones lentas, infusiones y almíbares aromáticos."
+                            elemento: "Merkén",
+                            botanica: "Condimento Tradicional Mapuche",
+                            origen: "Chile y Región Patagónica de Argentina",
+                            descripcion: "<p>Un condimento completamente ahumado de sabor terroso, profundo y cálido. Es el alma de la cocina del sur andino.</p>",
+                            maridaje: "Hecho a base de ají 'cacho de cabra' seco y ahumado, mezclado con sal y semillas de cilantro tostadas. Va excelente en cazuelas, carnes rojas y legumbres."
+                        },
+                        {
+                            elemento: "Shichimi Togarashi",
+                            botanica: "Siete Sabores de Japón",
+                            origen: "Japón",
+                            descripcion: "<p>Mezcla japonesa tradicional que aporta un perfil picante, marcadamente cítrico y con notas sutiles a frutos secos y algas marinas.</p>",
+                            maridaje: "Contiene chile rojo, sansho, piel de naranja, sésamo, amapola, cáñamo y alga nori. Es el condimento de mesa ideal para finalizar caldos, ramen, udon o cazuelas complejas."
                         }
                     ]
                 };
 
                 renderPage();
             } catch (error) {
-                console.error("Error al procesar el archivo .json integrado:", error);
+                console.error("Error al procesar los datos integrados:", error);
             }
         }
 
@@ -292,7 +323,7 @@
                     <h2>Procedimiento de Elaboración</h2>
                     <div class="steps-box">${receta.preparacion}</div>
                     <div class="chef-notes">
-                        <strong>Notas del Autor:</strong> ${receta.notas}
+                        <strong>Notas del Autor:</strong> ${receta.notas || receta.notes}
                     </div>
                 `;
 
@@ -311,7 +342,7 @@
                     <div class="specie-box">
                         <table>
                             <tr>
-                                <td class="label">Nombre Científico:</td>
+                                <td class="label">Nombre Técnico:</td>
                                 <td><em>${especia.botanica}</em></td>
                             </tr>
                             <tr>
