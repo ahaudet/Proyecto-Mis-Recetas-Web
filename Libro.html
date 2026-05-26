@@ -212,97 +212,93 @@
     </div>
 
     <script>
-        let bookData = {
-            recetas: [],
-            glosario: []
+        // BASE DE DATOS LOCAL SEGURA (Evita problemas de carga externa)
+        const DATA_SET = {
+            recetas: [
+                {
+                    titulo: "Empanadas de osobuco braseado",
+                    subtitulo: "Entrante Tradicional Premium",
+                    meta: "Categoría: Entrante, Plato Principal",
+                    ingredientes: [
+                        "1 Kg de osobuco [cite: 1]",
+                        "8 cebollas [cite: 1]",
+                        "1 pimiento rojo mediano [cite: 1]",
+                        "Parte verde del verdeo c/n [cite: 1]",
+                        "Para la salsa yasgua: 2 tomates perita, ají locoto a gusto, vinagre 2 cdas, sal y aceite de oliva [cite: 1]"
+                    ],
+                    preparacion: "<p>1. Salpimentar el osobuco y dorar en la olla. Agregar 3 cebollas en mitades y c/n de agua. Llevar a hervor por 3 horas aprox[cite: 1].</p><p>2. Dejar enfriar y desmechar el osobuco. Reservar el caldo. Cortar y rehogar las cebollas restantes con el pimiento rojo[cite: 1].</p><p>3. Cuando estén cristalinas, agregar el osobuco, abundante pimentón dulce, ají molido y comino. Agregar caldo hasta cubrir[cite: 1].</p><p>4. Dejar enfriar. Picar la parte verde de la cebolla de verdeo y colocar por encima. Armar las empanadas y llevar a horno máximo (180°C)[cite: 1].</p>",
+                    notas: "Para la salsa yasgua: Rallar los tomates pelados, condimentar con sal, el locoto, el vinagre y un toque de aceite de oliva[cite: 1]. Comer agregando la yasgua o con jugo de limón[cite: 1]."
+                },
+                {
+                    titulo: "Cazuela de Mariscos",
+                    subtitulo: "Plato de Mar de Alejandro",
+                    meta: "Categoría: Plato Principal",
+                    ingredientes: [
+                        "250 g de camarones, mejillones y langostinos [cite: 1]",
+                        "250 g de anillos de calamar y 200 g de berberechos [cite: 1]",
+                        "1 cebolla, 2 dientes de ajo, 1 pimiento morrón rojo, 1 tomate [cite: 1]",
+                        "150 ml de vino blanco, 500 ml de caldo de verdura, 1 hoja de laurel [cite: 1]",
+                        "Pimienta negra, 1 cdita de <span class='glossary-link' data-target='Shichimi Togarashi'>Shichimi Togarashi</span> y 2 cditas de <span class='glossary-link' data-target='Merkén'>Merkén</span> [cite: 1]"
+                    ],
+                    preparacion: "<p>1. Limpiar los frutos de mar. Aparte picar la cebolla, el ajo y el morrón; sofreír en una olla con aceite de oliva y sal[cite: 1].</p><p>2. Picar el tomate, añadir a la preparación y cocinar 10 minutos[cite: 1].</p><p>3. Añadir el vino blanco, el caldo, el laurel, la pimienta y el Shichimi; corregir sazón[cite: 1].</p><p>4. Añadir los anillos de calamar. Cocinar dos o tres minutos y agregar el resto de los mariscos. Cocinar 10 minutos más[cite: 1].</p>",
+                    notas: "Se puede servir sobre un 'colchón' de arroz blanco. Acompañar con Chardonnay entre 4 y 6°C[cite: 1]."
+                },
+                {
+                    titulo: "Empanadas Árabes, Sfijas o Fatay",
+                    subtitulo: "Especialidad Exótica",
+                    meta: "Categoría: Entrante, Plato Principal",
+                    ingredientes: [
+                        "1 Kg de carne molida, 2 cebollas grandes, 1 morrón rojo [cite: 1]",
+                        "1 morrón verde, 2 tomates perita, 2 dientes de ajo [cite: 1]",
+                        "Menta, cilantro y perejil c/n [cite: 1]",
+                        "1 cucharada de <span class='glossary-link' data-target='Bahārāt'>Bahārāt</span> y 2 cucharaditas de sal [cite: 1]",
+                        "El jugo de 6 limones [cite: 1]"
+                    ],
+                    preparacion: "<p>1. Picar finamente las cebollas, tomates, pimientos y hierbas[cite: 1].</p><p>2. Mezclar en un bol la carne molida con las verduras cortadas, el baharat, sal y el jugo de los 6 limones[cite: 1].</p><p>3. Tapar con film y dejar reposar como mínimo 2 horas[cite: 1].</p><p>4. Armar las empanadas y llevar a horno máximo (180°C) hasta dorar[cite: 1].</p>",
+                    notas: "Si no tenés baharat podés reemplazarlo por estas especias: comino, canela, coriandro, cardamomo, pimienta, pimentón[cite: 1]."
+                }
+            ],
+            glosario: [
+                {
+                    elemento: "Bahārāt",
+                    botanica: "Mezcla de Especias de Oriente Medio [cite: 1]",
+                    origen: "Oriente Medio / Tradición Árabe [cite: 1]",
+                    descripcion: "<p>Significa «especias» en árabe. Es una mezcla cálida y aromática con fuertes notas terrosas y ahumadas[cite: 1]. Versión tradicional tunecina lleva capullos de rosa[cite: 1].</p>",
+                    maridaje: "Se compone de pimienta negra, cilantro, pimentón, cardamomo, nuez moscada, comino, clavos y canela[cite: 1]. Ideal para cordero, pollo y arroces[cite: 1]."
+                },
+                {
+                    elemento: "Merkén",
+                    botanica: "Condimento Mapuche Ahumado [cite: 1]",
+                    origen: "Chile y Argentina [cite: 1]",
+                    descripcion: "<p>Condimento tradicional de origen mapuche. Posee un marcado perfil aromático terroso, rústico y profundamente cálido[cite: 1].</p>",
+                    maridaje: "Composición básica: Ají cacho de cabra ahumado con sal y cilantro tostado[cite: 1]. Va excelente en carnes, legumbres, papas y cazuelas[cite: 1]."
+                },
+                {
+                    elemento: "Shichimi Togarashi",
+                    botanica: "Siete Sabores de Chile [cite: 1]",
+                    origen: "Japón [cite: 1]",
+                    descripcion: "<p>Mezcla japonesa picante, marcadamente cítrica y con notas oleosas de sésamo y algas marinas[cite: 1].</p>",
+                    maridaje: "Compuesto por chile rojo, sansho, piel de naranja, sésamo, amapola, cáñamo y alga nori[cite: 1]. Condimento final para caldos, ramen, udon y tempura[cite: 1]."
+                }
+            ]
         };
-        
+
+        let bookData = DATA_SET;
         let currentSection = 'recetas';
         let currentIndex = 0;
 
         function loadBookData() {
-            try {
-                // He integrado el contenido real de tus archivos recetario y glosario para ahorrarte tiempo:
-                bookData = {
-                    recetas: [
-                        {
-                            titulo: "Empanadas de Osobuco Braseado",
-                            subtitulo: "Entrante Tradicional Premium",
-                            meta: "Categoría: Entrante, Plato Principal",
-                            ingredientes: [
-                                "1 Kg de osobuco",
-                                "8 cebollas",
-                                "1 pimiento rojo mediano",
-                                "Parte verde del verdeo c/n",
-                                "Salsa Yasgua: 2 tomates perita, Ají locoto a gusto, 2 cdas Vinagre, Sal y aceite de oliva a gusto."
-                            ],
-                            preparacion: "<p>1. Salpimentar el osobuco y dorar en la olla. Agregar 3 cebollas en mitades y c/n de agua.</p><p>2. Llevar a hervor por 3 horas aprox. Dejar enfriar y desmechar el osobuco. Reservar el caldo.</p><p>3. Cortar y rehogar las cebollas restantes con el pimiento. Cuando estén cristalinas, agregar el osobuco, abundante pimentón dulce, ají molido y comino. Cubrir con caldo.</p><p>4. Dejar enfriar. Armar las empanadas con la parte verde del verdeo cruda por encima. Hornear a máximo hasta dorar.</p>",
-                            notas: "Para la salsa yasgua: Rallar los tomates previamente pelados, condimentar con sal, el locoto, el vinagre y aceite de oliva. Comer agregando la yasgua o con jugo de limón."
-                        },
-                        {
-                            titulo: "Cazuela de Mariscos",
-                            subtitulo: "Sabores del Mar",
-                            meta: "Categoría: Plato Principal",
-                            ingredientes: [
-                                "250g camarones, 250g mejillones, 250g langostinos, 250g anillos de calamar, 200g berberechos",
-                                "1 cebolla, 2 dientes de ajo, 1 pimiento morrón rojo, 1 tomate",
-                                "150 ml de vino blanco, 500 ml de caldo de verdura, 1 hoja de laurel",
-                                "Pimienta negra a gusto, 1 cdita de <span class='glossary-link' onclick='jumpToSpecie(\"Shichimi Togarashi\")'>Shichimi Togarashi</span>",
-                                "2 cditas de <span class='glossary-link' onclick='jumpToSpecie(\"Merkén\")'>Merkén</span>, Aceite de oliva c/n"
-                            ],
-                            preparacion: "<p>1. Limpiar los frutos de mar y reservar. Aparte picar la cebolla, el ajo y el morrón y sofreír en una olla con aceite de oliva y sal.</p><p>2. Picar el tomate y añadir a la preparación; cocinar 10 minutos.</p><p>3. Añadir el vino blanco, el caldo, el laurel, la pimienta y el Shichimi; corregir sazón.</p><p>4. Añadir los anillos de calamar. Cocinar 2 o 3 minutos y agregar el resto de los mariscos. Cocinar por 10 minutos más cuidando la cocción.</p>",
-                            notas: "Se puede servir sobre un 'colchón' de arroz blanco. Acompañar con un vino Chardonnay bien frío entre 4 y 6°C."
-                        },
-                        {
-                            titulo: "Empanadas Árabes (Sfijas o Fatay)",
-                            subtitulo: "Cocina Internacional",
-                            meta: "Categoría: Entrante, Plato Principal",
-                            ingredientes: [
-                                "1 Kg de carne molida",
-                                "2 cebollas grandes, 1 morrón rojo chico, 1 morrón verde chico, 2 tomates perita, 2 dientes de ajo",
-                                "Menta, cilantro y perejil c/n",
-                                "1 cucharada de <span class='glossary-link' onclick='jumpToSpecie(\"Bahārat\")'>Bahārat</span>",
-                                "2 cucharaditas de sal, El jugo de 6 limones"
-                            ],
-                            preparacion: "<p>1. Picar finamente las cebollas, los tomates, los pimientos y el buqué de hierbas frescas. Reservar.</p><p>2. Colocar en un bol grande la carne molida y agregarle las verduras ya cortadas, el Bahārat, la sal y el jugo de los 6 limones.</p><p>3. Tapar con film y dejar reposar en frío como mínimo 2 horas para que la carne se cocine en el ácido cítrico.</p><p>4. Comenzar a armar las empanadas abiertas o en triángulo. Llevar a horno máximo (180°C o más) hasta dorar.</p>",
-                            notes: "Si no tenés Bahārat, podés reemplazarlo usando una mezcla casera de: comino, canela, coriandro, cardamomo, pimienta y pimentón."
-                        }
-                    ],
-                    glosario: [
-                        {
-                            elemento: "Bahārat",
-                            botanica: "Mezcla de Especias de Oriente Medio",
-                            origen: "Comercio de especias árabe",
-                            descripcion: "<p>Significa literalmente «especias» en árabe. Es una mezcla cálida, aromática, con fuertes notas terrosas y ligeramente ahumadas que definen los guisados de la región.</p>",
-                            maridaje: "Composición típica: pimienta negra, cilantro, pimentón, cardamomo, nuez moscada, comino, clavos y canela. Ideal para cordero, pollo o las famosas Sfijas."
-                        },
-                        {
-                            elemento: "Merkén",
-                            botanica: "Condimento Tradicional Mapuche",
-                            origen: "Chile y Región Patagónica de Argentina",
-                            descripcion: "<p>Un condimento completamente ahumado de sabor terroso, profundo y cálido. Es el alma de la cocina del sur andino.</p>",
-                            maridaje: "Hecho a base de ají 'cacho de cabra' seco y ahumado, mezclado con sal y semillas de cilantro tostadas. Va excelente en cazuelas, carnes rojas y legumbres."
-                        },
-                        {
-                            elemento: "Shichimi Togarashi",
-                            botanica: "Siete Sabores de Japón",
-                            origen: "Japón",
-                            descripcion: "<p>Mezcla japonesa tradicional que aporta un perfil picante, marcadamente cítrico y con notas sutiles a frutos secos y algas marinas.</p>",
-                            maridaje: "Contiene chile rojo, sansho, piel de naranja, sésamo, amapola, cáñamo y alga nori. Es el condimento de mesa ideal para finalizar caldos, ramen, udon o cazuelas complejas."
-                        }
-                    ]
-                };
-
-                renderPage();
-            } catch (error) {
-                console.error("Error al procesar los datos integrados:", error);
-            }
+            // Inicializa directo del set seguro para que no se quede colgado
+            renderPage();
+            setupGlobalEvents();
         }
 
         function renderPage() {
             const leftPage = document.getElementById('left-page-content');
             const rightPage = document.getElementById('right-page-content');
             const indicator = document.getElementById('page-indicator');
+
+            if (!leftPage || !rightPage || !indicator) return;
 
             if (currentSection === 'recetas') {
                 const receta = bookData.recetas[currentIndex];
@@ -323,7 +319,7 @@
                     <h2>Procedimiento de Elaboración</h2>
                     <div class="steps-box">${receta.preparacion}</div>
                     <div class="chef-notes">
-                        <strong>Notas del Autor:</strong> ${receta.notas || receta.notes}
+                        <strong>Notas del Autor:</strong> ${receta.notas}
                     </div>
                 `;
 
@@ -342,11 +338,11 @@
                     <div class="specie-box">
                         <table>
                             <tr>
-                                <td class="label">Nombre Técnico:</td>
+                                <td class="label">Nombre Común:</td>
                                 <td><em>${especia.botanica}</em></td>
                             </tr>
                             <tr>
-                                <td class="label">Procedencia Nata:</td>
+                                <td class="label">Procedencia:</td>
                                 <td>${especia.origen}</td>
                             </tr>
                         </table>
@@ -397,13 +393,21 @@
             renderPage();
         }
 
-        function jumpToSpecie(nombreEspecia) {
-            const index = bookData.glosario.findIndex(g => g.elemento.toLowerCase() === nombreEspecia.toLowerCase());
-            if (index !== -1) {
-                currentSection = 'glosario';
-                currentIndex = index;
-                renderPage();
-            }
+        // Sistema dinámico global para los clicks sin romper strings
+        function setupGlobalEvents() {
+            document.body.addEventListener('click', function(e) {
+                if (e.target && e.target.classList.contains('glossary-link')) {
+                    const targetSpice = e.target.getAttribute('data-target');
+                    if (targetSpice) {
+                        const index = bookData.glosario.findIndex(g => g.elemento.toLowerCase() === targetSpice.toLowerCase());
+                        if (index !== -1) {
+                            currentSection = 'glosario';
+                            currentIndex = index;
+                            renderPage();
+                        }
+                    }
+                }
+            });
         }
 
         window.onload = loadBookData;
