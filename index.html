@@ -79,7 +79,6 @@
     </div>
 
     <script>
-        // BASE DE DATOS UNIFICADA (Elimina dependencias externas y archivos .json/.js rotos)
         const BOOK_DATABASE = {
             recetas: [
                 {
@@ -305,7 +304,7 @@
                     title: "Jengibre", flag: "🇮🇳", category: "herbal",
                     introduction: "Raíz (rizoma) del Zingiber officinale. Sabor picante, cítrico y refrescante.",
                     sections: [
-                        { title: "Usos", content: "Base en sofritos, curries, sopas, bebidas (ginger ale, té) y galletas tradicionales de jengibre." }
+                        { title: "Usos", content: "Base en sofritos, curries, sopas, bebidas (ginger ale, té) y galletas." }
                     ]
                 },
                 {
@@ -327,7 +326,7 @@
                     title: "Páprika", flag: "🇭🇺", category: "dulce",
                     introduction: "Pimiento rojo molido, esencial en la cocina húngara.",
                     sections: [
-                        { title: "Tipos y Consejos", content: "Édes (dulce), Csípős (picante) y Füstölt (ahumada). No añadir a aceite hirviendo: se quema e intensifica el amargor." }
+                        { title: "Tipos y Consejos", content: "Édes (dulce), Csípős (picante) y Füstölt (ahumada). No añadir a aceite hirviendo: se quema." }
                     ]
                 },
                 {
@@ -339,7 +338,7 @@
                 },
                 {
                     title: "Shichimi Togarashi", flag: "🇯🇵", category: "picante",
-                    introduction: "'Siete sabores de chile', mezcla japonesa picante, cítrica y con s Sesame.",
+                    introduction: "'Siete sabores de chile', mezcla japonesa picante, cítrica y con sésamo.",
                     sections: [
                         { title: "Composición Típica", content: "Chile rojo, sansho, piel de naranja, sésamo, amapola, cáñamo y alga nori." }
                     ]
@@ -363,6 +362,10 @@
 
             if (!left || !right || !indicator) return;
 
+            // Limpiamos contenidos previos para evitar congelamientos estéticos
+            left.innerHTML = '';
+            right.innerHTML = '';
+
             if (currentState === 'PORTADA') {
                 left.innerHTML = `<div class="cover-page">
                     <div class="cover-subtitle">Libro de Cocina</div>
@@ -377,7 +380,6 @@
             
             else if (currentState === 'RECETAS') {
                 const r = bookData.recetas[currentIndex];
-                // Resolvemos las imágenes apuntando directo a la subcarpeta de forma nativa
                 const finalImgPath = r.image ? `fotos-receta/${r.image}` : '';
 
                 left.innerHTML = `
@@ -406,7 +408,7 @@
                     <div class="cover-title" style="font-size:35pt">Glosario de Especias</div>
                 </div>`;
                 right.innerHTML = `<div class="cover-page">
-                    <p style="max-width:300px; font-style:italic; color:#8c7662">Estudio de los pilares aromáticos y botánicos que definen nuestra identidad gastronómica.</p>
+                    <p style="max-width:300px; font-style:italic; color:#8c7662">Estudio de los pilares aromáticos y botánicos que definen nuestra identidad gastronomía.</p>
                 </div>`;
                 indicator.innerText = "SECCIÓN: ESPECIAS";
             }
@@ -427,27 +429,48 @@
         }
 
         function goForward() {
-            if (currentState === 'PORTADA') { currentState = 'RECETAS'; currentIndex = 0; }
-            else if (currentState === 'RECETAS') {
-                if (currentIndex < bookData.recetas.length - 1) currentIndex++;
-                else { currentState = 'SEPARADOR'; currentIndex = 0; }
+            if (currentState === 'PORTADA') { 
+                currentState = 'RECETAS'; 
+                currentIndex = 0; 
             }
-            else if (currentState === 'SEPARADOR') { currentState = 'GLOSARIO'; currentIndex = 0; }
+            else if (currentState === 'RECETAS') {
+                if (currentIndex < bookData.recetas.length - 1) {
+                    currentIndex++;
+                } else { 
+                    currentState = 'SEPARADOR'; 
+                    currentIndex = 0; 
+                }
+            }
+            else if (currentState === 'SEPARADOR') { 
+                currentState = 'GLOSARIO'; 
+                currentIndex = 0; 
+            }
             else if (currentState === 'GLOSARIO') {
-                if (currentIndex < bookData.glosario.length - 1) currentIndex++;
+                if (currentIndex < bookData.glosario.length - 1) {
+                    currentIndex++;
+                }
             }
             render();
         }
 
         function goBack() {
             if (currentState === 'GLOSARIO') {
-                if (currentIndex > 0) currentIndex--;
-                else { currentState = 'SEPARADOR'; }
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else { 
+                    currentState = 'SEPARADOR'; 
+                }
             }
-            else if (currentState === 'SEPARADOR') { currentState = 'RECETAS'; currentIndex = bookData.recetas.length - 1; }
+            else if (currentState === 'SEPARADOR') { 
+                currentState = 'RECETAS'; 
+                currentIndex = bookData.recetas.length - 1; 
+            }
             else if (currentState === 'RECETAS') {
-                if (currentIndex > 0) currentIndex--;
-                else { currentState = 'PORTADA'; }
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else { 
+                    currentState = 'PORTADA'; 
+                }
             }
             render();
         }
