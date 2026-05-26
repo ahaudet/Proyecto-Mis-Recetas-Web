@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Mis Recetas - Libro Editorial</title>
-    
     <link rel="icon" type="image/png" href="libro.jpg">
     <link rel="apple-touch-icon" href="libro.jpg">
     <meta name="theme-color" content="#FF5733">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <style>
         body {
             background-color: #dcd6cd;
@@ -53,8 +51,6 @@
         }
         .page-left { border-right: 1px solid rgba(0,0,0,0.05); }
         .page-right { border-left: 1px solid rgba(0,0,0,0.05); padding-left: 60px; }
-
-        /* Estilos de Portada */
         .cover-page {
             width: 100%;
             height: 100%;
@@ -63,14 +59,11 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-color: #fcfbfa;
             margin: auto;
         }
         .cover-title { font-size: 50pt; color: #5c1d1d; margin-bottom: 10px; font-weight: normal; }
         .cover-subtitle { font-size: 18pt; color: #8c7662; text-transform: uppercase; letter-spacing: 4px; }
         .cover-author { margin-top: 50px; font-style: italic; color: #7a6855; }
-
-        /* Estilos de Contenido */
         .section-tag { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 2px; color: #8c7662; margin-bottom: 10px; font-weight: bold; }
         h1 { font-size: 26pt; color: #5c1d1d; margin: 0 0 5px 0; font-weight: normal; }
         .metadata-line { font-size: 9.5pt; text-transform: uppercase; letter-spacing: 1px; color: #7a6855; border-bottom: 1px solid #e2dacd; padding-bottom: 12px; margin-bottom: 20px; }
@@ -90,11 +83,11 @@
         ul, ol { padding-left: 20px; margin-top: 5px; }
         li { margin-bottom: 6px; }
         .chef-notes { background-color: #f5efe6; border-left: 3px solid #8c7662; padding: 15px; margin-top: auto; font-style: italic; }
-
         .nav-controls { display: flex; gap: 15px; background: white; padding: 10px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); align-items: center; }
         .nav-btn { background: none; border: 1px solid #8c7662; color: #8c7662; padding: 6px 18px; border-radius: 20px; cursor: pointer; font-family: Arial, sans-serif; }
         .nav-btn:hover { background-color: #8c7662; color: white; }
-
+        .glossary-link { color: #5c1d1d; text-decoration: none; border-bottom: 1px dashed #5c1d1d; cursor: pointer; font-weight: bold; }
+        .glossary-link:hover { background-color: #f5efe6; border-bottom: 1px solid #5c1d1d; }
         @media (max-width: 850px) {
             .book-container { flex-direction: column; min-height: auto; }
             .book-container::after { display: none; }
@@ -118,109 +111,35 @@
     </div>
 
     <script>
-        // DATA INTEGRADA SEGURA - Recetas y Glosario reales unificados
-        const INTEGRATED_DATA = {
-            recetas: [
-                {
-                    title: "Empanadas de osobuco braseado",
-                    category: "Entrante, Plato Principal",
-                    image: "https://images.unsplash.com/photo-1543353071-873f17a7a088?q=80&w=2070",
-                    ingredients: [
-                        "1 Kg de osobuco",
-                        "8 cebollas",
-                        "1 pimiento rojo mediano",
-                        "Parte verde del verdeo c/n",
-                        "Salsa yasgua: 2 tomates perita, ají locoto a gusto, 2 cucharadas de vinagre, sal y aceite de oliva"
-                    ],
-                    instructions: "Salpimentar el osobuco y dorar en la olla, Agregar 3 cebollas en mitades y c/n de agua, Llevar a hervor por 3 horas aprox (controlando el agua), Dejar enfriar y desmechar el osobuco (reservar caldo), Cortar y rehogar las cebollas restantes con el pimiento rojo, Cuando estén cristalinas agregar el osobuco, Salpimentar y agregar abundante pimentón dulce; ají molido y comino, Agregar el caldo hasta que cubra el picadillo, Dejar enfriar (preferentemente hasta el otro día), Picar finamente la parte verde del verdeo y colocar encima, Armar las empanadas y llevar a horno máximo (180°C) hasta dorar",
-                    authorComments: "Para la salsa yasgua: Rallar los tomates pelados, condimentar con sal, el locoto, el vinagre y oliva. Comer agregando la yasgua o con jugo de limón."
-                },
-                {
-                    title: "Alejandro's Pizza",
-                    category: "Plato Principal",
-                    image: "",
-                    ingredients: [
-                        "Prepizza y salsa para pizza c/n",
-                        "Queso mozzarella 200 g",
-                        "Jamón crudo 100 g",
-                        "Cebollas de verdeo c/n",
-                        "Pimiento amarillo; verde y rojo (1/4 de cada uno)",
-                        "1 Tomate redondo",
-                        "Sal especiada, mix de pimientas y provenzal c/n"
-                    ],
-                    instructions: "Cortar las cebollas de verdeo en cuartos y picar finamente, Picar en cubos pequeños los pimientos, Cortar el tomate en finas rodajas, Saltear las cebollas en aceite de oliva y salpimentar, Agregar los pimientos y corregir sazón, Precalentar la pre-pizza con la salsa en horno fuerte, Colocar el salteado de cebolla y morrón, Añadir la mozzarella cortada o rallada y hornear hasta derretir, Cubrir con las fetas de jamón crudo y rodajas de tomate, Salpimentar los tomates y espolvorear provenzal y aceite de oliva, Hornear unos minutos finales y servir"
-                },
-                {
-                    title: "Cazuela de Mariscos",
-                    category: "Plato Principal",
-                    image: "",
-                    ingredients: [
-                        "250 g de camarones, mejillones y langostinos",
-                        "250 g de anillos de calamar y 200 g de berberechos",
-                        "1 cebolla, 2 dientes de ajo y 1 pimiento morrón rojo",
-                        "1 tomate, sal, pimienta negra y aceite de oliva",
-                        "150 ml de vino blanco y 500 ml de caldo de verdura",
-                        "1 hoja de laurel, 1 cdita de Shichimi Togarashi y 2 cditas de Merkén"
-                    ],
-                    instructions: "Limpiar los frutos de mar y reservar, Picar la cebolla; el ajo y el morrón y sofreír en olla con aceite de oliva y sal, Picar el tomate e incorporar cocinando por 10 minutos, Añadir el vino blanco; el caldo; el laurel; la pimienta y el Shichimi Togarashi, Añadir los anillos de calamar y cocinar 2 o 3 minutos, Agregar el resto de los mariscos y cocinar durante 10 minutos más cuidando de no pasarse",
-                    authorComments: "Se puede servir sobre un colchón de arroz blanco. Acompañar con Chardonnay entre 4 y 6°C."
-                },
-                {
-                    title: "Empanadas Árabes, Sfijas o Fatay",
-                    category: "Entrante, Plato Principal",
-                    image: "",
-                    ingredients: [
-                        "Carne molida: 1 Kg",
-                        "2 Cebollas grandes y 1 morrón rojo chico",
-                        "1 Morrón verde chico y 2 tomates perita",
-                        "2 Dientes de ajo, menta, cilantro y perejil c/n",
-                        "Baharat: 1 cucharada, sal: 2 cditas, jugo de 6 limones"
-                    ],
-                    instructions: "Picar finamente las cebollas; los tomates; los pimientos y las hierbas frescas, Colocar en un bol grande la carne molida con los vegetales, Agregar el baharat; la sal y el jugo de los 6 limones enteros, Tapar con film y dejar reposar en la heladera como mínimo 2 horas, Comenzar a armar las empanadas en forma triangular, Llevar a horno máximo (180°C) hasta que queden bien doradas",
-                    authorComments: "Si no tenés baharat podés reemplazarlo por una mezcla casera de: comino, canela, coriandro, cardamomo, pimienta y pimentón."
-                }
-            ],
-            glosario: [
-                {
-                    title: "Anís Estrellado",
-                    flag: "🇨🇳",
-                    category: "aromatico",
-                    introduction: "Fruto en forma de estrella del árbol 'Illicium verum', nativo del sur de China. Tiene un sabor distintivo a regaliz, pero es más cálido, dulce y profundo.",
-                    sections: [
-                        { title: "Origen y Apariencia", content: "Originario del sur de China, Corea y Japón. Es el pericarpio seco del fruto, que forma una estrella de 8 puntas." },
-                        { title: "Usos en la Cocina", content: "Ingrediente esencial en el 'Polvo de Cinco Especias' chino y en la sopa vietnamita Pho. Excelente para caldos." }
-                    ]
-                },
-                {
-                    title: "Bahārāt",
-                    flag: "🌍",
-                    category: "mezcla",
-                    introduction: "Bahārāt (que significa «especias» en árabe) es una mezcla utilizada en Oriente Medio. Es cálida y aromática con fuertes notas terrosas.",
-                    sections: [
-                        { title: "Composición Típica", content: "Pimienta negra, cilantro, pimentón, cardamomo, nuez moscada, comino, clavos y canela." },
-                        { title: "Usos en la Cocina", content: "Ideal para cordero, pollo, pescado, sopas y arroces o el relleno de las empanadas árabes." }
-                    ]
-                },
-                {
-                    title: "Merkén",
-                    flag: "🇨🇱",
-                    category: "picante",
-                    introduction: "Condimento mapuche ahumado de Chile y Argentina. Sabor terroso, rústico y sumamente cálido.",
-                    sections: [
-                        { title: "Composición", content: "Ají cacho de cabra seco y ahumado con sal y cilantro tostado y molido." },
-                        { title: "Usos en la Cocina", content: "En platos de carnes, legumbres, guisados, papas y hasta en chocolates artesanales." }
-                    ]
-                }
-            ]
-        };
-
-        let bookData = INTEGRATED_DATA;
+        let bookData = { recetas: [], glosario: [] };
         let currentState = 'PORTADA';
         let currentIndex = 0;
 
-        function init() {
-            // Carga directa instantánea libre del error CORS
-            render();
+        async function init() {
+            try {
+                const [resR, resE] = await Promise.all([
+                    fetch('recetas.json'),
+                    fetch('especias.json')
+                ]);
+                bookData.recetas = await resR.json();
+                bookData.glosario = await resE.json();
+                render();
+                setupGlobalEvents();
+            } catch (e) {
+                document.getElementById('page-indicator').innerText = "Error al cargar los archivos .json";
+                console.error(e);
+            }
+        }
+
+        // Función inteligente para formatear la ruta de la imagen
+        function getImagePath(imageName) {
+            if (!imageName || imageName.trim() === "") return "";
+            // Si ya incluye la carpeta o es una URL web, la dejamos igual
+            if (imageName.includes('/') || imageName.startsWith('http')) {
+                return imageName;
+            }
+            // Si es solo el nombre del archivo, le inyectamos la carpeta correspondiente
+            return `fotos-receta/${imageName.trim()}`;
         }
 
         function render() {
@@ -244,18 +163,31 @@
             
             else if (currentState === 'RECETAS') {
                 const r = bookData.recetas[currentIndex];
+                const finalImgPath = getImagePath(r.image);
+
                 left.innerHTML = `
                     <div class="section-tag">Capítulo I • Recetario</div>
-                    <h1>${r.title}</h1>
-                    <div class="metadata-line">${r.category}</div>
-                    ${r.image ? `<img src="${r.image}" class="item-image">` : ''}
+                    <h1>${r.title || r.title_recipe || 'Receta sin título'}</h1>
+                    <div class="metadata-line">${r.category || 'Plato Principal'}</div>
+                    ${finalImgPath ? `<img src="${finalImgPath}" class="item-image" onerror="this.style.display='none';">` : ''}
                     <h2>Ingredientes</h2>
-                    <ul>${r.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                    <ul>${r.ingredients ? r.ingredients.map(i => `<li>${i}</li>`).join('') : '<li>No se especificaron ingredientes</li>'}</ul>
                 `;
-                const pasos = r.instructions.split(',').map(paso => `<li>${paso.trim()}</li>`).join('');
+                
+                // Procesador inteligente de instrucciones (acepta comas o saltos de línea)
+                let pasosArr = [];
+                if (r.instructions) {
+                    if (r.instructions.includes(',')) {
+                        pasosArr = r.instructions.split(',');
+                    } else {
+                        pasosArr = r.instructions.split('\n');
+                    }
+                }
+                const pasosHtml = pasosArr.map(paso => paso.trim() ? `<li>${paso.trim()}</li>` : '').join('');
+                
                 right.innerHTML = `
                     <div class="metadata-line" style="text-align:right">Preparación</div>
-                    <ol>${pasos}</ol>
+                    <ol>${pasosHtml || '<li>Consulte las instrucciones del chef.</li>'}</ol>
                     ${r.authorComments ? `<div class="chef-notes">${r.authorComments}</div>` : ''}
                 `;
                 indicator.innerText = `RECETA ${currentIndex + 1} / ${bookData.recetas.length}`;
@@ -274,69 +206,63 @@
 
             else if (currentState === 'GLOSARIO') {
                 const e = bookData.glosario[currentIndex];
-                const imagenHtml = e.image ? `<img src="${e.image}" class="item-image">` : '';
+                const finalImgPath = getImagePath(e.image);
 
                 left.innerHTML = `
                     <div class="section-tag">Capítulo II • Glosario</div>
                     <h1>${e.title} ${e.flag || ''}</h1>
-                    <div class="metadata-line">Perfil: ${e.category}</div>
-                    ${imagenHtml}
-                    <p><em>${e.introduction}</em></p>
+                    <div class="metadata-line">Perfil: ${e.category || 'Especias'}</div>
+                    ${finalImgPath ? `<img src="${finalImgPath}" class="item-image" onerror="this.style.display='none';">` : ''}
+                    <p><em>${e.introduction || ''}</em></p>
                 `;
-                let secHtml = e.sections.map(s => `<h2>${s.title}</h2><p>${s.content}</p>`).join('');
+                let secHtml = e.sections ? e.sections.map(s => `<h2>${s.title}</h2><p>${s.content}</p>`).join('') : '';
                 right.innerHTML = `<div class="metadata-line" style="text-align:right">Análisis Técnico</div>${secHtml}`;
                 indicator.innerText = `ESPECIA ${currentIndex + 1} / ${bookData.glosario.length}`;
             }
         }
 
         function goForward() {
-            if (currentState === 'PORTADA') { 
-                currentState = 'RECETAS'; 
-                currentIndex = 0; 
-            }
+            if (currentState === 'PORTADA') { currentState = 'RECETAS'; currentIndex = 0; }
             else if (currentState === 'RECETAS') {
-                if (currentIndex < bookData.recetas.length - 1) {
-                    currentIndex++;
-                } else { 
-                    currentState = 'SEPARADOR'; 
-                    currentIndex = 0; 
-                }
+                if (currentIndex < bookData.recetas.length - 1) currentIndex++;
+                else { currentState = 'SEPARADOR'; currentIndex = 0; }
             }
-            else if (currentState === 'SEPARADOR') { 
-                currentState = 'GLOSARIO'; 
-                currentIndex = 0; 
-            }
+            else if (currentState === 'SEPARADOR') { currentState = 'GLOSARIO'; currentIndex = 0; }
             else if (currentState === 'GLOSARIO') {
-                if (currentIndex < bookData.glosario.length - 1) {
-                    currentIndex++;
-                }
+                if (currentIndex < bookData.glosario.length - 1) currentIndex++;
             }
             render();
         }
 
         function goBack() {
             if (currentState === 'GLOSARIO') {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                } else { 
-                    currentState = 'SEPARADOR'; 
-                }
+                if (currentIndex > 0) currentIndex--;
+                else { currentState = 'SEPARADOR'; }
             }
-            else if (currentState === 'SEPARADOR') { 
-                currentState = 'RECETAS'; 
-                currentIndex = bookData.recetas.length - 1; 
-            }
+            else if (currentState === 'SEPARADOR') { currentState = 'RECETAS'; currentIndex = bookData.recetas.length - 1; }
             else if (currentState === 'RECETAS') {
-                if (currentIndex > 0) {
-                    currentIndex--;
-                } else { 
-                    currentState = 'PORTADA'; 
-                }
+                if (currentIndex > 0) currentIndex--;
+                else { currentState = 'PORTADA'; }
             }
             render();
         }
 
-        // Evento seguro del DOM para asegurar arranque inmediato
+        function setupGlobalEvents() {
+            document.body.addEventListener('click', function(e) {
+                if (e.target && e.target.classList.contains('glossary-link')) {
+                    const targetSpice = e.target.getAttribute('data-target');
+                    if (targetSpice) {
+                        const index = bookData.glosario.findIndex(g => g.title.toLowerCase() === targetSpice.toLowerCase());
+                        if (index !== -1) {
+                            currentState = 'GLOSARIO';
+                            currentIndex = index;
+                            render();
+                        }
+                    }
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
