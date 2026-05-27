@@ -316,8 +316,18 @@
             else if (p.type === 'GLOSARIO_ITEM') {
                 const e = p.data;
                 
-                // PROTECCIÓN ANTIFALLAS: Si en tu JSON no pusiste "sensory", el motor define ceros automáticos y no se traba
-                const sens = e.sensory || { picante: 0, aromatico: 0, terroso: 0, dulce: 0 };
+                // CONTROL DE GRÁFICOS SEGURO: Si no existe "sensory" en el JSON, oculta el gráfico en vez de trabarse
+                let sensoryHtml = '';
+                if (e.sensory) {
+                    sensoryHtml = `
+                        <h2>Gráfico Sensorial</h2>
+                        <div class="sensory-chart">
+                            <div class="chart-row"><span class="chart-label">Picante</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.picante || 0}%"></div></div></div>
+                            <div class="chart-row"><span class="chart-label">Aromático</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.aromatico || 0}%"></div></div></div>
+                            <div class="chart-row"><span class="chart-label">Terroso</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.terroso || 0}%"></div></div></div>
+                            <div class="chart-row"><span class="chart-label">Dulce</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.dulce || 0}%"></div></div></div>
+                        </div>`;
+                }
 
                 left.innerHTML = `
                     <div class="page-header">
@@ -327,14 +337,7 @@
                     <h1>${e.title} <span class="flag-emoji">${e.flag || ''}</span></h1>
                     <h2>Perfil: ${e.category || 'Aromático'}</h2>
                     <p><em>${e.introduction || ''}</em></p>
-                    
-                    <h2>Gráfico Sensorial</h2>
-                    <div class="sensory-chart">
-                        <div class="chart-row"><span class="chart-label">Picante</span><div class="chart-bar-container"><div class="chart-bar" style="width:${sens.picante}%"></div></div></div>
-                        <div class="chart-row"><span class="chart-label">Aromático</span><div class="chart-bar-container"><div class="chart-bar" style="width:${sens.aromatico}%"></div></div></div>
-                        <div class="chart-row"><span class="chart-label">Terroso</span><div class="chart-bar-container"><div class="chart-bar" style="width:${sens.terroso}%"></div></div></div>
-                        <div class="chart-row"><span class="chart-label">Dulce</span><div class="chart-bar-container"><div class="chart-bar" style="width:${sens.dulce}%"></div></div></div>
-                    </div>`;
+                    ${sensoryHtml}`;
 
                 let secHtml = e.sections ? e.sections.map(s => `<h2>${s.title}</h2><p>${s.content}</p>`).join('') : '';
                 
