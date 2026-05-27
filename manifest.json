@@ -1,15 +1,16 @@
 {
-  "name": "Mi Libro Digital",
-  "short_name": "Libro",
-  "start_url": "index.html",
+  "name": "Mis Recetas y Especias",
+  "short_name": "MisRecetas",
+  "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#1a1a1a",
-  "theme_color": "#1a1a1a",
+  "background_color": "#dcd6cd",
+  "theme_color": "#5c1d1d",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "libro.jpg",
       "sizes": "512x512",
-      "type": "image/jpg"
+      "type": "image/jpeg"
     }
   ]
 }
