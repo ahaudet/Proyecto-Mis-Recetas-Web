@@ -5,7 +5,6 @@
     "flag": "🇦🇷",
     "category": "picante",
     "introduction": "Fruto desecado y triturado del genero Capsicum, pilar indiscutido de la identidad gastronomica de la region rioplatense andina y la cocina criolla.",
-    "sensory": { "picante": 60, "aromatico": 40, "terroso": 50, "dulce": 30 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -13,7 +12,7 @@
       },
       {
         "title": "Perfil Sensorial",
-        "content": "A diferencia de chiles con pungencias extremas, se caracteriza por un picor moderado y amigable al paladar. Presenta un perfil complejo que equilibra notas sutilmente dulces, frutales y un marcado ahumado natural derivado de sus metodos de deshidratacion. Su textura no es un polvo fino, sino un triturado rustico con presencia dinamica de escamas rojas y pepitas blanquecinas que aportan textura."
+        "content": "A diferencia de chiles con pungencias extremas, se caracteriza por un picor moderado y amigable al paladar. Presenta un perfil complejo que equilibra notas sutilmente dulces, frutales and un marcado ahumado natural derivado de sus metodos de deshidratacion. Su textura no es un polvo fino, sino un triturado rustico con presencia dinamica de escamas rojas y pepitas blanquecinas que aportan textura."
       },
       {
         "title": "Usos comunes",
@@ -27,7 +26,6 @@
     "flag": "🇨🇳",
     "category": "aromatico",
     "introduction": "Fruto seco con forma de estrella de ocho puntas obtenido del arbol perennifolio Illicium verum, famoso por su alta concentracion de anetol.",
-    "sensory": { "picante": 10, "aromatico": 95, "terroso: "20", "dulce": 80 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -49,7 +47,6 @@
     "flag": "🌍",
     "category": "mezcla",
     "introduction": "Mezcla de especias calida, aromatica y de notas terrosas o ahumadas, fundamental en Oriente Medio, la region del Golfo Arabigo, Grecia y Turquia.",
-    "sensory": { "picante": 40, "aromatico": 80, "terroso": 85, "dulce": 40 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -71,7 +68,6 @@
     "flag": "🇱🇰",
     "category": "dulce",
     "introduction": "Corteza interna desecada y enrollada del arbol de hoja perenne Cinnamomum verum, considerada una de las especias mas antiguas y utilizadas del mundo.",
-    "sensory": { "picante": 20, "aromatico": 90, "terroso": 30, "dulce": 95 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -93,7 +89,6 @@
     "flag": "🇮🇳",
     "category": "herbal",
     "introduction": "Semilla altamente aromatica de la familia del jengibre, considerada una de las especias mas caras del mundo junto al azafran y la vainilla.",
-    "sensory": { "picante": 30, "aromatico": 95, "terroso": 10, "dulce": 60 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -105,7 +100,7 @@
       },
       {
         "title": "Usos comunes",
-        "content": "En India se usa en curries, arroces y bebidas. En Oriente Medio se mezcla con cafe (cafe de hospitalidad) y en Turquia o Libano se añade a sopas de pollo o marinadas de Shish taouk and shawarma. En Paises Nordicos y Centroeuropa destaca en reposteria (bollos suecos, donuts, strudels) y en el vino caliente Glühwein. Tip: Comprar en vainas y moler solo los granos internos al momento para preservar su potencia."
+        "content": "En India se usa en curries, arroces y bebidas. En Oriente Medio se mezcla con cafe (cafe de hospitalidad) y en Turquia o Libano se añade a sopas de pollo o marinadas de Shish taouk y shawarma. En Paises Nordicos y Centroeuropa destaca en reposteria (bollos suecos, donuts, strudels) y en el vino caliente Glühwein. Tip: Comprar en vainas y moler solo los granos internos al momento para preservar su potencia."
       }
     ]
   },
@@ -115,7 +110,6 @@
     "flag": "🇬🇫",
     "category": "picante",
     "introduction": "Pimiento de gran caracter obtenido de la planta solanacea Capsicum annuum, molido tras su secado para convertirse en una especia de intenso color rojizo y potente sabor picante.",
-    "sensory": { "picante": 95, "aromatico": 20, "terroso": 30, "dulce": 10 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -127,7 +121,7 @@
       },
       {
         "title": "Usos comunes",
-        "content": "Utilizada globalmente para dar vida y pungencia a estofados, guisos, legumbres, platos de caza, arroces, pastas, pescados, mariscos y embutidos, siendo un pilar en las cocinas mexicana y asiatica, y un recurrente en la mediterranea. Es el ingrediente base de la famosa salsa Tabasco y de aceites picantes para pizzas. FORMATOS TECNICOS: Se comercializa entera, en copos/escamas o molida. La version molida es ideal para fusionarse por completo en sopas, caldos y purés, mientras que los copos se espolvorean en pizzas o platos de cazuela."
+        "content": "Utilizada globalmente para dar vida y pungencia a estofados, guisos, legumbres, platos de caza, arroces, pastas, picos y embutidos, siendo un pilar en las cocinas mexicana y asiatica, y un recurrente en la mediterranea. Es el ingrediente base de la famosa salsa Tabasco y de aceites picantes para pizzas. FORMATOS TECNICOS: Se comercializa entera, en copos/escamas o molida. La version molida es ideal para fusionarse por completo en sopas, caldos y purés, mientras que los copos se espolvorean en pizzas o platos de cazuela."
       }
     ]
   },
@@ -137,11 +131,10 @@
     "flag": "🌍",
     "category": "herbal",
     "introduction": "Hierba anual de la familia de las apiaceas, fundamental a nivel global y conocida tambien como culantro o kuratu, caracterizada por la dualidad gastronomica entre sus hojas y sus semillas.",
-    "sensory": { "picante": 0, "aromatico": 85, "terroso": 10, "dulce": 20 },
     "sections": [
       {
         "title": "Origen y Geografía",
-        "content": "Nativo de las regiones del Mediterraneo y el Caucaso, es una de las hierbas aromaticas mas antiguas registradas por la humanidad. Su versatilidad permitio una expansion masiva y temprana hacia Asia, donde se volvio indispensable en la cocina hindu y del sudeste asiatico, y posteriormente hacia America Latina, transformandose en el sello verde indiscutido de las gastronomias mexicana, peruana y caribeña."
+        "content": "Nativo de las regiones del Mediterraneo and el Caucaso, es una de las hierbas aromaticas mas antiguas registradas por la humanidad. Su versatilidad permitio una expansion masiva y temprana hacia Asia, donde se volvio indispensable en la cocina hindu y del sudeste asiatico, y posteriormente hacia America Latina, transformandose en el sello verde indiscutido de las gastronomias mexicana, peruana y caribeña."
       },
       {
         "title": "Perfil Sensorial",
@@ -159,11 +152,10 @@
     "flag": "🇮🇩",
     "category": "dulce",
     "introduction": "Botones florales secos y recolectados antes de abrir del arbol Syzygium aromaticum, famoso por poseer una de las mayores concentraciones de aceites esenciales del mundo vegetal.",
-    "sensory": { "picante": 50, "aromatico": 95, "terroso": 40, "dulce": 70 },
     "sections": [
       {
         "title": "Origen y Geografía",
-        "content": "Nativo de las legendarias Islas Molucas en Indonesia, historicamente conocidas como las Islas de las Especias. Durante la Antiguedad y la Edad Media, su monopolio comercial desato disputas navales de escala global entre imperios debido a su incalculable valor y escasez. Hoy en dia, su cultivo se ha expandido con exito a otras regiones tropicales de alta humedad como Madagascar, Tanzania (isla de Zanzibar), Sri Lanka y Brasil."
+        "content": "Nativo de las legendarys Islas Molucas en Indonesia, historicamente conocidas como las Islas de las Especias. Durante la Antiguedad y la Edad Media, su monopolio comercial desato disputas navales de escala global entre imperios debido a su incalculable valor y escasez. Hoy en dia, su cultivo se ha expandido con exito a otras regiones tropicales de alta humedad como Madagascar, Tanzania (isla de Zanzibar), Sri Lanka y Brasil."
       },
       {
         "title": "Perfil Sensorial",
@@ -181,7 +173,6 @@
     "flag": "🇪🇬",
     "category": "picante",
     "introduction": "Semilla seca proveniente de la planta herbacea Cuminum cyminum, considerada uno de los pilares aromaticos mas antiguos y potentes de la cocina terrosa.",
-    "sensory": { "picante": 40, "aromatico": 75, "terroso": 95, "dulce": 10 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -203,7 +194,6 @@
     "flag": "🌍",
     "category": "herbal",
     "introduction": "Semilla pequeña, redonda y de color beige obtenida de la planta Coriandrum sativum, la misma que produce la hierba fresca conocida como cilantro.",
-    "sensory": { "picante": 10, "aromatico": 70, "terroso": 40, "dulce": 50 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -225,7 +215,6 @@
     "flag": "🇮🇳",
     "category": "mezcla",
     "introduction": "Mezcla de especias originaria de la India cuya composicion varia ampliamente. Su nombre proviene del tamil 'kari', que significa salsa o condimento para el arroz.",
-    "sensory": { "picante": 50, "aromatico": 90, "terroso": 70, "dulce": 30 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -247,7 +236,6 @@
     "flag": "🇮🇳",
     "category": "mezcla",
     "introduction": "Mezcla de especias originaria del norte de la India cuyo nombre se traduce como 'mezcla caliente'. A diferencia del curry occidental, no posee color amarillo ya que no contiene curcuma.",
-    "sensory": { "picante": 30, "aromatico": 90, "terroso": 60, "dulce": 40 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -255,7 +243,7 @@
       },
       {
         "title": "Perfil Sensorial",
-        "content": "Aroma y sabor calido, profundo y sumamente aromatico. En unaDocon bien equilibrada, ofrece un perfil donde ninguna especia destaca excesivamente sobre las demas, resultando en un condimento armonioso que no es ni muy fuerte, ni muy suave, ni muy picante."
+        "content": "Aroma y sabor calido, profundo y sumamente aromatico. En una proporcion bien equilibrada, ofrece un perfil donde ninguna especia destaca excesivamente sobre las demas, resultando en un condimento armonioso que no es ni muy fuerte, ni muy suave, ni muy picante."
       },
       {
         "title": "Usos comunes",
@@ -269,7 +257,6 @@
     "flag": "🇮🇳",
     "category": "herbal",
     "introduction": "Rizoma subterraneo articulado de la planta Zingiber officinale, valorado globalmente por su perfil picante, fresco y sus amplias propiedades terapeuticas.",
-    "sensory": { "picante": 70, "aromatico": 85, "terroso": 20, "dulce": 40 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -281,7 +268,7 @@
       },
       {
         "title": "Usos comunes",
-        "content": "Ingrediente indispensable en salteados al wok, curries, pastas de especias, marinadas para carnes blancas y preparaciones de sushi (como el gari o jengibre encurtido). En Occidente lidera la reposteria invernal in galletas, panes especiados y bebidas como el Gingerbread o la cerveza de jengibre. TECNICA GASTRONOMICA: Su formato define el resultado: fresco aporta notas citricas y jugosas, ideal para salteados rápidos; en polvo ofrece un picor mas seco y concentrado, optimo para masas. Al usarlo fresco, se recomienda pelarlo raspando la piel con una cuchara para no desperdiciar la pulpa pegada a la corteza."
+        "content": "Ingrediente indispensable en salteados al wok, curries, pastas de especias, marinadas para carnes blancas y preparaciones de sushi (como el gari o jengibre encurtido). En Occidente lidera la reposteria invernal en galletas, panes especiados y bebidas como el Gingerbread o la cerveza de jengibre. TECNICA GASTRONOMICA: Su formato define el resultado: fresco aporta notas citricas y jugosas, ideal para salteados rápidos; en polvo ofrece un picor mas seco y concentrado, optimo para masas. Al usarlo fresco, se recomienda pelarlo raspando la piel con una cuchara para no desperdiciar la pulpa pegada a la corteza."
       }
     ]
   },
@@ -291,7 +278,6 @@
     "flag": "🇮🇳",
     "category": "picante",
     "introduction": "Mezcla de especias originaria de la region de Cachemira, caracterizada por su suavidad y capacidad para realzar sabores sin abrumar el paladar.",
-    "sensory": { "picante": 30, "aromatico": 75, "terroso": 50, "dulce": 50 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -313,7 +299,6 @@
     "flag": "🇨🇱",
     "category": "picante",
     "introduction": "Aliño tradicional elaborado a base de aji cacho de cabra seco y ahumado. Su nombre proviene del mapudungun 'medken chadi', que significa 'sal molida'.",
-    "sensory": { "picante": 65, "aromatico": 50, "terroso": 80, "dulce": 20 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -335,7 +320,6 @@
     "flag": "🇭🇺",
     "category": "dulce",
     "introduction": "Ingrediente esencial de la cocina hungara y condimento popular a nivel mundial, elaborado a partir de pimientos molidos en un polvo fino.",
-    "sensory": { "picante": 20, "aromatico": 60, "terroso": 40, "dulce": 80 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -357,7 +341,6 @@
     "flag": "🇮🇳",
     "category": "picante",
     "introduction": "Semilla madura y desprovista de su corteza externa de la planta Piper nigrum, nativa de la Costa de Malabar en la India, valorada por su picor limpio, directo y su estetica impecable.",
-    "sensory": { "picante": 80, "aromatico": 40, "terroso": 60, "dulce": 0 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -369,7 +352,7 @@
       },
       {
         "title": "Usos comunes",
-        "content": "Es el estandar de oro para sazonar salsas claras como la bechamel o salsa blanca, veloutes, pures de papas, cremas de verduras, platos de pasta claros y fondues de queso. Tambien es muy utilizada en la elaboracion de embutidos tradicionales y adobos para carnes blancas como aves o pescados delicados. TECNICA GASTRONOMICA: Sus aceites aromaticos son mas volatiles que los de la pimienta negra; por lo tanto, se aconseja molerla en el momento y agregarla estrictamente hacia el final de la coccion para evitar que desarrolle notas excesivamente amargas."
+        "content": "Es el estandar de oro para sazonar salsas claras como la bechamel o salsa blanca, veloutes, pures de papas, cremas de verduras, platos de pasta claros y fondues de queso. Tambien es muy utilizada en la elaboracion de embutidos tradicionales and adobos para carnes blancas como aves o pescados delicados. TECNICA GASTRONOMICA: Sus aceites aromaticos son mas volatiles que los de la pimienta negra; por lo tanto, se aconseja molerla en el momento y agregarla estrictamente hacia el final de la coccion para evitar que desarrolle notas excesivamente amargas."
       }
     ]
   },
@@ -379,7 +362,6 @@
     "flag": "🇮🇳",
     "category": "picante",
     "introduction": "Fruto entero, drupáceo y deshidratado de la planta Piper nigrum, cosechado de forma prematura y venerado mundialmente como la reina de las especias.",
-    "sensory": { "picante": 75, "aromatico": 80, "terroso": 50, "dulce": 10 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -387,7 +369,7 @@
       },
       {
         "title": "Perfil Sensorial",
-        "content": "Presenta una superficie rugosa, negra y sumamente característica. Su perfil es el más complejo y redondo de la familia Piper nigrum, ya que combina el picor punzante y limpio de la piperina concentrada en su núcleo con las notas cítricas, amaderadas, florales y frescas que retiene el pericarpio (la piel exterior) al oxidarse y secarse. Posee una gran presencia en boca que realza los sabores circundantes."
+        "content": "Presenta una superficie rugosa, negra y sumamente característica. Su perfil es el más complejo y redondo de la familia Piper nigrum, ya que combina el picor punzante y limpio de la piperina concentrada en su núcleo con las notas cítricas, amaderadas, florales y frescas que retiene el pericarpio (la piel exterior) al oxidarse y secarse. Posee una gran persistencia en boca que realza los sabores circundantes."
       },
       {
         "title": "Usos comunes",
@@ -401,7 +383,6 @@
     "flag": "🇮🇳",
     "category": "herbal",
     "introduction": "Baya inmadura y fresca de la planta Piper nigrum, nativa de la Costa de Malabar en la India, valorada por su perfil aromatico sutil, fresco y notablemente herbal.",
-    "sensory": { "picante": 40, "aromatico": 85, "terroso": 30, "dulce": 20 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -423,7 +404,6 @@
     "flag": "🇦🇷🇧🇷",
     "category": "aromatico",
     "introduction": "Bayas secas de los árboles Schinus molle (Aguaribay) y Schinus terebinthifolius (Turbinto). No son pimientas auténticas, sino drupas de la familia Anacardiaceae.",
-    "sensory": { "picante": 15, "aromatico": 90, "terroso": 20, "dulce": 70 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -445,7 +425,6 @@
     "flag": "🇲🇦",
     "category": "mezcla",
     "introduction": "Mezcla maestra de especias tradicional del norte de Africa, especialmente de Marruecos, cuyo nombre significa la cabeza de la tienda, haciendo referencia a lo mejor que el vendedor tiene para ofrecer.",
-    "sensory": { "picante": 40, "aromatico": 95, "terroso": 70, "dulce": 50 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -467,7 +446,6 @@
     "flag": "🇯🇵",
     "category": "picante",
     "introduction": "Mezcla de especias japonesa cuyo nombre significa literalmente siete chiles con sabor. Fuera de Japon se le conoce de forma simplificada como Shichimi o Togarashi.",
-    "sensory": { "picante": 70, "aromatico": 70, "terroso": 40, "dulce": 20 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -489,7 +467,6 @@
     "flag": "🇹🇷",
     "category": "aromatico",
     "introduction": "Especia obtenida de las bayas rojas y deshidratadas del arbusto Rhus coriaria, venerada en la cocina de Medio Oriente por su excepcional acidez natural.",
-    "sensory": { "picante": 10, "aromatico": 80, "terroso": 30, "dulce": 40 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -511,7 +488,6 @@
     "flag": "🇱🇧",
     "category": "mezcla",
     "introduction": "Pasta fluida y oleosa obtenida a partir de la molienda de semillas de sesamo o ajonjoli (Sesamum indicum), pilar fundamental e identitario de la gastronomia del Libano.",
-    "sensory": { "picante": 0, "aromatico": 60, "terroso": 75, "dulce": 30 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -533,7 +509,6 @@
     "flag": "🇱🇧",
     "category": "mezcla",
     "introduction": "Mezcla de especias y hierbas silvestres originaria de la region del Levante, considerada un pilar identitario de la cultura gastronomica del Mediterraneo Oriental.",
-    "sensory": { "picante": 10, "aromatico": 90, "terroso": 70, "dulce": 30 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -555,7 +530,6 @@
     "flag": "🇮🇳",
     "category": "aromatico",
     "introduction": "Rizoma subterraneo de la planta Curcuma longa, perteneciente a la familia del jengibre, venerado por su intenso color amarillo dorado y sus propiedades medicinales.",
-    "sensory": { "picante": 20, "aromatico": 65, "terroso": 90, "dulce": 20 },
     "sections": [
       {
         "title": "Origen y Geografía",
@@ -577,7 +551,6 @@
     "flag": "🇧🇴",
     "category": "picante",
     "introduction": "Fruto intensamente picante obtenido de la planta Capsicum pubescens, pilar fundamental de la identidad gastronomica y los ajies de la region andina.",
-    "sensory": { "picante": 95, "aromatico": 50, "terroso": 20, "dulce": 40 },
     "sections": [
       {
         "title": "Origen y Geografía",
