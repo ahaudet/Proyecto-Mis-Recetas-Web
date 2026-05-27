@@ -54,7 +54,7 @@
         .return-link:hover { text-decoration: underline; color: var(--color-categoria); }
 
         /* ================================================================= */
-        /* PORTADA EVOLUCIONADA: IMAGEN ADENTRO Y TEXTO FLOTANDO            */
+        /* PORTADA DEFINITIVA: TEXTO ENTRE ESPECIAS Y AUTOR                 */
         /* ================================================================= */
         .cover-content {
             height: 100%; display: flex; flex-direction: column; justify-content: center;
@@ -63,36 +63,37 @@
             border-radius: 2px;
         }
 
-        /* RECUADRO CON LA IMAGEN DE FONDO (Usa tu archivo libro.jpg) */
         .cover-frame-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('libro.jpg');
             background-size: cover;
             background-position: center;
-            border: 3px solid var(--color-acento); /* Filete Borgoña decorativo */
+            border: 3px solid var(--color-acento);
             z-index: 1;
         }
 
-        /* Capa sutil sobre la foto para garantizar que las letras floten y se lean perfecto */
         .cover-frame-bg::before {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(252, 251, 250, 0.82); /* Filtro claro que suaviza la imagen trasera */
+            background: rgba(252, 251, 250, 0.2); /* Mantiene la nitidez del pergamino original */
         }
 
-        /* CONTENEDOR DE TEXTOS QUE FLOTA POR DELANTE */
         .cover-texts-floating {
             position: relative; 
-            z-index: 5; /* Pasa al frente obligatoriamente */
+            z-index: 5;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .cover-title { font-size: clamp(26pt, 5vw, 46pt); color: var(--color-acento); margin-bottom: 8px; font-weight: normal; line-height: 1.1; }
-        .cover-subtitle { font-size: 13pt; letter-spacing: 5px; color: var(--color-categoria); text-transform: uppercase; font-weight: bold; margin-bottom: 25px; }
-        .cover-author { font-style: italic; color: var(--color-texto); font-size: 12pt; margin-top: 35px; font-weight: bold; }
-        .cover-year { font-family: Arial, sans-serif; font-size: 9pt; color: var(--color-categoria); margin-top: 8px; font-weight: bold; letter-spacing: 1px; }
+        .cover-title-main { font-size: clamp(28pt, 5.5vw, 48pt); color: var(--color-acento); margin: 0; font-weight: normal; line-height: 1; text-transform: uppercase; letter-spacing: 2px; }
+        .cover-title-sub { font-size: clamp(20pt, 4vw, 32pt); color: var(--color-acento); margin: 5px 0 25px 0; font-weight: normal; line-height: 1; text-transform: uppercase; letter-spacing: 1px; }
+        .cover-phrase { font-size: 13pt; font-style: italic; color: var(--color-texto); max-width: 320px; margin-bottom: 45px; line-height: 1.4; }
+        .cover-author { font-size: 12pt; color: var(--color-texto); font-weight: bold; letter-spacing: 1px; }
+        .cover-year { font-family: Arial, sans-serif; font-size: 9.5pt; color: var(--color-categoria); margin-top: 6px; font-weight: bold; }
 
         /* ================================================================= */
-        /* DISEÑO DE PÁGINAS INTERNAS                                       */
+        /* CUERPO INTERNO Y TIPOGRAFÍAS                                     */
         /* ================================================================= */
         h1 { font-size: 24pt; color: var(--color-acento); margin: 0; line-height: 1.1; font-weight: normal; }
         h2 { font-size: 10.5pt; text-transform: uppercase; border-bottom: 1px dashed var(--color-borde); padding-bottom: 4px; margin-top: 15px; color: var(--color-acento); letter-spacing: 1px; }
@@ -117,7 +118,7 @@
         .index-item span:first-child { flex-shrink: 0; }
         .index-item span:last-child { font-family: Arial, sans-serif; font-size: 8.5pt; color: var(--color-acento); font-weight: bold; letter-spacing: 0.5px; flex-shrink: 0; }
 
-        /* ÍNDICE DE ESPECIAS */
+        /* ÍNDICE DE ESPECIAS SIMÉTRICO */
         .glossary-index-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 40px; width: 100%; margin-top: 15px; }
         .index-item small { font-family: Arial, sans-serif; margin-left: 6px; opacity: 0.85; }
 
@@ -145,10 +146,10 @@
             .index-row, .glossary-index-grid { grid-template-columns: 1fr; gap: 15px; }
             .index-item { font-size: 10pt; }
             .nav-controls { scale: 0.85; margin-top: 8px; }
-            /* Portada en móvil */
-            .cover-frame-bg { border-width: 2px; }
-            .cover-title { font-size: 22pt; }
-            .cover-subtitle { font-size: 10pt; letter-spacing: 3px; }
+            /* Portada Móvil */
+            .cover-title-main { font-size: 24pt; }
+            .cover-title-sub { font-size: 16pt; margin-bottom: 15px; }
+            .cover-phrase { font-size: 10pt; margin-bottom: 25px; max-width: 240px; }
         }
 
         @media (max-height: 500px) and (orientation: landscape) {
@@ -203,7 +204,7 @@
             })
             .catch(error => {
                 console.error(error);
-                document.getElementById('page-indicator').innerText = "⚠️ Recetas cargadas. Revisar especias.json";
+                document.getElementById('page-indicator').innerText = "⚠️ Error al cargar archivos JSON";
                 document.getElementById('page-indicator').style.color = "#d9534f";
                 if(recetasRaw.length > 0) buildBookStructure();
             });
@@ -212,7 +213,7 @@
         function buildBookStructure() {
             paginasLineales = [];
             
-            // 0. Portada Cerrada
+            // 0. Portada Cerrada con el nuevo orden
             paginasLineales.push({ type: 'PORTADA_PRINCIPAL' });
             
             // 1. Índice General Abierto
@@ -266,9 +267,9 @@
                         <div class="cover-frame-bg"></div>
 
                         <div class="cover-texts-floating">
-                            <div class="cover-subtitle">Un paseo culinario por los sabores de casa</div>
-                            <h1 class="cover-title">Mis Recetas</h1>
-                            <div class="cover-subtitle" style="margin-top:15px; font-size:11pt; color: var(--color-acento);">& Las Especias</div>
+                            <h1 class="cover-title-main">Mis Recetas</h1>
+                            <h2 class="cover-title-sub">Y Especias</h2>
+                            <div class="cover-phrase">Un paseo culinario por los sabores de casa</div>
                             <div class="cover-author">Por Alejandro Haudet</div>
                             <div class="cover-year">2026</div>
                         </div>
