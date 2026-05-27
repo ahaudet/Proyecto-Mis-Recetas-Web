@@ -137,17 +137,14 @@
     </div>
 
     <script>
-        // Arreglos en memoria para el motor
         let recetasRaw = [];
         let GLOSARIO_DATA = [];
         let paginasLineales = [];
         let currentIndex = 0;
 
-        // Categorías ordenadas para estructurar las dos páginas del Índice General
         const CATEGORIAS_PAGE_1 = ["Dips", "Entradas", "Plato principal", "Conservas"];
         const CATEGORIAS_PAGE_2 = ["Acompañamientos", "Dulces", "Postres"];
 
-        // NUEVO CARGADOR SIMÉTRICO EN PARALELO
         function loadBookDatabases() {
             Promise.all([
                 fetch('recetas.json').then(response => {
@@ -173,13 +170,9 @@
         function buildBookStructure() {
             paginasLineales = [];
             
-            // 1. Portada del Libro
             paginasLineales.push({ type: 'PORTADA_PRINCIPAL' });
-            
-            // 2. Índice General
             paginasLineales.push({ type: 'INDICE_GENERAL' });
 
-            // 3. Compilación de Bloques de Recetas por Categorías fundamentales
             const todasLasCategorias = [...CATEGORIAS_PAGE_1, ...CATEGORIAS_PAGE_2];
             todasLasCategorias.forEach(cat => {
                 const deEstaCat = recetasRaw.filter(r => r.category && r.category.toLowerCase() === cat.toLowerCase());
@@ -191,11 +184,9 @@
                 }
             });
 
-            // 4. Sección Técnica: Las Especias
             paginasLineales.push({ type: 'PORTADA_CAPITULO', title: "Las Especias", subtitle: "Anexo Técnico" });
-            paginasLineales.push({ type: 'INDICE_GLOSARIO' }); // Índice de especias
+            paginasLineales.push({ type: 'INDICE_GLOSARIO' });
 
-            // Carga lineal de las fichas de especias individuales desde el JSON externo
             GLOSARIO_DATA.forEach((spice, idx) => {
                 paginasLineales.push({ type: 'GLOSARIO_ITEM', data: spice, index: idx });
             });
@@ -215,7 +206,6 @@
             book.classList.remove('closed');
             left.innerHTML = ''; right.innerHTML = '';
 
-            // Referencias numéricas para saltos dinámicos en los retornos
             const idxGeneralPos = paginasLineales.findIndex(page => page.type === 'INDICE_GENERAL');
             const idxGlosarioPos = paginasLineales.findIndex(page => page.type === 'INDICE_GLOSARIO');
 
@@ -315,7 +305,7 @@
                         const li = document.createElement('div');
                         li.className = 'index-item';
                         li.onclick = () => jumpToPage(sIdx);
-                        li.innerHTML = `<span>${spice.title} ${spice.flag}</span><span class="dots"></span><span>🔎</span>`;
+                        li.innerHTML = `<span>${spice.title} ${spice.flag || ''}</span><span class="dots"></span><span>🔎</span>`;
                         targetGrid.appendChild(li);
                     });
                 }, 10);
@@ -325,21 +315,25 @@
 
             else if (p.type === 'GLOSARIO_ITEM') {
                 const e = p.data;
+                
+                // PROTECCIÓN ANTIFALLAS: Si en tu JSON no pusiste "sensory", el motor define ceros automáticos y no se traba
+                const sens = e.sensory || { picante: 0, aromatico: 0, terroso: 0, dulce: 0 };
+
                 left.innerHTML = `
                     <div class="page-header">
                         <span class="cover-subtitle" style="font-size:8.5pt;">Las Especias</span>
                         <a class="return-link" onclick="jumpToPage(${idxGlosarioPos})">← Índice Especias</a>
                     </div>
-                    <h1>${e.title} <span class="flag-emoji">${e.flag}</span></h1>
-                    <h2>Perfil: ${e.category}</h2>
-                    <p><em>${e.introduction}</em></p>
+                    <h1>${e.title} <span class="flag-emoji">${e.flag || ''}</span></h1>
+                    <h2>Perfil: ${e.category || 'Aromático'}</h2>
+                    <p><em>${e.introduction || ''}</em></p>
                     
                     <h2>Gráfico Sensorial</h2>
                     <div class="sensory-chart">
-                        <div class="chart-row"><span class="chart-label">Picante</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.picante}%"></div></div></div>
-                        <div class="chart-row"><span class="chart-label">Aromático</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.aromatico}%"></div></div></div>
-                        <div class="chart-row"><span class="chart-label">Terroso</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.terroso}%"></div></div></div>
-                        <div class="chart-row"><span class="chart-label">Dulce</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.dulce}%"></div></div></div>
+                        <div class="chart-row"><span class="chart-label">Picante</span><div class="chart-bar-container"><div class="chart-bar" style="width:${sens.picante}%"></div></div></div>
+                        <div class="chart-row"><span class="chart-label">Aromático</span><div class="chart-bar-container"><div class="chart-bar" style="width:${sens.aromatico}%"></div></div></div>
+                        <div class="chart-row"><span class="chart-label">Terroso</span><div class="chart-bar-container"><div class="chart-bar" style="width:${sens.terroso}%"></div></div></div>
+                        <div class="chart-row"><span class="chart-label">Dulce</span><div class="chart-bar-container"><div class="chart-bar" style="width:${sens.dulce}%"></div></div></div>
                     </div>`;
 
                 let secHtml = e.sections ? e.sections.map(s => `<h2>${s.title}</h2><p>${s.content}</p>`).join('') : '';
@@ -350,7 +344,7 @@
                 indicator.innerText = `ESPECIA ${p.index + 1} / ${GLOSARIO_DATA.length}`;
             }
 
-            twemoji.parse(document.body);
+            if(typeof twemoji !== 'undefined') twemoji.parse(document.body);
         }
 
         function renderCategoryInIndex(cat, targetContainer) {
