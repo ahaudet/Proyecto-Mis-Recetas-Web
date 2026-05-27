@@ -54,7 +54,7 @@
         .return-link:hover { text-decoration: underline; color: var(--color-categoria); }
 
         /* ================================================================= */
-        /* PORTADA DEFINITIVA: TEXTO ENTRE ESPECIAS Y AUTOR                 */
+        /* PORTADA CON TU IMAGEN REAL INCRUSTADA                            */
         /* ================================================================= */
         .cover-content {
             height: 100%; display: flex; flex-direction: column; justify-content: center;
@@ -65,7 +65,8 @@
 
         .cover-frame-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('libro.jpg');
+            /* Se vincula directamente tu archivo de diseño aprobado */
+            background-image: url('image_65a38a.png');
             background-size: cover;
             background-position: center;
             border: 3px solid var(--color-acento);
@@ -74,7 +75,7 @@
 
         .cover-frame-bg::before {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(252, 251, 250, 0.2); /* Mantiene la nitidez del pergamino original */
+            background: rgba(252, 251, 250, 0.15); /* Capa mínima para no tapar los condimentos laterales */
         }
 
         .cover-texts-floating {
@@ -84,16 +85,19 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* Desplazamiento leve hacia arriba para encajar justo en el centro del pergamino */
+            margin-top: -10px; 
         }
 
-        .cover-title-main { font-size: clamp(28pt, 5.5vw, 48pt); color: var(--color-acento); margin: 0; font-weight: normal; line-height: 1; text-transform: uppercase; letter-spacing: 2px; }
-        .cover-title-sub { font-size: clamp(20pt, 4vw, 32pt); color: var(--color-acento); margin: 5px 0 25px 0; font-weight: normal; line-height: 1; text-transform: uppercase; letter-spacing: 1px; }
-        .cover-phrase { font-size: 13pt; font-style: italic; color: var(--color-texto); max-width: 320px; margin-bottom: 45px; line-height: 1.4; }
-        .cover-author { font-size: 12pt; color: var(--color-texto); font-weight: bold; letter-spacing: 1px; }
-        .cover-year { font-family: Arial, sans-serif; font-size: 9.5pt; color: var(--color-categoria); margin-top: 6px; font-weight: bold; }
+        /* Estilos tipográficos calcados de tu propuesta */
+        .cover-title-main { font-size: clamp(26pt, 5vw, 44pt); color: var(--color-acento); margin: 0; font-weight: normal; line-height: 1; text-transform: uppercase; letter-spacing: 2px; }
+        .cover-title-sub { font-size: clamp(22pt, 4.5vw, 36pt); color: var(--color-acento); margin: 10px 0 35px 0; font-weight: normal; line-height: 1; text-transform: uppercase; letter-spacing: 2px; }
+        .cover-phrase { font-size: 13pt; font-style: italic; color: var(--color-texto); max-width: 320px; margin-bottom: 50px; line-height: 1.4; }
+        .cover-author { font-size: 11.5pt; color: var(--color-texto); font-weight: bold; letter-spacing: 0.5px; }
+        .cover-year { font-family: Arial, sans-serif; font-size: 9.5pt; color: var(--color-categoria); margin-top: 5px; font-weight: bold; }
 
         /* ================================================================= */
-        /* CUERPO INTERNO Y TIPOGRAFÍAS                                     */
+        /* INTERIOR DEL LIBRO                                               */
         /* ================================================================= */
         h1 { font-size: 24pt; color: var(--color-acento); margin: 0; line-height: 1.1; font-weight: normal; }
         h2 { font-size: 10.5pt; text-transform: uppercase; border-bottom: 1px dashed var(--color-borde); padding-bottom: 4px; margin-top: 15px; color: var(--color-acento); letter-spacing: 1px; }
@@ -118,7 +122,7 @@
         .index-item span:first-child { flex-shrink: 0; }
         .index-item span:last-child { font-family: Arial, sans-serif; font-size: 8.5pt; color: var(--color-acento); font-weight: bold; letter-spacing: 0.5px; flex-shrink: 0; }
 
-        /* ÍNDICE DE ESPECIAS SIMÉTRICO */
+        /* ÍNDICE DE ESPECIAS */
         .glossary-index-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 40px; width: 100%; margin-top: 15px; }
         .index-item small { font-family: Arial, sans-serif; margin-left: 6px; opacity: 0.85; }
 
@@ -129,12 +133,12 @@
         .chart-bar-container { flex-grow: 1; background: #eaddca; height: 8px; border-radius: 4px; overflow: hidden; }
         .chart-bar { background: var(--color-acento); height: 100%; border-radius: 4px; }
 
-        /* CONTROLES NAVEGACIÓN */
+        /* NAVEGACIÓN INFERIOR */
         .nav-controls { margin-top: 15px; display: flex; gap: 15px; background: white; padding: 10px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); align-items: center; z-index: 100; }
         .nav-btn { background: none; border: 1px solid #8c7662; color: #8c7662; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
         .nav-btn:hover { background: #8c7662; color: white; }
 
-        /* RESPONSIVE MÓVIL OPTIMIZADO */
+        /* AJUSTES RESPONSIVE MÓVIL */
         @media (max-width: 850px) {
             .book-container { height: 78vh; min-height: 400px; }
             .page { padding: 15px 12px; }
@@ -146,10 +150,11 @@
             .index-row, .glossary-index-grid { grid-template-columns: 1fr; gap: 15px; }
             .index-item { font-size: 10pt; }
             .nav-controls { scale: 0.85; margin-top: 8px; }
-            /* Portada Móvil */
-            .cover-title-main { font-size: 24pt; }
-            .cover-title-sub { font-size: 16pt; margin-bottom: 15px; }
-            .cover-phrase { font-size: 10pt; margin-bottom: 25px; max-width: 240px; }
+            /* Portada en celular */
+            .cover-title-main { font-size: 22pt; }
+            .cover-title-sub { font-size: 18pt; margin-bottom: 20px; }
+            .cover-phrase { font-size: 10.5pt; margin-bottom: 30px; max-width: 240px; }
+            .cover-texts-floating { margin-top: 0; }
         }
 
         @media (max-height: 500px) and (orientation: landscape) {
@@ -213,7 +218,7 @@
         function buildBookStructure() {
             paginasLineales = [];
             
-            // 0. Portada Cerrada con el nuevo orden
+            // 0. Portada Cerrada
             paginasLineales.push({ type: 'PORTADA_PRINCIPAL' });
             
             // 1. Índice General Abierto
@@ -231,7 +236,7 @@
                 }
             });
 
-            // 3. Sección: Las Especias
+            // 3. Sección Técnico-Sensorial de Especias
             if (GLOSARIO_DATA.length > 0) {
                 paginasLineales.push({ type: 'PORTADA_CAPITULO', title: "Las Especias", subtitle: "Anexo Técnico" });
                 paginasLineales.push({ type: 'INDICE_GLOSARIO' });
