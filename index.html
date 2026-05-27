@@ -49,7 +49,6 @@
 
         .page-left { border-right: 1px solid rgba(0,0,0,0.05); }
 
-        /* Cabeceras de Página y Retornos Nav */
         .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
         .return-link { font-family: Arial, sans-serif; font-size: 8.5pt; color: var(--color-acento); text-decoration: none; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
         .return-link:hover { text-decoration: underline; color: var(--color-categoria); }
@@ -72,7 +71,6 @@
         
         .chef-notes { background-color: #f5efe6; border-left: 3px solid var(--color-categoria); padding: 12px; margin-top: auto; font-style: italic; font-size: 9.5pt; }
 
-        /* DISEÑO ESTRUCTURADO DEL ÍNDICE GENERAL */
         .index-container { width: 100%; display: flex; flex-direction: column; gap: 25px; margin-top: 15px; }
         .index-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; width: 100%; }
         .index-section { display: flex; flex-direction: column; }
@@ -82,22 +80,18 @@
         .index-item:hover { color: var(--color-acento); font-weight: bold; }
         .index-item .dots { flex-grow: 1; border-bottom: 1px dotted #aaa; margin: 0 5px; position: relative; top: -3px; }
 
-        /* ÍNDICE DE LAS ESPECIAS */
         .glossary-index-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px 25px; width: 100%; margin-top: 15px; }
 
-        /* GRÁFICO SENSORIAL */
         .sensory-chart { display: flex; flex-direction: column; gap: 6px; background: #fdfaf4; padding: 10px; border: 1px solid var(--color-borde); border-radius: 4px; margin-top: 10px; }
         .chart-row { display: flex; align-items: center; font-size: 9pt; }
         .chart-label { width: 70px; font-weight: bold; color: var(--color-categoria); }
         .chart-bar-container { flex-grow: 1; background: #eaddca; height: 8px; border-radius: 4px; overflow: hidden; }
         .chart-bar { background: var(--color-acento); height: 100%; border-radius: 4px; }
 
-        /* CONTROLES NAVEGACIÓN */
         .nav-controls { margin-top: 15px; display: flex; gap: 15px; background: white; padding: 10px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); align-items: center; z-index: 100; }
         .nav-btn { background: none; border: 1px solid #8c7662; color: #8c7662; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
         .nav-btn:hover { background: #8c7662; color: white; }
 
-        /* RESPONSIVE MÓVIL OPTIMIZADO */
         @media (max-width: 850px) {
             .book-container { height: 78vh; min-height: 400px; }
             .page { padding: 15px 12px; }
@@ -145,26 +139,39 @@
         const CATEGORIAS_PAGE_1 = ["Dips", "Entradas", "Plato principal", "Conservas"];
         const CATEGORIAS_PAGE_2 = ["Acompañamientos", "Dulces", "Postres"];
 
+        // CARGA TOLERANTE A FALLAS: Si falla especias.json, carga recetas igual y avisa
         function loadBookDatabases() {
-            Promise.all([
-                fetch('recetas.json').then(response => {
-                    if (!response.ok) throw new Error('Error al leer recetas.json');
-                    return response.json();
-                }),
-                fetch('especias.json').then(response => {
-                    if (!response.ok) throw new Error('Error al leer especias.json');
-                    return response.json();
+            fetch('recetas.json')
+                .then(res => {
+                    if (!res.ok) throw new Error('No se pudo leer recetas.json');
+                    return res.json();
                 })
-            ])
-            .then(([recetasData, especiasData]) => {
-                recetasRaw = recetasData;
-                GLOSARIO_DATA = especiasData;
-                buildBookStructure();
-            })
-            .catch(error => {
-                console.error(error);
-                document.getElementById('page-indicator').innerText = "Error al sincronizar archivos JSON";
-            });
+                .then(recetasData => {
+                    recetasRaw = recetasData;
+                    
+                    // Intentamos cargar las especias de forma aislada
+                    return fetch('especias.json')
+                        .then(resEspecias => {
+                            if (!resEspecias.ok) throw new Error();
+                            return resEspecias.json();
+                        })
+                        .then(especiasData => {
+                            GLOSARIO_DATA = Array.isArray(especiasData) ? especiasData : [];
+                            buildBookStructure();
+                        })
+                        .catch(() => {
+                            console.warn("Aviso: especias.json tiene un error de formato o no existe. Cargando solo recetas.");
+                            GLOSARIO_DATA = []; // Lista vacía protectora
+                            buildBookStructure();
+                            document.getElementById('page-indicator').innerText = "⚠️ Recetas cargadas. Revisar especias.json";
+                            document.getElementById('page-indicator').style.color = "#d9534f";
+                        });
+                })
+                .catch(error => {
+                    console.error(error);
+                    document.getElementById('page-indicator').innerText = "❌ Error crítico al leer recetas.json";
+                    document.getElementById('page-indicator').style.color = "#d9534f";
+                });
         }
 
         function buildBookStructure() {
@@ -184,12 +191,15 @@
                 }
             });
 
-            paginasLineales.push({ type: 'PORTADA_CAPITULO', title: "Las Especias", subtitle: "Anexo Técnico" });
-            paginasLineales.push({ type: 'INDICE_GLOSARIO' });
+            // Solo agrega el capítulo de Especias si el JSON se leyó correctamente
+            if (GLOSARIO_DATA.length > 0) {
+                paginasLineales.push({ type: 'PORTADA_CAPITULO', title: "Las Especias", subtitle: "Anexo Técnico" });
+                paginasLineales.push({ type: 'INDICE_GLOSARIO' });
 
-            GLOSARIO_DATA.forEach((spice, idx) => {
-                paginasLineales.push({ type: 'GLOSARIO_ITEM', data: spice, index: idx });
-            });
+                GLOSARIO_DATA.forEach((spice, idx) => {
+                    paginasLineales.push({ type: 'GLOSARIO_ITEM', data: spice, index: idx });
+                });
+            }
 
             render();
         }
@@ -215,10 +225,10 @@
                     <div class="cover-content">
                         <div class="cover-subtitle">Libro Editorial Gastronómico</div>
                         <h1 class="cover-title">Mis Recetas</h1>
-                        <div class="cover-subtitle" style="margin-top:25px; font-size:10pt;">& Las Especias</div>
+                        <div class="cover-subtitle" style="margin-top:25px; font-size:10pt;">${GLOSARIO_DATA.length > 0 ? '& Las Especias' : ''}</div>
                         <div style="margin-top:50px; font-style:italic; color: var(--color-categoria);">Por Alejandro Haudet</div>
                     </div>`;
-                indicator.innerText = "PORTADA";
+                if (GLOSARIO_DATA.length > 0) indicator.innerText = "PORTADA";
             } 
             
             else if (p.type === 'INDICE_GENERAL') {
@@ -226,16 +236,22 @@
                     <div class="page-header"><h1>Índice General</h1></div>
                     <div class="index-container"><div class="index-row" id="idx-l"></div></div>`;
                 
-                right.innerHTML = `
-                    <div class="page-header"><span class="return-link" style="visibility:hidden">.</span></div>
-                    <div class="index-container">
-                        <div class="index-row" id="idx-r"></div>
+                let espejoEspecias = '';
+                if (GLOSARIO_DATA.length > 0) {
+                    espejoEspecias = `
                         <div class="index-section" style="margin-top:15px;">
                             <h3>Las Especias</h3>
                             <ul class="index-list">
                                 <li class="index-item" onclick="jumpToPage(${idxGlosarioPos})"><span>Índice de Especias (${GLOSARIO_DATA.length} Variedades)</span><span class="dots"></span><span>👉</span></li>
                             </ul>
-                        </div>
+                        </div>`;
+                }
+
+                right.innerHTML = `
+                    <div class="page-header"><span class="return-link" style="visibility:hidden">.</span></div>
+                    <div class="index-container">
+                        <div class="index-row" id="idx-r"></div>
+                        ${espejoEspecias}
                     </div>`;
                 
                 setTimeout(() => {
@@ -245,7 +261,7 @@
                     CATEGORIAS_PAGE_2.forEach(cat => renderCategoryInIndex(cat, idxR));
                 }, 10);
 
-                indicator.innerText = "ÍNDICE GENERAL";
+                if (GLOSARIO_DATA.length > 0) indicator.innerText = "ÍNDICE GENERAL";
             }
 
             else if (p.type === 'PORTADA_CAPITULO') {
@@ -257,7 +273,7 @@
                         <div class="cover-subtitle">${p.subtitle}</div>
                         <h1 class="cover-title">${p.title}</h1>
                     </div>`;
-                indicator.innerText = p.title.toUpperCase();
+                if (GLOSARIO_DATA.length > 0) indicator.innerText = p.title.toUpperCase();
             }
 
             else if (p.type === 'RECETA_ITEM') {
@@ -278,7 +294,7 @@
                     <div class="page-header"><span class="cover-subtitle" style="font-size:8.5pt; margin-left:auto;">Preparación</span></div>
                     <ol>${r.instructions.split(',').map(paso => `<li>${paso.trim()}</li>`).join('')}</ol>
                     ${r.authorComments ? `<div class="chef-notes">${r.authorComments}</div>` : ''}`;
-                indicator.innerText = `RECETA`;
+                if (GLOSARIO_DATA.length > 0) indicator.innerText = `RECETA`;
             }
 
             else if (p.type === 'INDICE_GLOSARIO') {
@@ -316,7 +332,6 @@
             else if (p.type === 'GLOSARIO_ITEM') {
                 const e = p.data;
                 
-                // CONTROL DE GRÁFICOS SEGURO: Si no existe "sensory" en el JSON, oculta el gráfico en vez de trabarse
                 let sensoryHtml = '';
                 if (e.sensory) {
                     sensoryHtml = `
@@ -348,6 +363,11 @@
             }
 
             if(typeof twemoji !== 'undefined') twemoji.parse(document.body);
+        }
+
+        function mergeSensoryDataFallback() {
+            // Protección por si el objeto viene incompleto
+            GLOSARIO_DATA.forEach(e => { if(!e.sensory) e.sensory = { picante:0, aromatico:0, terroso:0, dulce:0 }; });
         }
 
         function renderCategoryInIndex(cat, targetContainer) {
