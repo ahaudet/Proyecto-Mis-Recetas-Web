@@ -62,7 +62,7 @@
         .return-link:hover { text-decoration: underline; color: var(--color-categoria); }
 
         /* ================================================================= */
-        /* PORTADA: LETRAS DIGITALES FLOTANDO SOBRE TU IMAGEN LIMPIA        */
+        /* PORTADA CORREGIDA: BUSCA image_65a38a.png Y ORDENA LOS TEXTOS     */
         /* ================================================================= */
         .cover-content {
             height: 100%; display: flex; flex-direction: column; justify-content: center;
@@ -73,16 +73,18 @@
 
         .cover-frame-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('libro.jpg');
+            /* Apunta estrictamente a tu imagen de fondo sin letras grabadas */
+            background-image: url('image_65a38a.png');
             background-size: cover;
             background-position: center;
             border: 3px solid var(--color-acento);
             z-index: 1;
         }
 
+        /* Capa mínima para no tapar los condimentos ni el marco de tu imagen */
         .cover-frame-bg::before {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(252, 251, 250, 0.25); 
+            background: rgba(252, 251, 250, 0.15); 
         }
 
         .cover-texts-floating {
@@ -95,9 +97,11 @@
             margin-top: 15px; 
         }
 
+        /* Distribución tipográfica aprobada */
         .cover-title-main { font-size: clamp(28pt, 5.5vw, 44pt); color: var(--color-acento); margin: 0; font-weight: normal; line-height: 1.1; text-transform: uppercase; letter-spacing: 2px; }
-        .cover-title-sub { font-size: clamp(24pt, 4.5vw, 34pt); color: var(--color-acento); margin: 5px 0 35px 0; font-weight: normal; line-height: 1.1; text-transform: uppercase; letter-spacing: 2px; }
-        .cover-phrase { font-size: 13.5pt; font-style: italic; color: var(--color-texto); max-width: 320px; margin-bottom: 55px; line-height: 1.45; }
+        .cover-title-sub { font-size: clamp(24pt, 4.5vw, 34pt); color: var(--color-acento); margin: 5px 0 30px 0; font-weight: normal; line-height: 1.1; text-transform: uppercase; letter-spacing: 2px; }
+        /* La frase reubicada entre el título y el autor */
+        .cover-phrase { font-size: 13.5pt; font-style: italic; color: var(--color-texto); max-width: 320px; margin-bottom: 50px; line-height: 1.45; }
         .cover-author { font-size: 12pt; color: var(--color-texto); font-weight: bold; letter-spacing: 0.5px; }
         .cover-year { font-family: Arial, sans-serif; font-size: 9.5pt; color: var(--color-categoria); margin-top: 5px; font-weight: bold; }
 
@@ -114,7 +118,7 @@
         
         .chef-notes { background-color: #f5efe6; border-left: 3px solid var(--color-categoria); padding: 12px; margin-top: auto; font-style: italic; font-size: 9.5pt; }
 
-        /* ÍNDICES */
+        /* ÍNDICES SIMÉTRICOS */
         .index-container { width: 100%; display: flex; flex-direction: column; gap: 20px; margin-top: 10px; }
         .index-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px 40px; width: 100%; }
         .index-section { display: flex; flex-direction: column; }
@@ -154,7 +158,7 @@
             .index-row, .glossary-index-grid { grid-template-columns: 1fr; gap: 15px; }
             .index-item { font-size: 10pt; }
             .nav-controls { scale: 0.85; margin-top: 8px; }
-            /* Portada móvil */
+            /* Ajustes carátula móvil */
             .cover-title-main { font-size: 22pt; }
             .cover-title-sub { font-size: 18pt; margin-bottom: 20px; }
             .cover-phrase { font-size: 11pt; margin-bottom: 30px; max-width: 260px; }
@@ -235,7 +239,7 @@
                 if (deEstaCat.length > 0) {
                     paginasLineales.push({ type: 'PORTADA_CAPITULO', title: cat, subtitle: "Capítulo" });
                     deEstaCat.forEach(receta => {
-                        paginasLineales.push({ type: 'RECETA_ITEM', data: receta });
+                        paginasLineales.push({ type: 'RECETA_ITEM', data: recipe = receta });
                     });
                 }
             });
