@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Glosario de Especias y Recetas</title>
+    <title>Mis Recetas y Especias - Edición Editorial</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@14.1.0/dist/twemoji.min.js" crossorigin="anonymous"></script>
 
@@ -72,7 +72,7 @@
         
         .chef-notes { background-color: #f5efe6; border-left: 3px solid var(--color-categoria); padding: 12px; margin-top: auto; font-style: italic; font-size: 9.5pt; }
 
-        /* NUEVO DISEÑO ESTRUCTURADO DEL ÍNDICE GENERAL */
+        /* DISEÑO ESTRUCTURADO DEL ÍNDICE GENERAL */
         .index-container { width: 100%; display: flex; flex-direction: column; gap: 25px; margin-top: 15px; }
         .index-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; width: 100%; }
         .index-section { display: flex; flex-direction: column; }
@@ -82,7 +82,7 @@
         .index-item:hover { color: var(--color-acento); font-weight: bold; }
         .index-item .dots { flex-grow: 1; border-bottom: 1px dotted #aaa; margin: 0 5px; position: relative; top: -3px; }
 
-        /* ÍNDICE DEL GLOSARIO (Especias) */
+        /* ÍNDICE DE LAS 24 ESPECIAS */
         .glossary-index-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px 25px; width: 100%; margin-top: 15px; }
 
         /* GRÁFICO SENSORIAL */
@@ -92,7 +92,7 @@
         .chart-bar-container { flex-grow: 1; background: #eaddca; height: 8px; border-radius: 4px; overflow: hidden; }
         .chart-bar { background: var(--color-acento); height: 100%; border-radius: 4px; }
 
-        /* CONTROLES */
+        /* CONTROLES NAVEGACIÓN */
         .nav-controls { margin-top: 15px; display: flex; gap: 15px; background: white; padding: 10px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); align-items: center; z-index: 100; }
         .nav-btn { background: none; border: 1px solid #8c7662; color: #8c7662; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
         .nav-btn:hover { background: #8c7662; color: white; }
@@ -103,7 +103,7 @@
             .page { padding: 15px 12px; }
             h1 { font-size: 14pt; }
             h2 { font-size: 9.5pt; margin-top: 8px; }
-            p, li { font-size: 8.5pt; line-height: 1.3; }
+            p, li { font-size: 8.5pt; line-height: 1.3; text-align: left; }
             ul, ol { padding-left: 15px; }
             .item-image { max-height: 90px; margin: 6px 0; }
             .index-row { grid-template-columns: 1fr; gap: 15px; }
@@ -117,7 +117,7 @@
             .page { padding: 10px 15px; }
             h1 { font-size: 12pt; }
             h2 { font-size: 9pt; margin-top: 4px; }
-            p, li { font-size: 8pt; line-height: 1.2; }
+            p, li { font-size: 8pt; line-height: 1.2; text-align: left; }
             .item-image { max-height: 55px; margin: 4px 0; }
             .nav-controls { scale: 0.75; margin-top: 4px; padding: 4px 15px; }
         }
@@ -137,275 +137,217 @@
     </div>
 
     <script>
-        // BASE DE DATOS MAESTRA DEL GLOSARIO (Podés expandir con todas las secciones que tengas en tu archivo local)
+        // BASE DE DATOS MAESTRA - LAS 24 ESPECIAS COMPLETAS CON SUS VALORES SENSORIALES
         const GLOSARIO_DATA = [
             { 
                 title: "Ají Molido", flag: "🇦🇷", category: "Picante", 
-                introduction: "Fruto desecado y triturado del género Capsicum, pilar de la cocina criolla.", 
+                introduction: "Fruto desecado y triturado del género Capsicum, pilar de la cocina criolla y rioplatense.", 
                 sensory: { picante: 60, aromatico: 40, terroso: 50, dulce: 30 }, 
                 sections: [
-                    { title: "Origen y Geografía", content: "Noroeste Argentino (región del NOA), principalmente en los valles calchaquíes de Salta y Catamarca." }, 
-                    { title: "Perfil Sensorial", content: "Picor moderado y amigable, notas sutilmente dulces y un marcado ahumado natural derivado del secado artesanal al sol." }, 
-                    { title: "Usos comunes", content: "Alma indiscutida del chimichurri, adobo criollo, empanadas y locros de montaña." }
+                    { title: "Origen y Geografía", content: "Noroeste Argentino (región del NOA), principalmente en los valles calchaquíes de Salta y Catamarca, donde las condiciones del suelo y el secado artesanal al sol consolidaron su perfil identitario." }, 
+                    { title: "Perfil Sensorial", content: "Picor moderado y amigable al paladar. Presenta un perfil complejo que equilibra notas sutilmente dulces, frutales y un marcado ahumado natural. Textura rústica con escamas rojas y pepitas blanquecinas." }, 
+                    { title: "Usos comunes", content: "Es el alma mater del chimichurri tradicional y el adobo criollo. Base obligatoria para rellenos de empanadas, locros y guisados de lentejas. Se aconseja hidratarlo unos minutos en agua tibia antes de usarlo en emulsiones aceitosas." }
                 ] 
             },
             { 
                 title: "Anís Estrellado", flag: "🇨🇳", category: "Aromático", 
-                introduction: "Fruto seco obtenido del Illicium verum, famoso por su alta concentración de anetol.", 
+                introduction: "Fruto seco con forma de estrella de ocho puntas obtenido del árbol perennifolio Illicium verum, famoso por su alta concentración de anetol.", 
                 sensory: { picante: 10, aromatico: 95, terroso: 20, dulce: 80 }, 
                 sections: [
-                    { title: "Origen y Geografía", content: "Nativo de las regiones de China, Corea y Japón, donde se ha cultivado tradicionalmente durante milenios." },
-                    { title: "Perfil Sensorial", content: "Aroma licoroso, penetrante y profundamente dulce con un dejo sutilmente fresco." }
+                    { title: "Origen y Geografía", content: "Nativo de las regiones del suroeste de China, Corea y Japón, donde se ha cultivado tradicionalmente durante milenios tanto para uso culinario como en la medicina tradicional oriental." },
+                    { title: "Perfil Sensorial", content: "Se caracteriza por un aroma licoroso, penetrante y profundamente dulce. En boca ofrece un sabor anisado intenso con notas sutilmente amaderadas y un dejo ligeramente fresco en el retrogusto." },
+                    { title: "Usos comunes", content: "Pilar fundamental del Polvo de 5 Especias chino e indispensable para caldos asiáticos como el Pho. En Occidente destaca en repostería invernal, infusiones y destilación de licores." }
                 ] 
             },
             {
+                title: "Baharat", flag: "🌍", category: "Mezcla",
+                introduction: "Mezcla de especias cálida, aromática y de notas terrosas o ahumadas, fundamental en Oriente Medio, la región del Golfo Arábigo, Grecia y Turquía.",
+                sensory: { picante: 40, aromatico: 80, terroso: 85, dulce: 40 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Desarrollada históricamente a partir del rol de los comerciantes árabes en el mundo antiguo. Se extendió ampliamente por el Mediterráneo, generando variantes locales como la turca o la tunecina." },
+                    { title: "Perfil Sensorial", content: "Perfil cálido con fuertes notas terrosas y ahumadas. Solo una pizca es capaz de potenciar los sabores de carnes, pollos, pescados (sobre todo grasos como caballa y salmón), verduras, sopas y salsas." },
+                    { title: "Usos comunes", content: "Se usa en marinadas o directo en carnes picadas. RECETA CASERA: Combinar 2 cdas de pimienta negra, cilantro y comino; 1 cdta de cardamomo; 1/2 cdta de clavos; y 4 palitos de canela. Tostar en sartén, enfriar, moler y mezclar con pimentón y nuez moscada." }
+                ]
+            },
+            {
+                title: "Canela", flag: "🇱🇰", category: "Dulce",
+                introduction: "Corteza interna desecada y enrollada del árbol de hoja perenne Cinnamomum verum, una de las especias más antiguas del mundo.",
+                sensory: { picante: 20, aromatico: 90, terroso: 30, dulce: 95 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Originaria de Sri Lanka y el sur de la India. Existen más de 100 variedades, destacando la canela de Ceilán por su alta calidad frente a la Casia o canela de China, que posee un aroma más rústico." },
+                    { title: "Perfil Sensorial", content: "Sabor y aroma intensamente dulces y amaderados. La versión molida libera su sabor de forma rápida, mientras que en rama ofrece un perfume más sutil y prolongado, ideal para procesos de infusión." },
+                    { title: "Usos comunes", content: "Fundamental en la aromatización de postres lácteos, bizcochos y galletas. En platos salados, aporta intensidad al curry. Se puede elaborar una esencia sumergiendo 2 ramas en ron blanco durante 2 semanas." }
+                ]
+            },
+            {
+                title: "Cardamomo", flag: "🇮🇳", category: "Herbal",
+                introduction: "Semilla altamente aromática de la familia del jengibre, considerada una de las especias más caras del mundo junto al azafrán.",
+                sensory: { picante: 30, aromatico: 95, terroso: 10, dulce: 60 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Nativo de las selvas de la India meridional, Sri Lanka y Malaysia. Actualmente, Guatemala es uno de los principales productores mundiales, reconocido por lograr una calidad excepcional." },
+                    { title: "Perfil Sensorial", content: "Aroma intenso, sofisticado y afrutado. Presenta tres variedades comerciales: el Verde (el más sabroso), el Negro (más grande, amargo y con un perfil ahumado) y el Blanco (mucho menos intenso)." },
+                    { title: "Usos comunes", content: "En India se usa en curries y arroces. En Oriente Medio se mezcla con café. En Países Nórdicos y Centroeuropa destaca en repostería y en el vino caliente Glühwein. Se aconseja moler al momento." }
+                ]
+            },
+            {
+                title: "Cayena", flag: "🇬🇫", category: "Picante",
+                introduction: "Pimiento obtenido de la planta solanácea Capsicum annuum, triturado tras su secado en un polvo de intenso color rojizo.",
+                sensory: { picante: 95, aromatico: 20, terroso: 30, dulce: 10 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Originaria de América del Sur y Central. Su nombre se asocia a la ciudad y río Cayena en la Guayana Francesa. Fue introducida en Europa por error creyendo que era la pimienta tradicional de oriente." },
+                    { title: "Perfil Sensorial", content: "Su potente picor no aporta un sabor propio a los platos, lo que la vuelve sumamente versátil. El responsable de su carácter es la capsaicina, concentrada principalmente en las semillas internas." },
+                    { title: "Usos comunes", content: "Utilizada globalmente para dar pungencia a estofados, legumbres, platos de caza y embutidos. Ingrediente base de la salsa Tabasco y de aceites picantes para pizzas. La versión molida se fusiona por completo en caldos." }
+                ]
+            },
+            {
+                title: "Cilantro", flag: "🌍", category: "Herbal",
+                introduction: "Hierba anual de la familia de las apiáceas, caracterizada por la dualidad gastronómica entre sus hojas frescas y sus semillas secas.",
+                sensory: { picante: 0, aromatico: 85, terroso: 10, dulce: 20 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Nativo del Mediterráneo y el Cáucaso, expandido masivamente hacia Asia y posteriormente hacia América Latina, transformándose en el sello verde de las gastronomías mexicana y peruana." },
+                    { title: "Perfil Sensorial", content: "Ofrece un carácter fresco, intensamente cítrico y vibrante en sus hojas. Ciertos paladares perciben un matiz jabonoso debido a componentes aldehídos. Es crucial diferenciar su perfil herbal del de sus semillas (coriandro)." },
+                    { title: "Usos comunes", content: "Elemento obligatorio en ceviches, guacamole, pico de gallo y salsas criollas. Sus aceites aromáticos son volátiles y se destruyen con el calor, por lo que debe incorporarse estrictamente al final de la cocción." }
+                ]
+            },
+            {
+                title: "Clavo de Olor", flag: "🇮🇩", category: "Dulce",
+                introduction: "Botones florales secos recolectados antes de abrir del árbol Syzygium aromaticum, famoso por su alta concentración de aceites.",
+                sensory: { picante: 50, aromatico: 95, terroso: 40, dulce: 70 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Nativo de las legendarias Islas Molucas en Indonesia (Islas de las Especias). Durante la Edad Media, su monopolio comercial desató disputas navales a escala global. Hoy se cultiva en Madagascar, Tanzania y Brasil." },
+                    { title: "Perfil Sensorial", content: "Aroma penetrante, cálido y profundamente amaderado. En boca despliega un sabor intenso y astringente que deja una sensación levemente anestésica en la lengua debido al eugenol." },
+                    { title: "Usos comunes", content: "Fundamental en fondos de carne, salsas clásicas (bechamel claveteada en cebolla), charcutería y conservas dulces. Debe usarse con estrefa moderación para no saturar químicamente el plato." }
+                ]
+            },
+            {
+                title: "Comino", flag: "🇪🇬", category: "Picante",
+                introduction: "Semilla seca proveniente de la planta Cuminum cyminum, considerada uno de los pilares más antiguos de la cocina terrosa.",
+                sensory: { picante: 40, aromatico: 75, terroso: 95, dulce: 10 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Nativo del Mediterráneo Oriental y Asia Central, usado en el antiguo Egipto para gastronomía y momificación. Llegó a América Latina volviéndose un elemento identitario de la cocina criolla." },
+                    { title: "Perfil Sensorial", content: "Sabor y aroma fuertes, penetrantes, cálidos y con un marcado trasfondo terroso, acompañado de notas sutilmente amargas. Su presencia es persistente y puede dominar el plato si no se dosifica con precisión." },
+                    { title: "Usos comunes", content: "Componente obligatorio en la arquitectura de sabor de las empanadas criollas tradicionales, las humitas, los tamales y los guisados de legumbres. Se recomienda tostar la semilla antes de molerla." }
+                ]
+            },
+            {
+                title: "Coriandro", flag: "🌍", category: "Herbal",
+                introduction: "Semilla pequeña y redonda obtenida de la planta Coriandrum sativum, la misma que produce la hierba fresca conocida como cilantro.",
+                sensory: { picante: 10, aromatico: 70, terroso: 40, dulce: 50 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Proviene de la misma planta que el cilantro fresco. Históricamente es un ingrediente clave expandido desde curries indios hasta mezclas de Oriente Medio y la panadería de centeno escandinava." },
+                    { title: "Perfil Sensorial", content: "Al triturarse desprende un aroma cálido a limón con notas sutilmente dulces y un toque a nuez. Sus notas difieren por completo de la hoja fresca, por lo que no son intercambiables." },
+                    { title: "Usos comunes", content: "Aporta un sabor profundo y suave en sopas, guisos, verduras asadas y condimentos para carne. Se recomienda tostar las semillas enteras antes de molerlas para liberar sus notas cítricas." }
+                ]
+            },
+            {
+                title: "Curry", flag: "🇮🇳", category: "Mezcla",
+                introduction: "Mezcla de especias originaria de la India cuya composición varía ampliamente. Su nombre proviene del tamil 'kari', que significa salsa.",
+                sensory: { picante: 50, aromatico: 90, terroso: 70, dulce: 30 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Gastronomía de la India. Se popularizó globalmente durante los siglos XIX y XX a través de la exportación y la estandarización comercial de polvos fuera de su país de origen." },
+                    { title: "Perfil Sensorial", content: "Complejo, cálido y profundamente aromático. Mientras que en Occidente posee un sabor predecible, en la cocina hindú presenta una enorme diversidad diseñada artesanalmente para cada receta." },
+                    { title: "Usos comunes", content: "Base para estofados, salsas, legumbres y arroces. La columna vertebral incluye cilantro, cúrcuma, comino y alholva, añadiendo jengibre, hinojo, cardamomo y variantes de pimienta." }
+                ]
+            },
+            {
+                title: "Garam Masala", flag: "🇮🇳", category: "Mezcla",
+                introduction: "Mezcla de especias originaria del norte de la India cuyo nombre significa 'mezcla caliente'. No contiene cúrcuma.",
+                sensory: { picante: 30, aromatico: 90, terroso: 60, dulce: 40 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Originaria del norte de la India. No existe una receta única; los ingredientes varían notablemente de pueblo en pueblo e incluso entre familias que mantienen su propia tradición." },
+                    { title: "Perfil Sensorial", content: "Aroma y sabor cálido, profundo y sumamente armónico. En una proporción equilibrada, ninguna especia destaca excesivamente sobre las demás, resultando en un condimento sofisticado." },
+                    { title: "Usos comunes", content: "Excelente para condimentar platos de carnes, pescados y verduras. RECETA CASERA: Combinar comino, cilantro, pimienta negra, cardamomo, canela, nuez moscada, clavo y chile. Tostar a fuego suave y moler." }
+                ]
+            },
+            {
+                title: "Jengibre", flag: "🇮🇳", category: "Herbal",
+                introduction: "Rizoma subterráneo de la planta Zingiber officinale, valorado por su perfil picante, fresco y cítrico.",
+                sensory: { picante: 70, aromatico: 85, terroso: 20, dulce: 40 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Nativo del sudeste asiático y el sur de la India. Fue una de las primeras especias orientales en llegar a Occidente gracias a mercaderes fenicios y romanos. India y Jamaica lideran su producción." },
+                    { title: "Perfil Sensorial", content: "Despliega un aroma intensamente cítrico, refrescante y amaderado. En boca ofrece un picor punzante pero limpio debido al gingerol, que al cocinarse se transforma en zingerona y shogaol." },
+                    { title: "Usos comunes", content: "Indispensable en salteados al wok, curries y jengibre encurtido para sushi. En Occidente lidera la repostería invernal. Fresco aporta notas jugosas; en polvo ofrece un picor más seco." }
+                ]
+            },
+            {
+                title: "Kashmiri Masala", flag: "🇮🇳", category: "Picante",
+                introduction: "Mezcla de especias originaria de la región de Cachemira, caracterizada por su color rojo profundo y su notable suavidad.",
+                sensory: { picante: 30, aromatico: 75, terroso: 50, dulce: 50 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Proviene de la región de Cachemira, al norte de la India. Esta mezcla refleja la rica herencia cultural de un territorio que ha funcionado históricamente como un crisol de influencias." },
+                    { title: "Perfil Sensorial", content: "Posee un perfil sutil que equilibra matices profundos sin una pungencia agresiva, siendo ideal para paladares sensibles. Al integrarse en curries, ayuda a desarrollar una textura cremosa." },
+                    { title: "Usos comunes", content: "Se utiliza en recetas con carnes, pescados y verduras. FORMULA: Pimiento rojo Kashmiri, comino, cilantro, cúrcuma, garam masala, canela, clavo de olor y cardamomo en polvo, tostados en seco." }
+                ]
+            },
+            {
+                title: "Merkén", flag: "🇨🇱", category: "Picante",
+                introduction: "Aliño tradicional elaborado a base de ají cacho de cabra seco y ahumado. Su nombre significa 'sal molida'.",
+                sensory: { picante: 65, aromatico: 50, terroso: 80, dulce: 20 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Originario de la gastronomía del pueblo mapuche en la región de la Araucanía (Chile y Argentina). Tradicionalmente se molía de forma artesanal en morteros de piedra." },
+                    { title: "Perfil Sensorial", content: "Aspecto de polvo rojo con pequeñas escamas. Su sabor es ligeramente picante y marcadamente ahumado. El 'merkén especial' incorpora semillas de cilantro tostadas para aportar frescura." },
+                    { title: "Usos comunes", content: "Funciona de manera excelente en platos con carnes, pescados, papas o verduras a la parrilla, e incluso en confituras. Proporción tradicional: 70% ají, 20% sal y 10% semillas de cilantro." }
+                ]
+            },
+            {
+                title: "Páprika", flag: "🇭🇺", category: "Dulce",
+                introduction: "Ingrediente esencial de la cocina húngara elaborado a partir de pimientos molidos en un polvo fino y rojo vibrante.",
+                sensory: { picante: 20, aromatico: 60, terroso: 40, dulce: 80 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Aunque se originó en América del Sur, fue transportada a Europa en el siglo XVI. Al llegar a Hungría, los agricultores locales desarrollaron su cultivo y molienda transformándola en un pilar nacional." },
+                    { title: "Perfil Sensorial", content: "Se caracteriza por un perfil predominantemente dulce y sutilmente picante. Aporta un equilibrio aromático singular y un color rojo profundo muy característico a las preparaciones." },
+                    { title: "Usos comunes", content: "Componente indispensable del goulash húngaro, además de utilizarse ampliamente en sopas, salsas y platos de carnes. Rol técnico clave en la elaboración de embutidos artesanales." }
+                ]
+            },
+            {
+                title: "Pimienta Blanca", flag: "🇮🇳", category: "Picante",
+                introduction: "Semilla madura desprovista de su corteza externa de la planta Piper nigrum, valorada por su picor limpio y estética impecable.",
+                sensory: { picante: 80, aromatico: 40, terroso: 60, dulce: 0 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Originaria de la Costa de Malabar, al suroeste de la India. Comparte genética con la pimienta negra, pero las bayas se cosechan rojas y se sumergen en agua para remover mecánicamente el pericarpio exterior." },
+                    { title: "Perfil Sensorial", content: "Ofrece un picante más agudo, directo y concentrado debido a la piperina del núcleo. Pierde las notas cítricas de la corteza exterior, desarrollando un aroma más terroso y punzante de gran armonía visual." },
+                    { title: "Usos comunes", content: "Estándar de oro para sazonar salsas claras como la bechamel, purés de papas y cremas de verduras. Se aconseja agregarla hacia el final de la cocción para evitar notas amargas." }
+                ]
+            },
+            {
+                title: "Pimienta Negra", flag: "🇮🇳", category: "Picante",
+                introduction: "Fruto entero, drupáceo y deshidratado de la planta Piper nigrum, cosechado de forma prematura y venerado como la reina de las especias.",
+                sensory: { picante: 75, aromatico: 80, terroso: 50, dulce: 10 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Nativa absoluta de la Costa de Malabar en el actual estado de Kerala, India. Históricamente considerada el 'oro negro', su comercio impulsó la Era de los Descubrimientos y trazó rutas navales mundiales." },
+                    { title: "Perfil Sensorial", content: "Superficie rugosa característica. Su perfil es el más redondo de la familia, combinando el picor de la piperina con notas cítricas, amaderadas y florales que retiene el pericarpio al oxidarse al sol." },
+                    { title: "Usos comunes", content: "Condimento universal de mesa. Pilar en caldos, estofados, adobos y salsas clásicas del mundo como la emblemática Cacio e Pepe. Exige moler el grano entero estrictamente al momento de servir." }
+                ]
+            },
+            {
+                title: "Pimienta Verde", flag: "🇮🇳", category: "Herbal",
+                introduction: "Baya inmadura y fresca de la planta Piper nigrum, valorada por su perfil aromático sutil, fresco y notablemente herbal.",
+                sensory: { picante: 40, aromatico: 85, terroso: 30, dulce: 20 },
+                sections: [
+                    { title: "Origen y Geografía", content: "Proviene de la misma planta que la pimienta negra y blanca. Representa el eslabón inicial de la cosecha. Para evitar que la baya se oxide y arrugue, se sumerge de inmediato en salmueras, vinagres o se liofiliza." },
+                    { title: "Perfil Sensorial", content: "La más suave de las tres variantes. Su nivel de picor es menor debido a que la piperina no está concentrada. Despliega un perfil herbal, frutal y cítrico, con una textura tierna y jugosa en boca." },
+                    { title: "Usos comunes", content: "Gran protagonista en salsas emulsionadas para carnes rojas y aves, como la emblemática 'salsa a la pimienta verde' con crema y cognac. Se añade entera o apenas machacada en los minutos finales." }
+                ]
+            },
+            {
                 title: "Pimienta Rosa", flag: "🇦🇷🇧🇷", category: "Aromático",
-                introduction: "Bayas secas de los árboles Schinus molle y Schinus terebinthifolius. No son pimientas auténticas.",
+                introduction: "Bayas secas de los árboles Schinus molle (Aguaribay) y Schinus terebinthifolius. No son pimientas auténticas, sino drupas anacardiáceas.",
                 sensory: { picante: 15, aromatico: 90, terroso: 20, dulce: 70 },
                 sections: [
-                    { title: "Origen y Geografía", content: "La variedad del árbol Aguaribay es nativa absoluta de Argentina y la región andina, distinguiéndose de las demás." },
-                    { title: "Perfil Sensorial", content: "Aroma resinoso, dulce y cítrico. Carece de piperina, su carácter es puramente aromático y volátil." }
+                    { title: "Origen y Geografía", content: "La variedad del árbol Aguaribay es nativa absoluta de Argentina y la región andina, distinguiéndose de otras variedades subtropicales de Brasil. Se han naturalizado globalmente como falsos pimenteros." },
+                    { title: "Perfil Sensorial", content: "Aroma profundamente resinoso, dulce, fresco y cítrico. El Aguaribay tiende a ser más rústico y levemente picante, evocando notas de pino. Ninguna posee piperina, su carácter es volátil." },
+                    { title: "Usos comunes", content: "Indispensable en la mezcla de 'Pimienta de las 4 estaciones'. Se usa entera o apenas machacada en carpaccios, pescados blancos y coctelería premium. No debe someterse a cocciones prolongadas." }
                 ]
-            }
-            // ... Podés listar las 24 especias completas acá manteniendo este mismo formato
-        ];
-
-        let recetasRaw = [];
-        let paginasLineales = [];
-        let currentIndex = 0;
-
-        // Tus categorías fundamentales exactas ordenadas para el layout
-        const CATEGORIAS_PAGE_1 = ["Dips", "Entradas", "Plato principal", "Conservas"];
-        const CATEGORIAS_PAGE_2 = ["Acompañamientos", "Dulces", "Postres"];
-
-        function loadRecipesDatabase() {
-            fetch('recetas.json')
-                .then(response => response.json())
-                .then(data => { recetasRaw = data; buildBookStructure(); })
-                .catch(() => {
-                    // Fallback local por si estás testeando sin servidor local
-                    recetasRaw = [
-                        { title: "Hummus Tradicional", category: "Dips", ingredients: ["Garbanzos", "Tahini", "Limón", "Ajo"], instructions: "Procesar todo, servir con aceite de oliva y pimentón.", authorComments: "Un clásico de medio oriente." },
-                        { title: "Empanada Gallega", category: "Entradas", ingredients: ["Masa hojaldre", "Caballa en lata", "Cebolla", "Pimiento"], instructions: "Rehogar vegetales, armar y hornear.", authorComments: "Receta familiar." }
-                    ];
-                    buildBookStructure();
-                });
-        }
-
-        function buildBookStructure() {
-            paginasLineales = [];
-            
-            // 1. Portada Principal
-            paginasLineales.push({ type: 'PORTADA_PRINCIPAL' });
-            
-            // 2. Índice General (Ocupa dos páginas completas)
-            paginasLineales.push({ type: 'INDICE_GENERAL' });
-
-            // 3. Compilación de Bloques de Recetas por Categorías
-            const todasLasCategorias = [...CATEGORIAS_PAGE_1, ...CATEGORIAS_PAGE_2];
-            todasLasCategorias.forEach(cat => {
-                const deEstaCat = recetasRaw.filter(r => r.category && r.category.toLowerCase() === cat.toLowerCase());
-                if (deEstaCat.length > 0) {
-                    paginasLineales.push({ type: 'PORTADA_CAPITULO', title: cat, subtitle: "Capítulo" });
-                    deEstaCat.forEach(receta => {
-                        paginasLineales.push({ type: 'RECETA_ITEM', data: receta });
-                    });
-                }
-            });
-
-            // 4. Sección del Glosario Técnico
-            paginasLineales.push({ type: 'PORTADA_CAPITULO', title: "Glosario de Especias", subtitle: "Anexo Técnico" });
-            paginasLineales.push({ type: 'INDICE_GLOSARIO' }); // Índice propio del glosario
-
-            GLOSARIO_DATA.forEach((spice, idx) => {
-                paginasLineales.push({ type: 'GLOSARIO_ITEM', data: spice, index: idx });
-            });
-
-            render();
-        }
-
-        function render() {
-            const book = document.getElementById('book');
-            const left = document.getElementById('left-page');
-            const right = document.getElementById('right-page');
-            const indicator = document.getElementById('page-indicator');
-
-            const p = paginasLineales[currentIndex];
-            if (!p) return;
-
-            book.classList.remove('closed');
-            left.innerHTML = ''; right.innerHTML = '';
-
-            // INDICES DE REFERENCIA PARA LOS BOTONES DE RETORNO
-            const idxGeneralPos = paginasLineales.findIndex(page => page.type === 'INDICE_GENERAL');
-            const idxGlosarioPos = paginasLineales.findIndex(page => page.type === 'INDICE_GLOSARIO');
-
-            if (p.type === 'PORTADA_PRINCIPAL') {
-                book.classList.add('closed');
-                left.innerHTML = `
-                    <div class="cover-content">
-                        <div class="cover-subtitle">Libro Editorial Gastronómico</div>
-                        <h1 class="cover-title">Mis Recetas</h1>
-                        <div class="cover-subtitle" style="margin-top:25px; font-size:10pt;">& Glosario de Especias</div>
-                        <div style="margin-top:50px; font-style:italic; color: var(--color-categoria);">Por Alejandro Haudet</div>
-                    </div>`;
-                indicator.innerText = "PORTADA";
-            } 
-            
-            else if (p.type === 'INDICE_GENERAL') {
-                left.innerHTML = `
-                    <div class="page-header"><h1>Índice General</h1></div>
-                    <div class="index-container"><div class="index-row" id="idx-l"></div></div>`;
-                
-                right.innerHTML = `
-                    <div class="page-header"><span class="return-link" style="visibility:hidden">.</span></div>
-                    <div class="index-container">
-                        <div class="index-row" id="idx-r"></div>
-                        <div class="index-section" style="margin-top:15px;">
-                            <h3>Glosario de Especias</h3>
-                            <ul class="index-list">
-                                <li class="index-item" onclick="jumpToPage(${idxGlosarioPos})"><span>Estudio Analítico (24 Especias)</span><span class="dots"></span><span>👉</span></li>
-                            </ul>
-                        </div>
-                    </div>`;
-                
-                // Renderizado controlado del índice limpio por bloques
-                setTimeout(() => {
-                    const idxL = document.getElementById('idx-l');
-                    const idxR = document.getElementById('idx-r');
-                    
-                    // Página Izquierda: Dips, Entradas, Plato Principal, Conservas
-                    CATEGORIAS_PAGE_1.forEach(cat => renderCategoryInIndex(cat, idxL));
-                    // Página Derecha: Acompañamientos, Dulces, Postres
-                    CATEGORIAS_PAGE_2.forEach(cat => renderCategoryInIndex(cat, idxR));
-                }, 10);
-
-                indicator.innerText = "ÍNDICE GENERAL";
-            }
-
-            else if (p.type === 'PORTADA_CAPITULO') {
-                book.classList.add('closed');
-                let isGlosario = p.title.toLowerCase().includes("glosario");
-                left.innerHTML = `
-                    <div class="cover-content" style="border-color: var(--color-categoria)">
-                        ${isGlosario ? `<a class="return-link" onclick="jumpToPage(${idxGeneralPos})" style="position:absolute; top:20px;">← Volver al Índice General</a>` : ''}
-                        <div class="cover-subtitle">${p.subtitle}</div>
-                        <h1 class="cover-title">${p.title}</h1>
-                    </div>`;
-                indicator.innerText = p.title.toUpperCase();
-            }
-
-            else if (p.type === 'RECETA_ITEM') {
-                const r = p.data;
-                const finalImgPath = r.image ? (r.image.includes('/') ? r.image : `fotos-receta/${r.image}`) : '';
-                
-                left.innerHTML = `
-                    <div class="page-header">
-                        <span class="cover-subtitle" style="font-size:8.5pt;">${r.category}</span>
-                        <a class="return-link" onclick="jumpToPage(${idxGeneralPos})">← Índice</a>
-                    </div>
-                    <h1>${r.title}</h1>
-                    ${finalImgPath ? `<img src="${finalImgPath}" class="item-image" onerror="this.style.display='none';">` : ''}
-                    <h2>Ingredientes</h2>
-                    <ul>${r.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>`;
-                
-                right.innerHTML = `
-                    <div class="page-header"><span class="cover-subtitle" style="font-size:8.5pt; margin-left:auto;">Preparación</span></div>
-                    <ol>${r.instructions.split(',').map(paso => `<li>${paso.trim()}</li>`).join('')}</ol>
-                    ${r.authorComments ? `<div class="chef-notes">${r.authorComments}</div>` : ''}`;
-                indicator.innerText = `RECETA`;
-            }
-
-            else if (p.type === 'INDICE_GLOSARIO') {
-                left.innerHTML = `
-                    <div class="page-header">
-                        <h1>Índice de Especias</h1>
-                        <a class="return-link" onclick="jumpToPage(${idxGeneralPos})">← Índice Gral</a>
-                    </div>
-                    <p style="font-style:italic; font-size:9.5pt; margin-bottom:15px;">Selección analítica de los pilares aromáticos y botánicos del libro.</p>
-                    <div class="glossary-index-grid" id="gl-idx-l"></div>`;
-
-                right.innerHTML = `
-                    <div class="page-header"><span class="return-link" style="visibility:hidden">.</span></div>
-                    <div class="glossary-index-grid" id="gl-idx-r" style="margin-top:40px;"></div>`;
-
-                setTimeout(() => {
-                    const glL = document.getElementById('gl-idx-l');
-                    const glR = document.getElementById('gl-idx-r');
-
-                    GLOSARIO_DATA.forEach((spice, index) => {
-                        const targetGrid = index < Math.ceil(GLOSARIO_DATA.length / 2) ? glL : glR;
-                        const sIdx = paginasLineales.findIndex(page => page.type === 'GLOSARIO_ITEM' && page.data.title === spice.title);
-                        
-                        const li = document.createElement('div');
-                        li.className = 'index-item';
-                        li.onclick = () => jumpToPage(sIdx);
-                        li.innerHTML = `<span>${spice.title} ${spice.flag}</span><span class="dots"></span><span>🔎</span>`;
-                        targetGrid.appendChild(li);
-                    });
-                }, 10);
-
-                indicator.innerText = "ÍNDICE DEL GLOSARIO";
-            }
-
-            else if (p.type === 'GLOSARIO_ITEM') {
-                const e = p.data;
-                left.innerHTML = `
-                    <div class="page-header">
-                        <span class="cover-subtitle" style="font-size:8.5pt;">Glosario Técnico</span>
-                        <a class="return-link" onclick="jumpToPage(${idxGlosarioPos})">← Índice Glosario</a>
-                    </div>
-                    <h1>${e.title} <span class="flag-emoji">${e.flag}</span></h1>
-                    <h2>Perfil: ${e.category}</h2>
-                    <p><em>${e.introduction}</em></p>
-                    
-                    <h2>Gráfico Sensorial</h2>
-                    <div class="sensory-chart">
-                        <div class="chart-row"><span class="chart-label">Picante</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.picante}%"></div></div></div>
-                        <div class="chart-row"><span class="chart-label">Aromático</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.aromatico}%"></div></div></div>
-                        <div class="chart-row"><span class="chart-label">Terroso</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.terroso}%"></div></div></div>
-                        <div class="chart-row"><span class="chart-label">Dulce</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.dulce}%"></div></div></div>
-                    </div>`;
-
-                // LA SOLUCIÓN RECURSIVA: Renderiza de forma dinámica absolutamente todas las secciones descriptivas que tengas en el JSON
-                let secHtml = e.sections ? e.sections.map(s => `<h2>${s.title}</h2><p>${s.content}</p>`).join('') : '';
-                
-                right.innerHTML = `
-                    <div class="page-header"><span class="cover-subtitle" style="font-size:8.5pt; margin-left:auto;">Análisis Técnico</span></div>
-                    ${secHtml}`;
-                indicator.innerText = `ESPECIA ${p.index + 1} / ${GLOSARIO_DATA.length}`;
-            }
-
-            twemoji.parse(document.body);
-        }
-
-        function renderCategoryInIndex(cat, targetContainer) {
-            const deEstaCat = recetasRaw.filter(r => r.category && r.category.toLowerCase() === cat.toLowerCase());
-            if (deEstaCat.length > 0) {
-                const secDiv = document.createElement('div');
-                secDiv.className = 'index-section';
-                secDiv.innerHTML = `<h3>${cat}</h3>`;
-                const ul = document.createElement('ul');
-                ul.className = 'index-list';
-
-                deEstaCat.forEach(r => {
-                    const rIdx = paginasLineales.findIndex(page => page.type === 'RECETA_ITEM' && page.data.title === r.title);
-                    const li = document.createElement('li');
-                    li.className = 'index-item';
-                    li.onclick = () => jumpToPage(rIdx);
-                    li.innerHTML = `<span>${r.title}</span><span class="dots"></span><span>👉</span>`;
-                    ul.appendChild(li);
-                });
-                secDiv.appendChild(ul);
-                targetContainer.appendChild(secDiv);
-            }
-        }
-
-        function goForward() { if (currentIndex < paginasLineales.length - 1) { currentIndex++; render(); } }
-        function goBack() { if (currentIndex > 0) { currentIndex--; render(); } }
-        function jumpToPage(pageIndex) { if (pageIndex >= 0 && pageIndex < paginasLineales.length) { currentIndex = pageIndex; render(); } }
-
-        document.addEventListener('DOMContentLoaded', loadRecipesDatabase);
-    </script>
-</body>
-</html>
+            },
+            {
+                title: "Ras el Hanout", flag: "🇲🇦", category: "Mezcla",
+                introduction: "Mezcla marroquí compleja y aromática cuyo nombre se traduce como 'lo mejor de la tienda'.",
+                sensory: { picante: 40, aromatico: 95, terroso: 70, dulce: 50 },
+                sections: [
+                    { title: "Composición y Sabor", content: "Puede llegar a tener más de 30 ingredientes combinados de forma artesanal, incluyendo cardamomo, jengibre, canela, comino, pimentón e incluso pétalos de rosa o lavanda secos." },
+                    { title: "Usos comunes", content: "Condimento esencial en la preparación de tajines tradicionales, cuscús y adobos para carnes asadas de cordero o ave. Aporta una complejidad aromática inigualable." }
+                ]
+            },
+            {
+                title: "Shichimi Togarashi", flag: "🇯🇵", category: "Picante",
+                introduction: "Conocida como la mezcla de los 'siete sabores de chile', combinación japonesa picante, cítrica y con notas de
