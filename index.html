@@ -22,7 +22,6 @@
             scroll-behavior: smooth;
         }
 
-        /* Contenedor de Diapositivas */
         .slide {
             min-height: 100vh;
             display: flex;
@@ -34,7 +33,6 @@
             border-bottom: 2px solid rgba(0,0,0,0.05);
         }
 
-        /* Estilo de la Portada */
         #portada {
             background-color: #000;
             padding: 0;
@@ -45,7 +43,6 @@
             object-fit: contain;
         }
 
-        /* Tarjetas de Contenido */
         .card {
             background: var(--color-crema);
             max-width: 850px;
@@ -99,7 +96,6 @@
             margin-bottom: 15px;
         }
 
-        /* Navegación */
         nav {
             position: fixed;
             top: 20px;
@@ -134,24 +130,21 @@
     <button onclick="document.getElementById('recetario-container').scrollIntoView()">Recetas</button>
 </nav>
 
-<!-- PORTADA -->
 <section id="portada" class="slide">
-    <img src="image_d6412b.jpg" alt="Portada Mis Recetas y Especias">
+    <img src="image_d6412b.jpg" alt="Portada Paseo Culinario">
 </section>
 
-<!-- CONTENEDORES DINÁMICOS -->
 <div id="glosario-container"></div>
 <div id="recetario-container"></div>
 
 <script>
-    // Función principal del Motor
     async function cargarDatos() {
         try {
             // 1. Cargar y ordenar Especias
-             const respEspecias = await fetch('https://raw.githubusercontent.com/ahaudet/Proyecto-Libro-de-recetas/main/especias.json');
+            const respEspecias = await fetch('especias.json');
             let especias = await respEspecias.json();
             
-            // Ordenamiento alfabético automático
+            // Forzar ordenamiento alfabético estricto por título
             especias.sort((a, b) => a.title.localeCompare(b.title));
             
             const glosarioDiv = document.getElementById('glosario-container');
@@ -159,11 +152,11 @@
                 glosarioDiv.innerHTML += `
                     <section class="slide">
                         <div class="card">
-                            <span class="flag">${e.flag}</span>
-                            <span class="category-tag">${e.category}</span>
+                            <span class="flag">${e.flag || ''}</span>
+                            <span class="category-tag">${e.category || ''}</span>
                             <h1>${e.title}</h1>
-                            <p class="intro">${e.introduction}</p>
-                            ${e.sections.map(s => `
+                            <p class="intro">${e.introduction || ''}</p>
+                            ${(e.sections || []).map(s => `
                                 <div class="section-title">${s.title}</div>
                                 <div class="section-content">${s.content}</div>
                             `).join('')}
@@ -173,39 +166,50 @@
             });
 
             // 2. Cargar y ordenar Recetas
-             const respEspecias = await fetch('https://raw.githubusercontent.com/ahaudet/Proyecto-Libro-de-recetas/main/recetas.json');
+            const respRecetas = await fetch('recetas.json');
             let recetas = await respRecetas.json();
             
-            // Ordenamiento alfabético automático
+            // Forzar ordenamiento alfabético en el recetario
             recetas.sort((a, b) => a.title.localeCompare(b.title));
             
             const recetarioDiv = document.getElementById('recetario-container');
             recetas.forEach(r => {
+                // Manejar la preparación ya sea una cadena de texto o un array
+                let preparacionHtml = '';
+                if (Array.isArray(r.instructions)) {
+                    preparacionHtml = `<ol class="section-content">${r.instructions.map(i => `<li>${i}</li>`).join('')}</ol>`;
+                } else if (r.instructions) {
+                    preparacionHtml = `<div class="section-content">${r.instructions.split(',').join('<br><br>')}</div>`;
+                }
+
                 recetarioDiv.innerHTML += `
                     <section class="slide">
                         <div class="card">
-                            <span class="category-tag">${r.category}</span>
+                            <span class="category-tag">${r.category || 'Receta'}</span>
                             <h1>${r.title}</h1>
+                            
                             <div class="section-title">Ingredientes</div>
                             <ul class="section-content">
-                                ${r.ingredients.map(i => `<li>${i}</li>`).join('')}
+                                ${(r.ingredients || []).map(i => `<li>${i}</li>`).join('')}
                             </ul>
+                            
                             <div class="section-title">Preparación</div>
-                            <div class="section-content">${r.instructions.split(',').join('<br><br>')}</div>
-                            <div class="section-title">Comentarios del Autor</div>
-                            <div class="section-content"><i>${r.authorComments}</i></div>
+                            ${preparacionHtml}
+                            
+                            ${r.authorComments ? `
+                                <div class="section-title">Comentarios del Autor</div>
+                                <div class="section-content"><i>${r.authorComments}</i></div>
+                            ` : ''}
                         </div>
                     </section>
                 `;
             });
 
         } catch (error) {
-            console.error("Error cargando los archivos JSON:", error);
-            document.body.innerHTML += "<div style='padding:50px'>Error al cargar los datos. Asegúrate de que los archivos .json estén en la misma carpeta.</div>";
+            console.error("Error en el Motor de Carga:", error);
         }
     }
 
-    // Iniciar el motor al cargar la página
     window.onload = cargarDatos;
 </script>
 
