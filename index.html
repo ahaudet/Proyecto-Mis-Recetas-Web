@@ -2,441 +2,212 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mis Recetas y Especias - Edición Editorial</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@14.1.0/dist/twemoji.min.js" crossorigin="anonymous"></script>
-
-    <link rel="manifest" href="manifest.json">
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('Service Worker registrado con éxito', reg))
-          .catch(err => console.error('Error al registrar el Service Worker', err));
-      }
-    </script>
+    <title>Glosario de Especias y Recetas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --color-papel: #fcfbfa;
-            --color-borde: #e2dacd;
-            --color-texto: #2c2520;
-            --color-acento: #5c1d1d;
-            --color-categoria: #8c7662;
+            --color-crema: #fdfaf5;
+            --color-marron: #4a3728;
+            --color-accent: #8b4513;
+            --color-bg: #f4f1ea;
         }
 
         body {
-            background-color: #dcd6cd;
-            font-family: 'Georgia', serif;
-            margin: 0; padding: 10px;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-marron);
+            scroll-behavior: smooth;
+        }
+
+        /* Contenedor de Diapositivas */
+        .slide {
             min-height: 100vh;
-            box-sizing: border-box;
-        }
-
-        .book-container {
-            display: flex; width: 95vw; max-width: 1150px; height: 84vh; min-height: 500px;
-            background-color: var(--color-papel); box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            border-radius: 4px; position: relative; transition: all 0.3s ease;
-        }
-
-        .book-container::after {
-            content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 4px;
-            background: linear-gradient(to right, rgba(0,0,0,0.1), transparent 50%, rgba(0,0,0,0.1));
-            transform: translateX(-50%); pointer-events: none; z-index: 10;
-        }
-
-        .page {
-            width: 50%; height: 100%; padding: 35px 40px; box-sizing: border-box;
-            overflow-y: auto; display: flex; flex-direction: column;
-        }
-
-        .book-container.closed { max-width: 575px; }
-        .book-container.closed::after { display: none; }
-        .book-container.closed .page-right { display: none; }
-        .book-container.closed .page-left { width: 100%; border: none; }
-
-        .page-left { border-right: 1px solid rgba(0,0,0,0.05); }
-
-        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .return-link { font-family: Arial, sans-serif; font-size: 8.5pt; color: var(--color-acento); text-decoration: none; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-        .return-link:hover { text-decoration: underline; color: var(--color-categoria); }
-
-        /* ================================================================= */
-        
-        .cover-content {
-            height: 100%; display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; margin: 10px; padding: 25px;
-            position: relative; overflow: hidden;
-            border-radius: 2px;
-        }
-
-       .cover-frame-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    border: 3px solid var(--color-acento);
-    z-index: 1;
-}
-
-        /* Capa mínima para no tapar los condimentos ni el marco de tu imagen */
-        .cover-frame-bg::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(252, 251, 250, 0.15); 
-        }
-
-        .cover-texts-floating {
-            position: relative; 
-            z-index: 5;
-            padding: 20px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            margin-top: 15px; 
+            padding: 40px 20px;
+            box-sizing: border-box;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
         }
 
-        /* Distribución tipográfica aprobada */
-        .cover-title-main { font-size: clamp(28pt, 5.5vw, 44pt); color: var(--color-acento); margin: 0; font-weight: normal; line-height: 1.1; text-transform: uppercase; letter-spacing: 2px; }
-        .cover-title-sub { font-size: clamp(24pt, 4.5vw, 34pt); color: var(--color-acento); margin: 5px 0 30px 0; font-weight: normal; line-height: 1.1; text-transform: uppercase; letter-spacing: 2px; }
-        /* La frase reubicada entre el título y el autor */
-        .cover-phrase { font-size: 13.5pt; font-style: italic; color: var(--color-texto); max-width: 320px; margin-bottom: 50px; line-height: 1.45; }
-        .cover-author { font-size: 12pt; color: var(--color-texto); font-weight: bold; letter-spacing: 0.5px; }
-        .cover-year { font-family: Arial, sans-serif; font-size: 9.5pt; color: var(--color-categoria); margin-top: 5px; font-weight: bold; }
-
-        /* ================================================================= */
-        /* INTERIOR DEL LIBRO                                               */
-        /* ================================================================= */
-        h1 { font-size: 24pt; color: var(--color-acento); margin: 0; line-height: 1.1; font-weight: normal; }
-        h2 { font-size: 10.5pt; text-transform: uppercase; border-bottom: 1px dashed var(--color-borde); padding-bottom: 4px; margin-top: 15px; color: var(--color-acento); letter-spacing: 1px; }
-        
-        .item-image { width: 100%; max-height: 170px; object-fit: cover; border-radius: 2px; margin: 10px 0; border: 1px solid var(--color-borde); }
-        p, li { font-size: 10.5pt; line-height: 1.5; text-align: left; color: var(--color-texto); }
-        ul, ol { padding-left: 20px; margin-top: 5px; margin-bottom: 5px; }
-        li { margin-bottom: 5px; }
-        
-        .chef-notes { background-color: #f5efe6; border-left: 3px solid var(--color-categoria); padding: 12px; margin-top: auto; font-style: italic; font-size: 9.5pt; }
-
-        /* ÍNDICES SIMÉTRICOS */
-        .index-container { width: 100%; display: flex; flex-direction: column; gap: 20px; margin-top: 10px; }
-        .index-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px 40px; width: 100%; }
-        .index-section { display: flex; flex-direction: column; }
-        .index-section h3 { font-size: 11pt; color: var(--color-acento); text-transform: uppercase; margin: 0 0 12px 0; border-bottom: 1px solid var(--color-acento); padding-bottom: 4px; letter-spacing: 2px; }
-        .index-list { list-style: none; padding: 0; margin: 0; }
-        
-        .index-item { display: flex; justify-content: space-between; align-items: baseline; font-size: 10.5pt; margin-bottom: 8px; cursor: pointer; color: var(--color-texto); transition: color 0.15s ease; }
-        .index-item:hover { color: var(--color-acento); }
-        .index-item .dots { flex-grow: 1; border-bottom: 1px dotted rgba(44, 37, 32, 0.3); margin: 0 10px; position: relative; top: -3px; }
-        .index-item span:first-child { flex-shrink: 0; }
-        .index-item span:last-child { font-family: Arial, sans-serif; font-size: 8.5pt; color: var(--color-acento); font-weight: bold; letter-spacing: 0.5px; flex-shrink: 0; }
-
-        .glossary-index-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 40px; width: 100%; margin-top: 15px; }
-        .index-item small { font-family: Arial, sans-serif; margin-left: 6px; opacity: 0.85; }
-
-        /* GRÁFICO SENSORIAL */
-        .sensory-chart { display: flex; flex-direction: column; gap: 6px; background: #fdfaf4; padding: 10px; border: 1px solid var(--color-borde); border-radius: 4px; margin-top: 10px; }
-        .chart-row { display: flex; align-items: center; font-size: 9pt; }
-        .chart-label { width: 70px; font-weight: bold; color: var(--color-categoria); }
-        .chart-bar-container { flex-grow: 1; background: #eaddca; height: 8px; border-radius: 4px; overflow: hidden; }
-        .chart-bar { background: var(--color-acento); height: 100%; border-radius: 4px; }
-
-        /* NAVEGACIÓN INFERIOR */
-        .nav-controls { margin-top: 15px; display: flex; gap: 15px; background: white; padding: 10px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); align-items: center; z-index: 100; }
-        .nav-btn { background: none; border: 1px solid #8c7662; color: #8c7662; padding: 8px 15px; border-radius: 20px; cursor: pointer; }
-        .nav-btn:hover { background: #8c7662; color: white; }
-
-        /* RESPONSIVE MÓVIL */
-        @media (max-width: 850px) {
-            .book-container { height: 78vh; min-height: 400px; }
-            .page { padding: 15px 12px; }
-            h1 { font-size: 14pt; }
-            h2 { font-size: 9.5pt; margin-top: 8px; }
-            p, li { font-size: 8.5pt; line-height: 1.3; text-align: left; }
-            ul, ol { padding-left: 15px; }
-            .item-image { max-height: 90px; margin: 6px 0; }
-            .index-row, .glossary-index-grid { grid-template-columns: 1fr; gap: 15px; }
-            .index-item { font-size: 10pt; }
-            .nav-controls { scale: 0.85; margin-top: 8px; }
-            /* Ajustes carátula móvil */
-            .cover-title-main { font-size: 22pt; }
-            .cover-title-sub { font-size: 18pt; margin-bottom: 20px; }
-            .cover-phrase { font-size: 11pt; margin-bottom: 30px; max-width: 260px; }
-            .cover-texts-floating { margin-top: 0; }
+        /* Estilo de la Portada */
+        #portada {
+            background-color: #000;
+            padding: 0;
+        }
+        #portada img {
+            max-width: 100%;
+            height: 100vh;
+            object-fit: contain;
         }
 
-        @media (max-height: 500px) and (orientation: landscape) {
-            body { padding: 5px; }
-            .book-container { height: 82vh; min-height: 240px; }
-            .page { padding: 10px 15px; }
-            h1 { font-size: 12pt; }
-            h2 { font-size: 9pt; margin-top: 4px; }
-            p, li { font-size: 8pt; line-height: 1.2; text-align: left; }
-            .item-image { max-height: 55px; margin: 4px 0; }
-            .nav-controls { scale: 0.75; margin-top: 4px; padding: 4px 15px; }
+        /* Tarjetas de Contenido */
+        .card {
+            background: var(--color-crema);
+            max-width: 850px;
+            width: 100%;
+            padding: 50px;
+            border-radius: 4px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+            border: 1px solid #e2d9c8;
+        }
+
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            margin-top: 0;
+        }
+
+        .flag { font-size: 2rem; margin-bottom: 10px; display: block; }
+        
+        .intro {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #6d5b4e;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            color: var(--color-accent);
+            margin-bottom: 10px;
+            border-bottom: 1px solid #dcd1ba;
+            padding-bottom: 5px;
+        }
+
+        .section-content {
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .category-tag {
+            display: inline-block;
+            background: #e9e2d3;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* Navegación */
+        nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        nav button {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        nav button:hover { background: var(--color-marron); color: white; }
+
+        @media (max-width: 600px) {
+            .card { padding: 25px; }
+            nav { bottom: 20px; top: auto; width: 100%; justify-content: center; right: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="book-container closed" id="book">
-        <div class="page page-left" id="left-page"></div>
-        <div class="page page-right" id="right-page"></div>
-    </div>
+<nav>
+    <button onclick="document.getElementById('portada').scrollIntoView()">Portada</button>
+    <button onclick="document.getElementById('glosario-container').scrollIntoView()">Especias</button>
+    <button onclick="document.getElementById('recetario-container').scrollIntoView()">Recetas</button>
+</nav>
 
-    <div class="nav-controls">
-        <button class="nav-btn" onclick="goBack()">Anterior</button>
-        <span id="page-indicator" style="font-weight: bold; color: #666; font-family: Arial, sans-serif;">Cargando...</span>
-        <button class="nav-btn" onclick="goForward()">Siguiente</button>
-    </div>
+<!-- PORTADA -->
+<section id="portada" class="slide">
+    <img src="image_d6412b.jpg" alt="Portada Mis Recetas y Especias">
+</section>
 
-    <script>
-        let recetasRaw = [];
-        let GLOSARIO_DATA = [];
-        let paginasLineales = [];
-        let currentIndex = 0;
+<!-- CONTENEDORES DINÁMICOS -->
+<div id="glosario-container"></div>
+<div id="recetario-container"></div>
 
-        const CATEGORIAS_PAGE_1 = ["Dips", "Entradas", "Plato principal", "Conservas"];
-        const CATEGORIAS_PAGE_2 = ["Acompañamientos", "Dulces", "Postres"];
-
-        function loadBookDatabases() {
-            Promise.all([
-                fetch('recetas.json').then(response => {
-                    if (!response.ok) throw new Error('Error al leer recetas.json');
-                    return response.json();
-                }),
-                fetch('especias.json').then(response => {
-                    if (!response.ok) throw new Error('Error al leer especias.json');
-                    return response.json();
-                })
-            ])
-            .then(([recetasData, especiasData]) => {
-                recetasRaw = recetasData;
-                GLOSARIO_DATA = especiasData;
-                buildBookStructure();
-            })
-            .catch(error => {
-                console.error(error);
-                document.getElementById('page-indicator').innerText = "⚠️ Error al cargar archivos JSON";
-                document.getElementById('page-indicator').style.color = "#d9534f";
-                if(recetasRaw.length > 0) buildBookStructure();
-            });
-        }
-
-        function buildBookStructure() {
-            paginasLineales = [];
+<script>
+    // Función principal del Motor
+    async function cargarDatos() {
+        try {
+            // 1. Cargar y ordenar Especias
+             const respEspecias = await fetch('https://raw.githubusercontent.com/ahaudet/Proyecto-Libro-de-recetas/main/especias.json');
+            let especias = await respEspecias.json();
             
-            // 0. Portada Cerrada
-            paginasLineales.push({ type: 'PORTADA_PRINCIPAL' });
+            // Ordenamiento alfabético automático
+            especias.sort((a, b) => a.title.localeCompare(b.title));
             
-            // 1. Índice General Abierto
-            paginasLineales.push({ type: 'INDICE_GENERAL' });
-
-            // 2. Bloques de Recetas por Categorías
-            const todasLasCategorias = [...CATEGORIAS_PAGE_1, ...CATEGORIAS_PAGE_2];
-            todasLasCategorias.forEach(cat => {
-                const deEstaCat = recetasRaw.filter(r => r.category && r.category.toLowerCase() === cat.toLowerCase());
-                if (deEstaCat.length > 0) {
-                    paginasLineales.push({ type: 'PORTADA_CAPITULO', title: cat, subtitle: "Capítulo" });
-                    deEstaCat.forEach(receta => {
-                        paginasLineales.push({ type: 'RECETA_ITEM', data: recipe = receta });
-                    });
-                }
+            const glosarioDiv = document.getElementById('glosario-container');
+            especias.forEach(e => {
+                glosarioDiv.innerHTML += `
+                    <section class="slide">
+                        <div class="card">
+                            <span class="flag">${e.flag}</span>
+                            <span class="category-tag">${e.category}</span>
+                            <h1>${e.title}</h1>
+                            <p class="intro">${e.introduction}</p>
+                            ${e.sections.map(s => `
+                                <div class="section-title">${s.title}</div>
+                                <div class="section-content">${s.content}</div>
+                            `).join('')}
+                        </div>
+                    </section>
+                `;
             });
 
-            // 3. Sección: Las Especias
-            if (GLOSARIO_DATA.length > 0) {
-                paginasLineales.push({ type: 'PORTADA_CAPITULO', title: "Las Especias", subtitle: "Anexo Técnico" });
-                paginasLineales.push({ type: 'INDICE_GLOSARIO' });
-
-                GLOSARIO_DATA.forEach((spice, idx) => {
-                    paginasLineales.push({ type: 'GLOSARIO_ITEM', data: spice, index: idx });
-                });
-            }
-
-            currentIndex = 0;
-            render();
-        }
-
-        function render() {
-            const book = document.getElementById('book');
-            const left = document.getElementById('left-page');
-            const right = document.getElementById('right-page');
-            const indicator = document.getElementById('page-indicator');
-
-            const p = paginasLineales[currentIndex];
-            if (!p) return;
-
-            book.classList.remove('closed');
-            left.innerHTML = ''; right.innerHTML = '';
-
-            const idxGeneralPos = paginasLineales.findIndex(page => page.type === 'INDICE_GENERAL');
-            const idxGlosarioPos = paginasLineales.findIndex(page => page.type === 'INDICE_GLOSARIO');
-
-   if (p.type === 'PORTADA_PRINCIPAL') {
+            // 2. Cargar y ordenar Recetas
+            const respRecetas = await fetch('recetas.json');
+            let recetas = await respRecetas.json();
             
-            book.classList.add('closed');
-                left.innerHTML = `
-                    <div class="page-header"><h1>Índice General</h1></div>
-                    <div class="index-container"><div class="index-row" id="idx-l"></div></div>`;
-                
-                let espejoEspecias = '';
-                if (GLOSARIO_DATA.length > 0) {
-                    espejoEspecias = `
-                        <div class="index-section" style="margin-top:15px;">
-                            <h3>Las Especias</h3>
-                            <ul class="index-list">
-                                <li class="index-item" onclick="jumpToPage(${idxGlosarioPos})"><span>Índice de Especias (${GLOSARIO_DATA.length} Variedades)</span><span class="dots"></span><span>VER</span></li>
+            // Ordenamiento alfabético automático
+            recetas.sort((a, b) => a.title.localeCompare(b.title));
+            
+            const recetarioDiv = document.getElementById('recetario-container');
+            recetas.forEach(r => {
+                recetarioDiv.innerHTML += `
+                    <section class="slide">
+                        <div class="card">
+                            <span class="category-tag">${r.category}</span>
+                            <h1>${r.title}</h1>
+                            <div class="section-title">Ingredientes</div>
+                            <ul class="section-content">
+                                ${r.ingredients.map(i => `<li>${i}</li>`).join('')}
                             </ul>
-                        </div>`;
-                }
+                            <div class="section-title">Preparación</div>
+                            <div class="section-content">${r.instructions.split(',').join('<br><br>')}</div>
+                            <div class="section-title">Comentarios del Autor</div>
+                            <div class="section-content"><i>${r.authorComments}</i></div>
+                        </div>
+                    </section>
+                `;
+            });
 
-                right.innerHTML = `
-                    <div class="page-header"><span class="return-link" style="visibility:hidden">.</span></div>
-                    <div class="index-container">
-                        <div class="index-row" id="idx-r"></div>
-                        ${espejoEspecias}
-                    </div>`;
-                
-                setTimeout(() => {
-                    const idxL = document.getElementById('idx-l');
-                    const idxR = document.getElementById('idx-r');
-                    CATEGORIAS_PAGE_1.forEach(cat => renderCategoryInIndex(cat, idxL));
-                    CATEGORIAS_PAGE_2.forEach(cat => renderCategoryInIndex(cat, idxR));
-                }, 10);
-
-                indicator.innerText = "ÍNDICE GENERAL";
-            }
-
-            else if (p.type === 'PORTADA_CAPITULO') {
-                book.classList.add('closed');
-                let isEspecias = p.title.toLowerCase().includes("especias");
-                left.innerHTML = `
-                    <div class="cover-content" style="border: 2px solid var(--color-categoria);">
-                        ${isEspecias ? `<a class="return-link" onclick="jumpToPage(${idxGeneralPos})" style="position:absolute; top:20px;">← Volver al Índice General</a>` : ''}
-                        <div class="cover-subtitle">${p.subtitle}</div>
-                        <h1 class="cover-title">${p.title}</h1>
-                    </div>`;
-                indicator.innerText = p.title.toUpperCase();
-            }
-
-            else if (p.type === 'RECETA_ITEM') {
-                const r = p.data;
-                const finalImgPath = r.image ? (r.image.includes('/') ? r.image : `fotos-receta/${r.image}`) : '';
-                
-                left.innerHTML = `
-                    <div class="page-header">
-                        <span class="cover-subtitle" style="font-size:8.5pt;">${r.category}</span>
-                        <a class="return-link" onclick="jumpToPage(${idxGeneralPos})">← Índice Gral</a>
-                    </div>
-                    <h1>${r.title}</h1>
-                    ${finalImgPath ? `<img src="${finalImgPath}" class="item-image" onerror="this.style.display='none';">` : ''}
-                    <h2>Ingredientes</h2>
-                    <ul>${r.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>`;
-                
-                right.innerHTML = `
-                    <div class="page-header"><span class="cover-subtitle" style="font-size:8.5pt; margin-left:auto;">Preparación</span></div>
-                    <ol>${r.instructions.split(',').map(paso => `<li>${paso.trim()}</li>`).join('')}</ol>
-                    ${r.authorComments ? `<div class="chef-notes">${r.authorComments}</div>` : ''}`;
-                indicator.innerText = `RECETA`;
-            }
-
-            else if (p.type === 'INDICE_GLOSARIO') {
-                left.innerHTML = `
-                    <div class="page-header">
-                        <h1>Índice de Especias</h1>
-                        <a class="return-link" onclick="jumpToPage(${idxGeneralPos})">← Índice Gral</a>
-                    </div>
-                    <p style="font-style:italic; font-size:9.5pt; margin-bottom:15px;">Estudio analítico de tus variedades botánicas y perfiles sensoriales.</p>
-                    <div class="glossary-index-grid" id="gl-idx-l"></div>`;
-
-                right.innerHTML = `
-                    <div class="page-header"><span class="return-link" style="visibility:hidden">.</span></div>
-                    <div class="glossary-index-grid" id="gl-idx-r" style="margin-top:40px;"></div>`;
-
-                setTimeout(() => {
-                    const glL = document.getElementById('gl-idx-l');
-                    const glR = document.getElementById('gl-idx-r');
-
-                    GLOSARIO_DATA.forEach((spice, index) => {
-                        const targetGrid = index < Math.ceil(GLOSARIO_DATA.length / 2) ? glL : glR;
-                        const sIdx = paginasLineales.findIndex(page => page.type === 'GLOSARIO_ITEM' && page.data.title === spice.title);
-                        
-                        const li = document.createElement('div');
-                        li.className = 'index-item';
-                        li.onclick = () => jumpToPage(sIdx);
-                        li.innerHTML = `<span>${spice.title} <small style="color:var(--color-categoria); font-size:7.5pt;">${spice.flag || ''}</small></span><span class="dots"></span><span>VER</span>`;
-                        targetGrid.appendChild(li);
-                    });
-                }, 10);
-
-                indicator.innerText = "ÍNDICE DE ESPECIAS";
-            }
-
-            else if (p.type === 'GLOSARIO_ITEM') {
-                const e = p.data;
-                
-                let sensoryHtml = '';
-                if (e.sensory) {
-                    sensoryHtml = `
-                        <h2>Gráfico Sensorial</h2>
-                        <div class="sensory-chart">
-                            <div class="chart-row"><span class="chart-label">Picante</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.picante || 0}%"></div></div></div>
-                            <div class="chart-row"><span class="chart-label">Aromático</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.aromatico || 0}%"></div></div></div>
-                            <div class="chart-row"><span class="chart-label">Terroso</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.terroso || 0}%"></div></div></div>
-                            <div class="chart-row"><span class="chart-label">Dulce</span><div class="chart-bar-container"><div class="chart-bar" style="width:${e.sensory.dulce || 0}%"></div></div></div>
-                        </div>`;
-                }
-
-                left.innerHTML = `
-                    <div class="page-header">
-                        <span class="cover-subtitle" style="font-size:8.5pt;">Las Especias</span>
-                        <a class="return-link" onclick="jumpToPage(${idxGlosarioPos})">← Índice Especias</a>
-                    </div>
-                    <h1>${e.title} <span class="flag-emoji">${e.flag || ''}</span></h1>
-                    <h2>Perfil: ${e.category || 'Aromático'}</h2>
-                    <p><em>${e.introduction || ''}</em></p>
-                    ${sensoryHtml}`;
-
-                let secHtml = e.sections ? e.sections.map(s => `<h2>${s.title}</h2><p>${s.content}</p>`).join('') : '';
-                
-                right.innerHTML = `
-                    <div class="page-header"><span class="cover-subtitle" style="font-size:8.5pt; margin-left:auto;">Análisis Técnico</span></div>
-                    ${secHtml}`;
-                indicator.innerText = `ESPECIA ${p.index + 1} / ${GLOSARIO_DATA.length}`;
-            }
-
-            if(typeof twemoji !== 'undefined') twemoji.parse(document.body);
+        } catch (error) {
+            console.error("Error cargando los archivos JSON:", error);
+            document.body.innerHTML += "<div style='padding:50px'>Error al cargar los datos. Asegúrate de que los archivos .json estén en la misma carpeta.</div>";
         }
+    }
 
-        function renderCategoryInIndex(cat, targetContainer) {
-            const deEstaCat = recetasRaw.filter(r => r.category && r.category.toLowerCase() === cat.toLowerCase());
-            if (deEstaCat.length > 0) {
-                const secDiv = document.createElement('div');
-                secDiv.className = 'index-section';
-                secDiv.innerHTML = `<h3>${cat}</h3>`;
-                const ul = document.createElement('ul');
-                ul.className = 'index-list';
+    // Iniciar el motor al cargar la página
+    window.onload = cargarDatos;
+</script>
 
-                deEstaCat.forEach(r => {
-                    const rIdx = paginasLineales.findIndex(page => page.type === 'RECETA_ITEM' && page.data.title === r.title);
-                    const li = document.createElement('li');
-                    li.className = 'index-item';
-                    li.onclick = () => jumpToPage(rIdx);
-                    li.innerHTML = `<span>${r.title}</span><span class="dots"></span><span>VER</span>`;
-                    ul.appendChild(li);
-                });
-                secDiv.appendChild(ul);
-                targetContainer.appendChild(secDiv);
-            }
-        }
-
-        function goForward() { if (currentIndex < paginasLineales.length - 1) { currentIndex++; render(); } }
-        function goBack() { if (currentIndex > 0) { currentIndex--; render(); } }
-        function jumpToPage(pageIndex) { if (pageIndex >= 0 && pageIndex < paginasLineales.length) { currentIndex = pageIndex; render(); } }
-
-        document.addEventListener('DOMContentLoaded', loadBookDatabases);
-    </script>
 </body>
 </html>
