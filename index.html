@@ -71,15 +71,17 @@
             border-radius: 2px;
         }
 
-        .cover-frame-bg {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* Apunta estrictamente a tu imagen de fondo sin letras grabadas */
-          
-            background-size: cover;
-            background-position: center;
-            border: 3px solid var(--color-acento);
-            z-index: 1;
-        }
+       .cover-frame-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border: 3px solid var(--color-acento);
+    z-index: 1;
+}
 
         /* Capa mínima para no tapar los condimentos ni el marco de tu imagen */
         .cover-frame-bg::before {
