@@ -74,7 +74,7 @@
         .cover-frame-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             /* Apunta estrictamente a tu imagen de fondo sin letras grabadas */
-            background-image: url('image_65a38a.png');
+          
             background-size: cover;
             background-position: center;
             border: 3px solid var(--color-acento);
@@ -273,27 +273,51 @@
             const idxGeneralPos = paginasLineales.findIndex(page => page.type === 'INDICE_GENERAL');
             const idxGlosarioPos = paginasLineales.findIndex(page => page.type === 'INDICE_GLOSARIO');
 
-         if (p.type === 'PORTADA_PRINCIPAL') {
+       if (p.type === 'PORTADA_PRINCIPAL') {
+
     book.classList.add('closed');
+
     left.innerHTML = `
         <div class="cover-content">
-            <!-- Usamos el nombre nuevo para obligar al navegador a actualizar -->
-            <div class="cover-frame-bg" style="background-image: url('portada_limpia.jpg');"></div>
+
+            <div class="cover-frame-bg"
+                 style="background-image: url('portada_limpia.jpg');">
+            </div>
 
             <div class="cover-texts-floating">
-                <h1 class="cover-title-main" style="color: #2c2520; font-weight: bold;">Mis Recetas</h1>
-                <h2 class="cover-title-sub" style="color: #2c2520; font-weight: bold;">Y Especias</h2>
-                <div class="cover-phrase" style="color: #4a3f35;">Un paseo culinario por los sabores de casa</div>
-                <div class="cover-author" style="color: #2c2520;">Por Alejandro Haudet</div>
-                <div class="cover-year" style="color: #8c7662;">2026</div>
+
+                <h1 class="cover-title-main"
+                    style="color: #2c2520; font-weight: bold;">
+                    Mis Recetas
+                </h1>
+
+                <h2 class="cover-title-sub"
+                    style="color: #2c2520; font-weight: bold;">
+                    Y Especias
+                </h2>
+
+                <div class="cover-phrase"
+                     style="color: #4a3f35;">
+                    Un paseo culinario por los sabores de casa
+                </div>
+
+                <div class="cover-author"
+                     style="color: #2c2520;">
+                    Por Alejandro Haudet
+                </div>
+
+                <div class="cover-year"
+                     style="color: #8c7662;">
+                    2026
+                </div>
+
             </div>
-        </div>`;
+
+        </div>
+    `;
+
     indicator.innerText = "PORTADA";
 }
-    indicator.innerText = "PORTADA";
-}
-                indicator.innerText = "PORTADA";
-            } 
             
             else if (p.type === 'INDICE_GENERAL') {
                 left.innerHTML = `
