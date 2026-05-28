@@ -62,8 +62,7 @@
         .return-link:hover { text-decoration: underline; color: var(--color-categoria); }
 
         /* ================================================================= */
-        /* PORTADA CORREGIDA: BUSCA image_65a38a.png Y ORDENA LOS TEXTOS     */
-        /* ================================================================= */
+        
         .cover-content {
             height: 100%; display: flex; flex-direction: column; justify-content: center;
             align-items: center; text-align: center; margin: 10px; padding: 25px;
@@ -276,47 +275,8 @@
             const idxGlosarioPos = paginasLineales.findIndex(page => page.type === 'INDICE_GLOSARIO');
 
    if (p.type === 'PORTADA_PRINCIPAL') {
-
-    book.classList.add('closed');
-
-    left.innerHTML = `
-        <div class="cover-content">
-
-            <div class="cover-frame-bg"
-                 style="background-image: url('portada_limpia.jpg');">
-            </div>
-
-            <div class="cover-texts-floating">
-
-                <h1 class="cover-title-main">
-                    MIS RECETAS
-                </h1>
-
-                <h2 class="cover-title-sub">
-                    Y ESPECIAS
-                </h2>
-
-                <div class="cover-phrase">
-                    Un paseo culinario por los sabores de casa
-                </div>
-
-                <div class="cover-author">
-                    Por Alejandro Haudet
-                </div>
-
-                <div class="cover-year">
-                    2026
-                </div>
-
-            </div>
-
-        </div>
-    `;
-
-    indicator.innerText = "PORTADA";
-}
             
-            else if (p.type === 'INDICE_GENERAL') {
+            book.classList.add('closed');
                 left.innerHTML = `
                     <div class="page-header"><h1>Índice General</h1></div>
                     <div class="index-container"><div class="index-row" id="idx-l"></div></div>`;
