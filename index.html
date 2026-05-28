@@ -173,7 +173,7 @@
             });
 
             // 2. Cargar y ordenar Recetas
-            const respRecetas = await fetch('recetas.json');
+             const respEspecias = await fetch('https://raw.githubusercontent.com/ahaudet/Proyecto-Libro-de-recetas/main/recetas.json');
             let recetas = await respRecetas.json();
             
             // Ordenamiento alfabético automático
