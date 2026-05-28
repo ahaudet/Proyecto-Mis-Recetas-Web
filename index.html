@@ -273,22 +273,23 @@
             const idxGeneralPos = paginasLineales.findIndex(page => page.type === 'INDICE_GENERAL');
             const idxGlosarioPos = paginasLineales.findIndex(page => page.type === 'INDICE_GLOSARIO');
 
-           if (p.type === 'PORTADA_PRINCIPAL') {
+         if (p.type === 'PORTADA_PRINCIPAL') {
     book.classList.add('closed');
     left.innerHTML = `
         <div class="cover-content">
-            <!-- Esta capa llama a tu nuevo libro.jpg (el fondo limpio) -->
-            <div class="cover-frame-bg" style="background-image: url('libro.jpg');"></div>
+            <!-- Usamos el nombre nuevo para obligar al navegador a actualizar -->
+            <div class="cover-frame-bg" style="background-image: url('portada_limpia.jpg');"></div>
 
-            <!-- Esta capa escribe los títulos digitales arriba del fondo -->
             <div class="cover-texts-floating">
-                <h1 class="cover-title-main">Mis Recetas</h1>
-                <h2 class="cover-title-sub">Y Especias</h2>
-                <div class="cover-phrase">Un paseo culinario por los sabores de casa</div>
-                <div class="cover-author">Por Alejandro Haudet</div>
-                <div class="cover-year">2026</div>
+                <h1 class="cover-title-main" style="color: #2c2520; font-weight: bold;">Mis Recetas</h1>
+                <h2 class="cover-title-sub" style="color: #2c2520; font-weight: bold;">Y Especias</h2>
+                <div class="cover-phrase" style="color: #4a3f35;">Un paseo culinario por los sabores de casa</div>
+                <div class="cover-author" style="color: #2c2520;">Por Alejandro Haudet</div>
+                <div class="cover-year" style="color: #8c7662;">2026</div>
             </div>
         </div>`;
+    indicator.innerText = "PORTADA";
+}
     indicator.innerText = "PORTADA";
 }
                 indicator.innerText = "PORTADA";
