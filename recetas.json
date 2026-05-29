@@ -3,7 +3,7 @@
     "id": "receta_1",
     "title": "Hummus",
     "category": "Dips",
-    "image": fotos-receta//"Hummus.png",
+    "image": "Hummus.png"// fotos-receta
     "ingredients": [
       "200g de garbanzos (secos/remojados o 1 lata)",
       "1 diente de ajo",
