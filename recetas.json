@@ -3,7 +3,7 @@
     "id": "receta_1",
     "title": "Hummus",
     "category": "Dips",
-    "image": "fotos-receta//Hummus.png"
+    "image": "fotos-receta//Hummus.png",
     "ingredients": [
       "200g de garbanzos (secos/remojados o 1 lata)",
       "1 diente de ajo",
@@ -337,7 +337,7 @@
   {
     "id": "1762860677285",
     "title": "Muhamara",
-    "category": "Dips ",
+    "category": "Dips",
     "image": "Muhamara.png",
     "ingredients": [
       "3 pimientos rojos grandes",
@@ -448,7 +448,7 @@
   {
     "id": "1776870448795",
     "title": "Dip de Berenjenas Asadas",
-    "category": "Dips ",
+    "category": "Dips",
     "image": "dip-berenjenas.png",
     "ingredients": [
       "2 berenjenas grandes",
@@ -469,7 +469,7 @@
   {
     "id": "1776871717021",
     "title": "Babaganush (Mutabal)",
-    "category": "Dips ",
+    "category": "Dips",
     "image": "mutabal.png",
     "ingredients": [
       "2 berenjenas grandes",
@@ -504,7 +504,7 @@
   {
     "id": "1777477407634",
     "title": "Hummus de Aguacate y Cilantro",
-    "category": "Dips ",
+    "category": "Dips",
     "image": "hummus-aguacate.png",
     "ingredients": [
       "400g de garbanzos cocidos (1 lata enjuagados)",
