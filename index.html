@@ -85,7 +85,7 @@
             const ing = Array.isArray(r.ingredients) ? r.ingredients : [];
             
             // --- LÓGICA DE IMAGEN AÑADIDA AQUÍ ---
-            const imgTag = r.image ? `<img src="fotos-recetas/${r.image}" alt="${r.title}" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px; display:block;">` : '';
+            const imgTag = r.image ? `<img src="fotos-receta/${r.image}" alt="${r.title}" style="width:100%; max-height:300px; object-fit:cover; border-radius:8px; margin-bottom:15px; display:block;">` : '';
 
             res.insertAdjacentHTML('beforeend', `
                 <article class="recipe-card">
