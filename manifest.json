@@ -1,5 +1,5 @@
 {
-  "name": "Proyecto-Mis-Recetas-Web",
+  "name": "Mis Recetas y Especias",
   "short_name": "MisRecetas",
   "start_url": "./index.html",
   "display": "standalone",
@@ -8,9 +8,14 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "portada.jpg",
+      "src": "portada192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "portada512.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ]
 }
