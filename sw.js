@@ -1,10 +1,12 @@
-const CACHE_NAME = 'recetario-v2';
+const CACHE_NAME = 'recetario-v3';
 const ASSETS = [
   './',
   './index.html',
   './recetas.json',
   './especias.json',
-  './libro.jpg'
+  './manifest.json',
+  './recetario192.png',
+  './recetario512.png'
 ];
 
 self.addEventListener('install', e => {
